@@ -14,6 +14,11 @@ const int SCREEN_BPP = 32;
 SDL_Surface *background = NULL;
 SDL_Surface *message = NULL;
 SDL_Surface *screen = NULL;
+SDL_Surface *upMessage = NULL;
+SDL_Surface *downMessage = NULL;
+SDL_Surface *leftMessage = NULL;
+SDL_Surface *rightMessage = NULL;
+
 
 //The event structure that will be used
 SDL_Event event;
@@ -155,21 +160,15 @@ int main( int argc, char* args[])
 
 
 	//Render the text
-	SDL_Surface * upMessage = TTF_RenderText_Solid(font, "Up was pressed.",textColor);
-	SDL_Surface * downMessage = TTF_RenderText_Solid(font, "Down was pressed.",textColor);
-	SDL_Surface * leftMessage = TTF_RenderText_Solid(font, "Left was pressed.",textColor);
-	SDL_Surface * rightMessage = TTF_RenderText_Solid(font, "Right was pressed.",textColor);
+	upMessage = TTF_RenderText_Solid(font, "Up was pressed.",textColor);
+	downMessage = TTF_RenderText_Solid(font, "Down was pressed.",textColor);
+	leftMessage = TTF_RenderText_Solid(font, "Left was pressed.",textColor);
+	rightMessage = TTF_RenderText_Solid(font, "Right was pressed.",textColor);
 
 	//Apply surface to screen
 	apply_surface(0,0,background,screen);
 
-	
 
-	//Update the screen
-	if( SDL_Flip(screen)==-1)
-	{
-		return 1;
-	}
 
 	while( quit == false)
 	{
@@ -200,7 +199,7 @@ int main( int argc, char* args[])
 			}
 
 		}
-	}
+
 	if( message!=NULL)
 	{
 		apply_surface(0,0,background,screen);
@@ -214,6 +213,7 @@ int main( int argc, char* args[])
 	{
 		return 1;
 	}
+}
 	clean_up();
 
 	return 0;
