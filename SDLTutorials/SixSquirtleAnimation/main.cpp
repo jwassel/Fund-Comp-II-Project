@@ -2,6 +2,10 @@
 This program was written after reading SDL tutorials located at lazyfoo.net
 The character images used in this program came from spriters-resource.com, and the background came from sweetclipart.com
 
+To compile this program, type make on the terminal line.
+
+To use this program, use the up and down arrows to move up and down, and the left and right arrows to change direction
+
 This program does a couple things. It loads images and puts them on surfaces. It is event driven to exit, by clicking the window's 'x' button. It taken in an image, and sets the background to be transparent (if the background is of color EC2626, as I defined.) It takes images off a sprite sheet, and then animates these images to move back and forth across the screen. Lastly It displays text.
 
 The text extension is not located on our laptops, so the text has been commented out
@@ -238,22 +242,22 @@ main (int argc, char *args[])
 
   sprites[2].x = 76;
   sprites[2].y = 108;
-  sprites[2].w = 38;
+  sprites[2].w = 40;
   sprites[2].h = 36;
 
-  sprites[3].x = 107;
+  sprites[3].x = 115;
   sprites[3].y = 108;
-  sprites[3].w = 38;
-  sprites[3].h = 36;
+  sprites[3].w = 39;
+  sprites[3].h = 38;
 
-  sprites[4].x = 145;
+  sprites[4].x = 155;
   sprites[4].y = 108;
-  sprites[4].w = 38;
+  sprites[4].w = 37;
   sprites[4].h = 36;
 
-  sprites[5].x = 183;
+  sprites[5].x = 192;
   sprites[5].y = 108;
-  sprites[5].w = 38;
+  sprites[5].w = 39;
   sprites[5].h = 36;
 
 
@@ -265,6 +269,9 @@ main (int argc, char *args[])
 //position of the squirtle
   int xpos = 1200;
   int ypos = 300;
+
+int xposvenusaur=100;
+
 //count keeps track of position
 //dir keeps track of direction
   int count = 0;
@@ -281,15 +288,17 @@ main (int argc, char *args[])
       return 1;
     }*/
   //While the user hasn't quit
-  while (quit == false && xpos < 1203)
+  while (quit == false && xpos < 1201 && xpos>0)
     {
       apply_surface_background (0, 0, background, screen);
       //apply_surface_background (150, 150, message, screen);
 
-      apply_surface_venusaur (100, 300, venusaurspritesheet, screen,
+      apply_surface_venusaur (xposvenusaur, 300, venusaurspritesheet, screen,
 			      &venusaur[0]);
-      apply_surface_squirtle (xpos, ypos, spritesheet, screen,
-			      &sprites[count % 6]);
+
+apply_surface_squirtle (xpos, ypos, spritesheet, screen,
+			      &sprites[count%6]);
+
 
       //While there's events to handle
       while (SDL_PollEvent (&event))
@@ -306,9 +315,11 @@ main (int argc, char *args[])
 		  dir = 1;
 		  break;
 		case SDLK_UP:
+		
 		ypos-=20;
 			break;
 		case SDLK_DOWN:
+
 		  ypos+=20;
 		break;
 
@@ -334,7 +345,7 @@ main (int argc, char *args[])
 
       xpos += (dir) * pixPerSec;
       count++;
-      SDL_Delay (10);
+      SDL_Delay (40);
     }
 
   //Free the images and quit SDL
