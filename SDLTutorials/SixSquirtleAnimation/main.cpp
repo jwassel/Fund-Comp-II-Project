@@ -2,7 +2,7 @@
 This program was written after reading SDL tutorials located at lazyfoo.net
 The character images used in this program came from spriters-resource.com, and the background came from sweetclipart.com
 
-This program does a couple things. It loads images and puts them on surfaces. It is event driven to exit, by clicking the window's 'x' button. It taken in an image, and sets the background to be transparent (if the background is of color EC2626, as I defined.) It takes images off a sprite sheet, and then animates these two images to move back and forth across the screen. Lastly It displays text.
+This program does a couple things. It loads images and puts them on surfaces. It is event driven to exit, by clicking the window's 'x' button. It taken in an image, and sets the background to be transparent (if the background is of color EC2626, as I defined.) It takes images off a sprite sheet, and then animates these images to move back and forth across the screen. Lastly It displays text.
 */
 
 #include "SDL/SDL.h"
@@ -106,8 +106,8 @@ apply_surface_venusaur (int x, int y, SDL_Surface * source,
 
 //comes from sprite sheet of squirtles
 void
-apply_surface_squirtle (int x, int y, SDL_Surface * source, SDL_Surface * destination,
-	       SDL_Rect * sprites = NULL)
+apply_surface_squirtle (int x, int y, SDL_Surface * source,
+			SDL_Surface * destination, SDL_Rect * sprites = NULL)
 {
   //Holds offsets
   SDL_Rect offset;
@@ -159,7 +159,7 @@ load_files ()
   background = load_image ("background.bmp");
   venusaurspritesheet = load_image ("venusaur.png");
 //Open the font
-  font = TTF_OpenFont ("Arial.ttf", 72);
+  font = TTF_OpenFont ("Arial.ttf", 40);
 
 //If there was an problem loading the sprite map
   if (spritesheet == NULL)
@@ -267,13 +267,14 @@ main (int argc, char *args[])
 //count keeps track of position
 //dir keeps track of direction
   int count = 0;
-  int dir = 1;
+  int dir = -1;
+  int pixPerSec = 10;
   //Update the screen
   if (SDL_Flip (screen) == -1)
     {
       return 1;
     }
-  message = TTF_RenderText_Solid (font, "The quick brown fox", textColor);
+  message = TTF_RenderText_Solid (font, "Squirtle can't move through Venusaur", textColor);
   if (message == NULL)
     {
       return 1;
@@ -286,13 +287,28 @@ main (int argc, char *args[])
 
       apply_surface_venusaur (100, 300, venusaurspritesheet, screen,
 			      &venusaur[0]);
-	apply_surface_squirtle (xpos, ypos, spritesheet, screen, &sprites[count%6]);
+      apply_surface_squirtle (xpos, ypos, spritesheet, screen,
+			      &sprites[count % 6]);
 
       //While there's events to handle
       while (SDL_PollEvent (&event))
 	{
+	  if (event.type == SDL_KEYDOWN)
+	    {
+	      switch (event.key.keysym.sym)
+		{
+
+		case SDLK_LEFT:
+		  dir = -1;
+		  break;
+		case SDLK_RIGHT:
+		  dir = 1;
+		  break;
+		}
+	    }
+
 	  //If the user has Xed out the window
-	  if (event.type == SDL_QUIT)
+	  else if (event.type == SDL_QUIT)
 	    {
 	      //Quit the program
 	      quit = true;
@@ -307,12 +323,9 @@ main (int argc, char *args[])
       if (xpos < 280)
 	dir *= -1;
 
-      if (dir == 1)
-	xpos -= 10;
-      else
-	xpos += 10;
+      xpos += (dir) * pixPerSec;
       count++;
-      SDL_Delay (15);
+      SDL_Delay (30);
     }
 
   //Free the images and quit SDL
