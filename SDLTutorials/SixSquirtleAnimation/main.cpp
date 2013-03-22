@@ -7,7 +7,7 @@ This program does a couple things. It loads images and puts them on surfaces. It
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
-#include "SDL/SDL_ttf.h"
+//#include "SDL/SDL_ttf.h"
 #include <string>
 
 
@@ -21,16 +21,16 @@ SDL_Surface *spritesheet = NULL;
 SDL_Surface *screen = NULL;
 SDL_Surface *background = NULL;
 SDL_Surface *venusaurspritesheet = NULL;
-SDL_Surface *message = NULL;
+//SDL_Surface *message = NULL;
 
 //The event structure-used to wait for event
 SDL_Event event;
 
 //Text Font
-TTF_Font *font = NULL;
+//TTF_Font *font = NULL;
 
 //The color of the font - white
-SDL_Color textColor = { 255, 255, 255 };
+//SDL_Color textColor = { 255, 255, 255 };
 
 //The portions of the sprite map to be blitted-two squirtles, one venusaur
 SDL_Rect sprites[6];
@@ -139,10 +139,10 @@ init ()
       return false;
     }
   //Initialize SDL_ttf
-  if (TTF_Init () == -1)
+ /* if (TTF_Init () == -1)
     {
       return false;
-    }
+    }*/
   //Set the window caption
   SDL_WM_SetCaption ("Work for lab 8", NULL);
   //If everything initialized fine
@@ -159,19 +159,19 @@ load_files ()
   background = load_image ("background.bmp");
   venusaurspritesheet = load_image ("venusaur.png");
 //Open the font
-  font = TTF_OpenFont ("Arial.ttf", 40);
-
+ /* font = TTF_OpenFont ("Arial.ttf", 40);
+*/
 //If there was an problem loading the sprite map
   if (spritesheet == NULL)
     {
       return false;
     }
-
+/*
   if (font == NULL)
     {
       return false;
     }
-
+*/
   if (background == NULL)
     {
       return false;
@@ -193,13 +193,13 @@ clean_up ()
   SDL_FreeSurface (spritesheet);
   SDL_FreeSurface (background);
   SDL_FreeSurface (venusaurspritesheet);
-  SDL_FreeSurface (message);
-  //Quit SDL
-  //Close the font that was used
+ /* SDL_FreeSurface (message);
+
+ //Close the font that was used
   TTF_CloseFont (font);
 
   //Quit SDL_ttf
-  TTF_Quit ();
+  TTF_Quit ();*/
   SDL_Quit ();
 }
 
@@ -229,7 +229,6 @@ main (int argc, char *args[])
   sprites[0].w = 38;
   sprites[0].h = 36;
 
-  //Clip range for the top right
   sprites[1].x = 38;
   sprites[1].y = 108;
   sprites[1].w = 38;
@@ -274,16 +273,16 @@ main (int argc, char *args[])
     {
       return 1;
     }
-  message = TTF_RenderText_Solid (font, "Squirtle can't move through Venusaur", textColor);
+ /* message = TTF_RenderText_Solid (font, "Squirtle can't move through Venusaur", textColor);
   if (message == NULL)
     {
       return 1;
-    }
+    }*/
   //While the user hasn't quit
   while (quit == false && xpos < 1203)
     {
       apply_surface_background (0, 0, background, screen);
-      apply_surface_background (150, 150, message, screen);
+      //apply_surface_background (150, 150, message, screen);
 
       apply_surface_venusaur (100, 300, venusaurspritesheet, screen,
 			      &venusaur[0]);
