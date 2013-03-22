@@ -3,6 +3,8 @@ This program was written after reading SDL tutorials located at lazyfoo.net
 The character images used in this program came from spriters-resource.com, and the background came from sweetclipart.com
 
 This program does a couple things. It loads images and puts them on surfaces. It is event driven to exit, by clicking the window's 'x' button. It taken in an image, and sets the background to be transparent (if the background is of color EC2626, as I defined.) It takes images off a sprite sheet, and then animates these images to move back and forth across the screen. Lastly It displays text.
+
+The text extension is not located on our laptops, so the text has been commented out
 */
 
 #include "SDL/SDL.h"
@@ -303,6 +305,14 @@ main (int argc, char *args[])
 		case SDLK_RIGHT:
 		  dir = 1;
 		  break;
+		case SDLK_UP:
+		ypos-=20;
+			break;
+		case SDLK_DOWN:
+		  ypos+=20;
+		break;
+
+
 		}
 	    }
 
@@ -324,7 +334,7 @@ main (int argc, char *args[])
 
       xpos += (dir) * pixPerSec;
       count++;
-      SDL_Delay (30);
+      SDL_Delay (10);
     }
 
   //Free the images and quit SDL
