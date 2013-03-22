@@ -2,13 +2,14 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 #include "SDL/SDL.h"
+#include "Sprite.h"
 #include <iostream>
 #include <string>
 using namespace std;
 
 
 
-class Enemy {
+class Enemy: public Sprite {
 public:
 	Enemy(int, int, int, int, int, string);
 	virtual void move()=0;
@@ -25,7 +26,6 @@ private:
 	int health;
 	int power;
 	int speed;
-	SDL_Surface image;
 };
 
 #endif

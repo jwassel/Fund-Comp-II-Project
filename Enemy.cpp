@@ -2,7 +2,7 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy(int x,int y, int h, int p, int s, string imageName)
+Enemy::Enemy(int x,int y, int h, int p, int s, string imageName):Sprite(imageName)
 {
 	xpos = x;
 	ypos = y;
