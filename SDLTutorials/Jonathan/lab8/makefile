@@ -1,4 +1,4 @@
-OBJECTS = main.o Timer.o Enemy.o
+OBJECTS = main.o Timer.o Enemy.o Squirtle.o
 OUTPUT = main
 SDLLINKS = -lSDL -lSDL_image
 ($OUTPUT): $(OBJECTS)
@@ -9,5 +9,7 @@ Enemy.o: Enemy.cpp Enemy.h
 	g++ -c Enemy.cpp
 Timer.o: Timer.cpp Timer.h
 	g++ -c Timer.cpp
+Squirtle.o: Squirtle.cpp Squirtle.h
+	g++ -c Squirtle.cpp
 clean:
 	rm -rf core* *.o $(PROJ)

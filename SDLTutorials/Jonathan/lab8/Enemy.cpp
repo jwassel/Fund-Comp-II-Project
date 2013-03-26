@@ -21,7 +21,7 @@ void Enemy::spawn(){
 //when health reaches zero, the enemy falls over and dies, or just disappears
 void Enemy::die(){
 }
-
+/*
 void Enemy::move()
 {
     //Move the dot left or right
@@ -43,7 +43,7 @@ void Enemy::move()
         //move back
         ypos -= yVel;
     }
-}
+}*/
 
 
 //returns the amount of damage the pokemon does to the dome

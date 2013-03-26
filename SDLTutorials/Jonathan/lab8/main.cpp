@@ -3,6 +3,7 @@
 #include "SDL/SDL_image.h"
 #include "Enemy.h"
 #include "Timer.h"
+#include "Squirtle.h"
 #include <string>
 
 //Screen size at bits per pixel
@@ -11,11 +12,11 @@ const int SCREEN_HEIGHT = 600;
 const int SCREEN_BPP = 32;
 
 //The frame rate
-const int FRAMES_PER_SECOND = 32;
+const int FRAMES_PER_SECOND = 20;
 
 
 //The surfaces
-SDL_Surface *squirtle = NULL;
+SDL_Surface *squirtleSurface = NULL;
 SDL_Surface *background = NULL;
 SDL_Surface *screen = NULL;
 
@@ -94,11 +95,11 @@ bool init()
 bool load_files()
 {
     //Load the dot image
-    squirtle = load_image( "squirtle.bmp" );
+    squirtleSurface = load_image( "squirtle.bmp" );
     background = load_image("background.bmp");
 
     //If there was a problem in loading the dot
-    if( squirtle == NULL )
+    if( squirtleSurface == NULL )
     {
         return false;
     }
@@ -115,7 +116,7 @@ bool load_files()
 void clean_up()
 {
     //Free the surface
-    SDL_FreeSurface( squirtle );	
+    SDL_FreeSurface( squirtleSurface );	
     SDL_FreeSurface(background);
 
     //Quit SDL
@@ -128,7 +129,8 @@ int main( int argc, char* args[] )
     bool quit = false;
 
     //The enemy that will be used
-     Enemy enemy(1200,300,100,100,-5,0);
+	//last argument is how far the squirtle will move to
+     Squirtle squirtle1(1200,300,100,100,-5,0, SCREEN_WIDTH/2);
 
     //The frame rate regulator
     Timer fps;
@@ -163,13 +165,14 @@ int main( int argc, char* args[] )
             }
         }
 
-        //Move the dot
-        enemy.move();
+        //Move squirtle
+        squirtle1.move();
 
-        //Fill the screen white
-        //SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) );
+	//apply the background
 	apply_surface(0,0,background,screen);
-	apply_surface(enemy.getX(),enemy.getY(),squirtle,screen);
+
+	//apply the squirtle1
+	apply_surface(squirtle1.getX(),squirtle1.getY(),squirtleSurface,screen);
 
 
         //Update the screen

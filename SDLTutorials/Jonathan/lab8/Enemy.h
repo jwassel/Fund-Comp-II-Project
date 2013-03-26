@@ -11,7 +11,7 @@ using namespace std;
 class Enemy{
 public:
 	Enemy(int = 0, int  = 0, int = 0, int = 0, int = 0,int = 0);
-	void move();
+	virtual void move() = 0;
 	void spawn();
 	void die();
 	int attack();
@@ -21,7 +21,7 @@ public:
 	int isDead();
 	int getX();
 	int getY();
-private:
+protected:
 	int xpos;
 	int ypos;
 	int health;
