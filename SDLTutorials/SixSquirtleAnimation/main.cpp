@@ -15,7 +15,7 @@ The text extension is not located on our laptops, so the text has been commented
 #include "SDL/SDL_image.h"
 //#include "SDL/SDL_ttf.h"
 #include <string>
-
+using namespace std;
 
 //Screen size at bits per pixel
 const int SCREEN_WIDTH = 1200;
@@ -27,6 +27,7 @@ SDL_Surface *spritesheet = NULL;
 SDL_Surface *screen = NULL;
 SDL_Surface *background = NULL;
 SDL_Surface *venusaurspritesheet = NULL;
+	SDL_Surface *Wartortlesheet = NULL;
 //SDL_Surface *message = NULL;
 
 //The event structure-used to wait for event
@@ -44,7 +45,7 @@ SDL_Rect venusaur[1];
 
 //loads images onto the surface
 SDL_Surface *
-load_image (std::string filename)
+load_image (string filename)
 {
   //The image that's loaded
   SDL_Surface *loadedImage = NULL;
@@ -156,7 +157,6 @@ init ()
 }
 
 
-
 bool
 load_files ()
 {
@@ -164,6 +164,7 @@ load_files ()
   spritesheet = load_image ("squirtlej.png");
   background = load_image ("background.bmp");
   venusaurspritesheet = load_image ("venusaur.png");
+ // Wartortlesheet=load_image("wartortle.png");
 //Open the font
  /* font = TTF_OpenFont ("Arial.ttf", 40);
 */
@@ -214,7 +215,9 @@ clean_up ()
 int
 main (int argc, char *args[])
 {
-  //Quit flag
+
+*/  
+//Quit flag
   bool quit = false;
 
   //Initialize
@@ -266,6 +269,8 @@ main (int argc, char *args[])
   venusaur[0].w = 180;
   venusaur[0].h = 170;
 
+  
+
 //position of the squirtle
   int xpos = 1200;
   int ypos = 300;
@@ -276,7 +281,7 @@ int xposvenusaur=100;
 //dir keeps track of direction
   int count = 0;
   int dir = -1;
-  int pixPerSec = 10;
+  int pixPerSec = 2;
   //Update the screen
   if (SDL_Flip (screen) == -1)
     {
@@ -340,12 +345,12 @@ apply_surface_squirtle (xpos, ypos, spritesheet, screen,
 	}
 
 //updates position and turns squirtle around if necessary
-      if (xpos < 280)
+      if (xpos < xposvenusaur+venusaur[0].w)
 	dir *= -1;
 
       xpos += (dir) * pixPerSec;
       count++;
-      SDL_Delay (40);
+      SDL_Delay (1);
     }
 
   //Free the images and quit SDL
