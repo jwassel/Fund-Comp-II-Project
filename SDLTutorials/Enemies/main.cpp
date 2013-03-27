@@ -1,4 +1,4 @@
-/*Author Jason Wassel
+/*Author Erich Kerekes
 This program was written after reading SDL tutorials located at lazyfoo.net
 The character images used in this program came from spriters-resource.com, and the background came from sweetclipart.com
 
