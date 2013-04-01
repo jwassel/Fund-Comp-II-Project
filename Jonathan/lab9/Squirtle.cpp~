@@ -1,4 +1,3 @@
-
 #include "Squirtle.h"
 #include "SDL/SDL.h"
 Squirtle::Squirtle(int x, int y, int h, int p, int xv, int yv, int xlim):Enemy(x,y,h,p,xv,yv)

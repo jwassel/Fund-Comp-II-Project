@@ -1,4 +1,3 @@
-
 #ifndef SQUIRTLE_H
 #define SQUIRTLE_H
 #include "Enemy.h"
