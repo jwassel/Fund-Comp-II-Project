@@ -30,7 +30,7 @@ void Dome::rebuild(int value)
 	// must make the Dome look sturdier
 
 	//change the health
-	currentHealth += value
+	currentHealth += value;
 }
 
 //when the user buys to increase the maxHealth
@@ -39,8 +39,20 @@ void Dome::fortify(int value)
 	maxHealth += value;
 }
 
-//
+//gets the current haelth
 int Dome::getCurrentHealth()
 {
 	return currentHealth;
 }
+
+//the left of the image
+int Dome::getXPos()
+{
+	return xPos;
+}
+
+//the top of the image
+int Dome::getYpos()
+{
+	return yPos;
+)
