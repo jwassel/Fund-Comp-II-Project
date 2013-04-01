@@ -133,7 +133,7 @@ int main( int argc, char* args[] )
 
     //The enemy that will be used
 	//last argument is how far the squirtle will move to
-     Squirtle squirtle1(1200,300,100,100,-5,0, SCREEN_WIDTH/2);
+     Squirtle squirtle1(1200,300,100,100,-5,0, SCREEN_WIDTH/2, squirtleSurface);
 
     //The frame rate regulator
     Timer fps;

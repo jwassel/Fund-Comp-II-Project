@@ -38,9 +38,3 @@ void Dome::fortify(int value)
 {
 	maxHealth += value;
 }
-
-//
-int Dome::getCurrentHealth()
-{
-	return currentHealth;
-}

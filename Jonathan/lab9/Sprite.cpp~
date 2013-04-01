@@ -2,12 +2,6 @@
 #include "SDL/SDL.h"
 #include <string>
 
-Sprite::Sprite(int count){
-	
-}
-
-
-bool Sprite::getHasCollided(){return hasCollided;} //returns variable tracking whether object has collided
 
 void Sprite::apply_surface(SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip = NULL){ //applies new surface
     //Holds offsets
