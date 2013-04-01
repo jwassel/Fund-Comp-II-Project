@@ -1,27 +1,31 @@
-
-#include "Sprite.h"
+#include "Background.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include <string>
-
-
-Sprite::Sprite(string filename)
+using namespace std;
+Background::Background(string filename)
 {
-	sprite = load_image(filename.c_str());
+	image = load_image(filename.c_str());
 }
-void Sprite::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip = NULL){ //applies new surface
+
+void Background::show(SDL_surface * screen)
+{
+	apply_surface(image,screen);
+}
+
+void Sprite::apply_surface(SDL_Surface* source, SDL_Surface* destination){ //applies new surface
     //Holds offsets
     SDL_Rect shift;
 
     //Get offsets
-    shift.x = x;
-    shift.y = y;
+    shift.x = 0;
+    shift.y = 0;
 
     //Blit
-    SDL_BlitSurface(source, clip, destination, &shift);
+    SDL_BlitSurface(source, NULL, destination, &shift);
 }
 
-SDL_Surface * Sprite::load_image(std::string filename)
+SDL_Surface * Sprite::load_image(string filename)
 {
 	//temporary storage for the image that's loaded
 	SDL_Surface* loadedImage = NULL;

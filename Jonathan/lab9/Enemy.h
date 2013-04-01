@@ -3,31 +3,19 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 #include "SDL/SDL.h"
+#include "Sprite.h"
 #include <iostream>
 #include <string>
 using namespace std;
-
-
-
-class Enemy: public Sprite{
+class Enemy:public Sprite{
 public:
-	Enemy(int = 0, int  = 0, int = 0, int = 0, int = 0,int = 0);
-	virtual void move() = 0;
-  	virtual void show(SDL_Surface *); //shows correct sprite for each frame based upon enemy state
-	void spawn();
-	void die();
-	int attack();
-	int isColliding();
-	int getEnemyHealth();	
-	void getHit(int);
-	int isDead();
-	int getX();
-	int getY();
+	Enemy( string, int, int, int, int); //constructor
+	virtual void move()=0; //moves the enemy; diff for every enemy so virtual
+  	virtual void show(SDL_Surface *); //shows the enemy on the screen
+
 protected:
 	int xpos;
 	int ypos;
-	int health;
-	int power;
 	int xVel;
 	int yVel;
 };

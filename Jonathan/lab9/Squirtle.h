@@ -2,13 +2,13 @@
 #ifndef SQUIRTLE_H
 #define SQUIRTLE_H
 #include "Enemy.h"
+#include "Sprite.h"
+#include <string>
 class Squirtle: public Enemy
 {
 	public:
-		Squirtle(int = 0, int  = 0, int = 0, int = 0, int = 0,int = 0,int = 0); //constructor
-		void move(); //move function
-		
-	private:
-		int xLimit;
+		Squirtle(string,int, int, int ,int); //constructor
+		 virtual void move(); //move function
+
 };
 #endif
