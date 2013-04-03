@@ -27,7 +27,6 @@ void Dome::show(SDL_Surface * screen)
 	int imageNum=0;
 	if(currentHealth==maxHealth)
 		imageNum=0;
-	
 
 	apply_surface(sprite,screen,&clips[imageNum]);
 }

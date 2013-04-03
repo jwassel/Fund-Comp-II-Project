@@ -9,16 +9,19 @@
 using namespace std;
 class Enemy:public Sprite{
 public:
-	Enemy( string, int, int, int, int, int, int); //constructor
+	Enemy( string, int, int, int, int, int, int,int); //constructor
 	virtual void move()=0; //moves the enemy; diff for every enemy so virtual
 	virtual void setClips() = 0;
   	virtual void show(SDL_Surface *, int) = 0; //shows the enemy on the screen
 	int getX();
+	int isCollidingWithDome(int, int, int, int);
+	int attack();
 
 protected:
 
 	int xVel;
 	int yVel;
+	int power;
 	//SDL_Rect *currentClip;
 };
 

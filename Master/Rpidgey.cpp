@@ -4,7 +4,7 @@
 #include "Enemy.h"
 #include "SDL/SDL.h"
 #include <string>
-Rpidgey::Rpidgey(string filename, int x, int y, int w, int h, int xV, int yV):Enemy(filename,x,y,w,h,xV,yV)
+Rpidgey::Rpidgey(string filename, int x, int y, int w, int h, int xV, int yV, int p):Enemy(filename,x,y,w,h,xV,yV,p)
 {
 	setClips();
 }

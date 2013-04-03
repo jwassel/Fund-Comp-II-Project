@@ -9,6 +9,7 @@
 #include "Squirtle.h"
 #include "Poliwhirl.h"
 #include "Rpidgey.h"
+#include "Dome.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -70,13 +71,13 @@ void clean_up()
 //add all the enemies 
 void load_enemies()
 {
-    squirtle = new Squirtle("squirtlej.png",1000,0,38,36,-5,10);
+    squirtle = new Squirtle("squirtlej.png",1000,0,38,36,-5,10,20);
     enemies.push_back(squirtle);
-    squirtle = new Squirtle("squirtlej.png",1100,0,38,36,-5,12);
+    squirtle = new Squirtle("squirtlej.png",1100,0,38,36,-5,12,20);
     enemies.push_back(squirtle);
-    poliwhirl = new Poliwhirl("poliwhirl.png",1200,500,75,80,-7,0);
+    poliwhirl = new Poliwhirl("poliwhirl.png",1200,500,75,80,-7,0,30);
     enemies.push_back(poliwhirl);
-    rpidgey = new Rpidgey("Rpidgey.png",0,200,37,30,5,0);
+    rpidgey = new Rpidgey("Rpidgey.png",0,200,37,30,5,0,5);
     enemies.push_back(rpidgey);
 }
 
@@ -96,6 +97,7 @@ int main( int argc, char* args[] )
         return 1;
     }
     Background background("background.bmp");
+    Dome dome("castle.png",500,450,140,160,1000000,1000000);
     load_enemies();
     //While the user hasn't quit
     while( quit == false )
@@ -117,14 +119,24 @@ int main( int argc, char* args[] )
 
 	//show the background
 	background.show(screen);
+	dome.show(screen);
 
 	//move the enemies
 	for(int i=0;i<enemies.size();i++)
 	{
-	 enemies[i]->move();
+	 	enemies[i]->move();
+		if(enemies[i]->isCollidingWithDome(dome.getX(),dome.getY(),dome.getWidth(),dome.getHeight()))
+		{
+			dome.getAttacked(enemies[i]->attack());
+			cout<<"Dome's health: "<<dome.getCurrentHealth()<<endl;
+			if(dome.isDead())
+			{
+				cout<<"Dome is dead!"<<endl;
+			}
+		}
 	}
 
-
+	
 
 
 	//show the enemies
