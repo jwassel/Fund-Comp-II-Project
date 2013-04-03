@@ -229,26 +229,25 @@ public:
   void Clicked ();
   void updateX (int);
   //The attributes of the Enemy
-  SDL_Rect box;
 private:
 
-
-  //The part of the Enemy sprite sheet that will be shown
-    SDL_Rect * clip;
-
   int isDead;
+int xpos;
+int ypos;
+int width;
+int height;
+
 };
 Enemy::Enemy (int x, int y, int w, int h)
 {
   //Set the button's attributes
   set_clips ();
-  box.x = x;
-  box.y = y;
-  box.w = w;
-  box.h = h;
+  xpos = x;
+  ypos = y;
+  width = w;
+  height = h;
   isDead = 0;
-  //Set the default sprite
-  clip = &sprites[0];
+  
 
 }
 
@@ -285,12 +284,12 @@ Enemy::handle_events ()
 	  y = event.button.y;
 apply_surface_background(x,y,gunshot,screen);
 	  //If the mouse is over the button
-	  if ((x > box.x) && (x < box.x + box.w) && (y > box.y)
-	      && (y < box.y + box.h))
+	  if ((x > xpos) && (x < xpos + width) && (y > ypos)
+	      && (y < ypos + height))
 	    {
 	     
 	      Clicked ();
-apply_surface_background(box.x+(box.w/4),box.y+(box.h/4),explosionsheet,screen);
+apply_surface_background(xpos+(width/4),ypos+(height/4),explosionsheet,screen);
 	    }
 	}
     }
@@ -301,7 +300,7 @@ void
 Enemy::show (int count)
 {
   //Show the button
-  apply_surface_squirtle (box.x, box.y, spritesheet, screen,
+  apply_surface_squirtle (xpos, ypos, spritesheet, screen,
 			  &sprites[count % 6]);
 }
 
@@ -345,9 +344,9 @@ Enemy::set_clips ()
 }
 
 void
-Enemy::updateX (int xpos)
+Enemy::updateX (int Xpos)
 {
-  box.x += xpos;
+  xpos += Xpos;
 }
 
 int
@@ -371,10 +370,10 @@ main (int argc, char *args[])
     }
 
 //position of the squirtle
-  int xpos = 500;
+  int Xpos = 500;
   int ypos = 0;
 
-  Enemy myEnemy (xpos, ypos, 38, 36);
+  Enemy myEnemy (Xpos, ypos, 38, 36);
 
 
 //count keeps track of position
@@ -393,7 +392,7 @@ main (int argc, char *args[])
      return 1;
      } */
   //While the user hasn't quit
-  while (quit == false && xpos < 1201 && xpos > 0)
+  while (quit == false && Xpos < 1201 && Xpos > 0)
     {
       apply_surface_background (0, 0, background, screen);
       //apply_surface_background (150, 150, message, screen);
@@ -419,7 +418,7 @@ main (int argc, char *args[])
       if (!myEnemy.isClicked ()){
 	myEnemy.show (count);}
 
-      xpos += dir * pixPerSec;
+      Xpos += dir * pixPerSec;
       myEnemy.updateX (dir * pixPerSec);
 
       count++;
