@@ -66,9 +66,9 @@ void clean_up()
 //add all the enemies 
 void load_enemies()
 {
-    sq = new Squirtle("squirtle.bmp",1200,300,-5,0);
+    sq = new Squirtle("squirtlej.png",1200,300,38,36,-5,0);
     enemies.push_back(sq);
-    sq = new Squirtle("squirtle.bmp",1200,400,-5,0);
+    sq = new Squirtle("squirtlej.png",1200,400,38,36,-5,0);
     enemies.push_back(sq);
 }
 
@@ -77,7 +77,7 @@ int main( int argc, char* args[] )
     //Quit flag
     bool quit = false;
 
- 
+    int count = 0;
 
     //The frame rate regulator
     Timer fps;
@@ -122,7 +122,7 @@ int main( int argc, char* args[] )
 	//show the enemies
 	for(int j=0;j<enemies.size();j++)
 	{
-	 enemies[j]->show(screen);
+	 enemies[j]->show(screen,count);
 	}
 
         //Update the screen
@@ -137,6 +137,7 @@ int main( int argc, char* args[] )
         {
             SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
         }
+	count++;
     }
 
     //Clean up

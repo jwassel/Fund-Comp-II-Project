@@ -5,18 +5,10 @@
 #include "SDL/SDL_image.h"
 #include "Enemy.h"
 #include "Sprite.h"
-Enemy::Enemy(string filename, int x,int y, int xv, int yv):Sprite(filename)
+Enemy::Enemy(string filename, int x,int y, int w, int h, int xv, int yv):Sprite(filename,x,y,w,h)
 {
-	xpos = x;
-	ypos = y;
 	xVel = xv;
 	yVel = yv;		
-}
-
-//shows the enemy on the screen
-void Enemy::show(SDL_Surface * screen)
-{
-	apply_surface(xpos,ypos,sprite,screen);
 }
 
 int Enemy::getX()

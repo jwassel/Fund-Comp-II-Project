@@ -5,9 +5,13 @@
 #include <string>
 
 
-Sprite::Sprite(string filename)
+Sprite::Sprite(string filename, int x, int y, int w, int h)
 {
 	sprite = load_image(filename.c_str());
+	xpos = x;
+	ypos = y;
+	width = w;
+	height = h;
 }
 void Sprite::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip){ //applies new surface
     //Holds offsets
