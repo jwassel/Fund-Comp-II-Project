@@ -12,6 +12,6 @@ class Background
 	private:	
 		SDL_Surface *image;
 		void apply_surface(SDL_Surface*,SDL_Surface*);
-		void load_image(string);
+		SDL_Surface* load_image(string);
 };
 #endif

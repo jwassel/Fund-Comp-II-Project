@@ -8,12 +8,12 @@ Background::Background(string filename)
 	image = load_image(filename.c_str());
 }
 
-void Background::show(SDL_surface * screen)
+void Background::show(SDL_Surface * screen)
 {
 	apply_surface(image,screen);
 }
 
-void Sprite::apply_surface(SDL_Surface* source, SDL_Surface* destination){ //applies new surface
+void Background::apply_surface(SDL_Surface* source, SDL_Surface* destination){ //applies new surface
     //Holds offsets
     SDL_Rect shift;
 
@@ -25,7 +25,7 @@ void Sprite::apply_surface(SDL_Surface* source, SDL_Surface* destination){ //app
     SDL_BlitSurface(source, NULL, destination, &shift);
 }
 
-SDL_Surface * Sprite::load_image(string filename)
+SDL_Surface * Background::load_image(string filename)
 {
 	//temporary storage for the image that's loaded
 	SDL_Surface* loadedImage = NULL;

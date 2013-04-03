@@ -12,6 +12,7 @@ public:
 	Enemy( string, int, int, int, int); //constructor
 	virtual void move()=0; //moves the enemy; diff for every enemy so virtual
   	virtual void show(SDL_Surface *); //shows the enemy on the screen
+	int getX();
 
 protected:
 	int xpos;

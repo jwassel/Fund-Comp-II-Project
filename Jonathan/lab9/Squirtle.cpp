@@ -4,7 +4,7 @@
 #include "Enemy.h"
 #include "SDL/SDL.h"
 #include <string>
-Squirtle::Squirtle(string filename, int x, int y, int xV, int yV):Enemy(string,x,y,xV,yV)
+Squirtle::Squirtle(string filename, int x, int y, int xV, int yV):Enemy(filename,x,y,xV,yV)
 {
 }
 

@@ -16,7 +16,12 @@ Enemy::Enemy(string filename, int x,int y, int xv, int yv):Sprite(filename)
 //shows the enemy on the screen
 void Enemy::show(SDL_Surface * screen)
 {
-	Sprite::apply_surface(xpos,ypos,sprite,screen);
+	apply_surface(xpos,ypos,sprite,screen);
+}
+
+int Enemy::getX()
+{
+	return xpos;
 }
 
 

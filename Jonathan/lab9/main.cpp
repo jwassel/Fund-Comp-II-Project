@@ -9,6 +9,7 @@
 #include "Squirtle.h"
 #include <string>
 #include <vector>
+#include <iostream>
 //Screen size at bits per pixel
 const int SCREEN_WIDTH = 1200;
 const int SCREEN_HEIGHT = 600;
@@ -16,20 +17,23 @@ const int SCREEN_BPP = 32;
 
 //The frame rate
 const int FRAMES_PER_SECOND = 20;
+using namespace std;
 
-
-//The surfaces
-SDL_Surface *background = NULL;
+//The screen surface
 SDL_Surface *screen = NULL;
 
 //The event structure
 SDL_Event event;
+
+vector<Enemy*> enemies;
+Squirtle* sq;
 
 bool init()
 {
     //Initialize all SDL subsystems
     if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 )
     {
+	cout<<"SDL Initialization failed"<<endl;
         return false;
     }
 
@@ -39,6 +43,7 @@ bool init()
     //If there was an error in setting up the screen
     if( screen == NULL )
     {
+	cout<<"Screen is null"<<endl;
         return false;
     }
 
@@ -52,17 +57,19 @@ bool init()
 void clean_up()
 {
     //Free the surface
-    SDL_FreeSurface(background);
+    //SDL_FreeSurface(background);
 
     //Quit SDL
     SDL_Quit();
 }
 
 //add all the enemies 
-void load_enemies(vector<Enemy*> &enemies)
+void load_enemies()
 {
-   Squirtle squirtle1("squirtle.bmp",1200,300,-5,0);
-    enemies[0] = &squirtle1;
+    sq = new Squirtle("squirtle.bmp",1200,300,-5,0);
+    enemies.push_back(sq);
+    sq = new Squirtle("squirtle.bmp",1200,400,-5,0);
+    enemies.push_back(sq);
 }
 
 int main( int argc, char* args[] )
@@ -80,10 +87,8 @@ int main( int argc, char* args[] )
     {
         return 1;
     }
-
     Background background("background.bmp");
-    vector<Enemy*> enemies;
-    load_enemies(enemies);
+    load_enemies();
     //While the user hasn't quit
     while( quit == false )
     {
@@ -106,21 +111,24 @@ int main( int argc, char* args[] )
 	background.show(screen);
 
 	//move the enemies
-
 	for(int i=0;i<enemies.size();i++)
 	{
 	 enemies[i]->move();
 	}
+
+
+
+
 	//show the enemies
 	for(int j=0;j<enemies.size();j++)
 	{
 	 enemies[j]->show(screen);
 	}
 
-
         //Update the screen
         if( SDL_Flip( screen ) == -1 )
         {
+	 cout<<"Failed updating the screen"<<endl;
             return 1;
         }
 
