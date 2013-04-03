@@ -9,6 +9,7 @@
 #include "Squirtle.h"
 #include "Poliwhirl.h"
 #include "Rpidgey.h"
+#include "Dome.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -96,6 +97,7 @@ int main( int argc, char* args[] )
         return 1;
     }
     Background background("background.bmp");
+    Dome dome("castles.png",600,300,65,85,100,100);
     load_enemies();
     //While the user hasn't quit
     while( quit == false )
@@ -117,6 +119,7 @@ int main( int argc, char* args[] )
 
 	//show the background
 	background.show(screen);
+	dome.show(screen);
 
 	//move the enemies
 	for(int i=0;i<enemies.size();i++)
