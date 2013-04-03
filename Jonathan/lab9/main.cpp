@@ -7,6 +7,8 @@
 #include "Sprite.h"
 #include "Background.h"
 #include "Squirtle.h"
+#include "Poliwhirl.h"
+#include "Rpidgey.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -26,7 +28,9 @@ SDL_Surface *screen = NULL;
 SDL_Event event;
 
 vector<Enemy*> enemies;
-Squirtle* sq;
+Squirtle* squirtle;
+Poliwhirl* poliwhirl;
+Rpidgey* rpidgey;
 
 bool init()
 {
@@ -66,10 +70,14 @@ void clean_up()
 //add all the enemies 
 void load_enemies()
 {
-    sq = new Squirtle("squirtlej.png",1200,300,38,36,-5,0);
-    enemies.push_back(sq);
-    sq = new Squirtle("squirtlej.png",1200,400,38,36,-5,0);
-    enemies.push_back(sq);
+    squirtle = new Squirtle("squirtlej.png",1200,300,38,36,-5,0);
+    enemies.push_back(squirtle);
+    squirtle = new Squirtle("squirtlej.png",1200,400,38,36,-5,0);
+    enemies.push_back(squirtle);
+    poliwhirl = new Poliwhirl("poliwhirl.png",1200,500,75,80,-7,0);
+    enemies.push_back(poliwhirl);
+    rpidgey = new Rpidgey("Rpidgey.png",0,0,37,30,5,7);
+    enemies.push_back(rpidgey);
 }
 
 int main( int argc, char* args[] )

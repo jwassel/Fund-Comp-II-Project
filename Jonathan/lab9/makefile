@@ -1,4 +1,4 @@
-OBJECTS = main.o Timer.o Enemy.o Squirtle.o Sprite.o Background.o
+OBJECTS = main.o Timer.o Enemy.o Squirtle.o Sprite.o Background.o Poliwhirl.o Rpidgey.o
 OUTPUT = main
 SDLLINKS = -lSDL -lSDL_image
 ($OUTPUT): $(OBJECTS)
@@ -15,5 +15,9 @@ Sprite.o: Sprite.cpp Sprite.h
 	g++ -c Sprite.cpp
 Background.o: Background.cpp Background.h
 	g++ -c Background.cpp
+Poliwhirl.o: Poliwhirl.cpp Poliwhirl.h
+	g++ -c Poliwhirl.cpp
+Rpidgey.o: Rpidgey.cpp Rpidgey.h
+	g++ -c Rpidgey.cpp
 clean:
 	rm -rf core* *.o $(PROJ)
