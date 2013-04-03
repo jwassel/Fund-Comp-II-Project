@@ -1,14 +1,13 @@
 
-#ifndef SQUIRTLE_H
-#define SQUIRTLE_H
+#ifndef POLIWHIRL_H
+#define POLIWHIRL_H
 #include "Enemy.h"
 #include "Sprite.h"
 #include <string>
-
-class Squirtle: public Enemy
+class Poliwhirl: public Enemy
 {
 	public:
-		Squirtle(string,int, int, int , int, int ,int); //constructor
+		Poliwhirl(string,int, int, int , int, int ,int); //constructor
 		 virtual void move(); //move function
 		virtual void show(SDL_Surface*,int);
 		virtual void setClips();
