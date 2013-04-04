@@ -1,0 +1,23 @@
+OBJECTS = main.o Timer.o weapon.o plasmaCannon.o pistol.o gatling.o smg.o lmg.o
+OUTPUT = main
+SDLLINKS = -lSDL -lSDL_image
+($OUTPUT): $(OBJECTS)
+	g++ $(OBJECTS) -o $(OUTPUT) $(SDLLINKS)
+main.o: main.cpp Timer.h weapon.h plasmaCannon.h pistol.h gatling.h smg.h lmg.h
+	g++ -c main.cpp
+weapon.o: weapon.cpp weapon.h
+	g++ -c weapon.cpp
+Timer.o: Timer.cpp Timer.h
+	g++ -c Timer.cpp
+plasmaCannon.o: plasmaCannon.cpp plasmaCannon.h
+	g++ -c plasmaCannon.cpp
+pistol.o: pistol.cpp pistol.h
+	g++ -c pistol.cpp
+gatling.o: gatling.cpp gatling.h
+	g++ -c gatling.cpp
+smg.o: smg.cpp smg.h
+	g++ -c smg.cpp
+lmg.o: lmg.cpp lmg.h
+	g++ -c lmg.cpp
+clean:
+	rm -rf core* *.o $(PROJ)
