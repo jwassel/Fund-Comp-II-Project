@@ -18,6 +18,8 @@ else if (xpos>705)
 	xpos+=xVel;
 else 
 	xpos+=20;
+
+
 }
 
 //shows the enemy on the screen

@@ -1,9 +1,9 @@
-OBJECTS = main.o Timer.o Enemy.o Squirtle.o Sprite.o Background.o Poliwhirl.o Rpidgey.o Dome.o Weapon.o Pistol.o Text.o
+OBJECTS = main.o Timer.o Enemy.o Squirtle.o Sprite.o Background.o Poliwhirl.o Rpidgey.o Dome.o Weapon.o Pistol.o
 OUTPUT = main
 SDLLINKS = -lSDL -lSDL_image -lSDL_ttf
 ($OUTPUT): $(OBJECTS)
 	g++ $(OBJECTS) -o $(OUTPUT) $(SDLLINKS)
-main.o: main.cpp Enemy.h Squirtle.h Timer.h Background.h Poliwhirl.h Rpidgey.h Weapon.h Pistol.h Text.h
+main.o: main.cpp Enemy.h Squirtle.h Timer.h Background.h Poliwhirl.h Rpidgey.h Weapon.h Pistol.h
 	g++ -c main.cpp
 Enemy.o: Enemy.cpp Enemy.h
 	g++ -c Enemy.cpp
