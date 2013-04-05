@@ -9,8 +9,6 @@
 using namespace std;
 Weapon::Weapon(string filename,string explosionName,int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y){
 
-sprite = load_image(filename.c_str());
-explosionImage = load_image(explosionName.c_str());
 clipsize = Clipsize;
 price = Price;
 ammoPrice = AmmoPrice;
@@ -19,6 +17,8 @@ fireRate = fireRate;
 xpos = x;
 ypos = y;
 
+sprite = load_image(filename.c_str());
+explosionImage = load_image(explosionName.c_str());
 
 }
 
