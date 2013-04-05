@@ -7,6 +7,8 @@ This is our final project repository for Fundamentals of Computing II, Spring 20
 
 This program is a game written using c++ and the SDL graphics library. The goal of the game is to shoot all the enemies (the pokemon) before they can attack the golden dome. The pokemon will enter from the sides, and approach the dome. They will do no damage if you shoot (click) on them before they reach the dome. If they reach the dome, they will slowly destroy the dome. If the dome is destroyed you lose!
 
+The final program is being kept up to date in the Master Folder. All other folders are for individuals to work on their own and test things out. These other folders are not very organized.
+
 Future Additions: 
 Multiple levels
 More Pokemon Enemies
