@@ -53,7 +53,7 @@ bool init()
     }
 
     //Set the window caption
-    SDL_WM_SetCaption( "Move Squirtle", NULL );
+    SDL_WM_SetCaption( "PokeDome", NULL );
 
     //If everything initialized fine
     return true;
@@ -97,7 +97,7 @@ int main( int argc, char* args[] )
         return 1;
     }
     Background background("background.bmp");
-    Dome dome("castle.png",500,450,140,160,1000000,1000000);
+    Dome dome("dome.png",485,135,230,465,2000,2000);
     load_enemies();
     //While the user hasn't quit
     while( quit == false )
