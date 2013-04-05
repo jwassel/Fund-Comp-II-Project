@@ -15,14 +15,13 @@ class Sprite{
         virtual void move()=0; // handles the movement of the sprite
         virtual void show(SDL_Surface *,int)=0; // updates the frames of the sprite sheet shown based on conditional logic
 	virtual void setClips() = 0;
-	virtual void handle_events(SDL_Surface*)=0;
+
     protected:
        	SDL_Surface * sprite;
 	int xpos;
 	int ypos;
 	int width;
 	int height;
-
 
 
 };

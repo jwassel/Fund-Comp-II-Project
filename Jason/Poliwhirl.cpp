@@ -4,24 +4,27 @@
 #include "Enemy.h"
 #include "SDL/SDL.h"
 #include <string>
-Poliwhirl::Poliwhirl(string filename, int x, int y, int w, int h, int xV, int yV, int hea):Enemy(filename,x,y,w,h,xV,yV,hea)
+Poliwhirl::Poliwhirl(string filename, int x, int y, int w, int h, int xV, int yV, int p, int hea):Enemy(filename,x,y,w,h,xV,yV,p,hea)
 {
 	setClips();
 }
 
 void Poliwhirl::move()
 {
-    //Move the dot left or right
-    xpos += xVel;
 
-    //Move the dot up or down
-    ypos += yVel;
+ if(ypos<600-height-50)
+	ypos+=yVel;
+else if (xpos>705)
+	xpos+=xVel;
+else 
+	xpos+=20;
 
 }
 
 //shows the enemy on the screen
 void Poliwhirl::show(SDL_Surface * screen, int count)
 {
+	if(!isDead())
 	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
 }
 

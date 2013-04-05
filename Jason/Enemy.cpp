@@ -5,12 +5,13 @@
 #include "SDL/SDL_image.h"
 #include "Enemy.h"
 #include "Sprite.h"
-#include "Background.h"
-Enemy::Enemy(string filename, int x,int y, int w, int h, int xv, int yv,int hea):Sprite(filename,x,y,w,h)
+Enemy::Enemy(string filename, int x,int y, int w, int h, int xv, int yv, int p, int hea):Sprite(filename,x,y,w,h)
 {
 	xVel = xv;
 	yVel = yv;
-	health=hea;		
+	power = p;	
+	health = hea;
+	dead = 0;
 }
 
 int Enemy::getX()
@@ -18,32 +19,49 @@ int Enemy::getX()
 	return xpos;
 }
 
-void
-Enemy::handle_events (SDL_Surface *screen)
+
+int Enemy::attack()
 {
-
-	Background gunshot("explosionsgunshot.png");
-Background explosion("explosions.png");SDL_Event event;
-  //The mouse offsets
-  int x = 0, y = 0;
-
-  //If a mouse button was pressed
-  if (event.type == SDL_MOUSEBUTTONDOWN)
-    {
-      //If the left mouse button was pressed
-      if (event.button.button == SDL_BUTTON_LEFT)
-	{
-	  //Get the mouse offsets
-	  x = event.button.x;
-	  y = event.button.y;
-gunshot.show(screen);
-	  //If the mouse is over the button
-	  if ((x > xpos) && (x < xpos + width) && (y > ypos)
-	      && (y < ypos + height))
-	    {
-	 
-explosion.show(screen);
-	    }
-	}
-    }
+	return power;
 }
+
+int Enemy::getY()
+{
+	return ypos;
+}
+
+int Enemy::getWidth()
+{
+	return width;
+}
+
+int Enemy::getHeight()
+{
+	return height;
+}
+
+int Enemy::getXVel()
+{
+	return xVel;
+}
+
+int Enemy::isDead()
+{
+	if(health<=0 )
+		return 1;
+	if(xpos<0 || xpos >1200)
+	{
+		dead = 1;
+		return 1;
+	}
+
+	return 0;
+}
+
+void Enemy::getAttacked(int damage)
+{
+	health-=damage;
+	if(isDead())
+		dead = 1;
+}
+

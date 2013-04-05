@@ -4,23 +4,26 @@
 #include "Enemy.h"
 #include "SDL/SDL.h"
 #include <string>
-Squirtle::Squirtle(string filename, int x, int y, int w, int h, int xV, int yV, int hea):Enemy(filename,x,y,w,h,xV,yV,hea)
+Squirtle::Squirtle(string filename, int x, int y, int w, int h, int xV, int yV, int p,int hea):Enemy(filename,x,y,w,h,xV,yV,p,hea)
 {
 	setClips();
 }
 
 void Squirtle::move()
 {
- if(ypos<550)
+ if(ypos<600-height-50)
 	ypos+=yVel;
-else
+//dont need to check xvel, Squirtle xVel will always be negative, Rsquirtle will have the positive xvel
+else if (xpos>705)
 	xpos+=xVel;
-
+else 
+	xpos+=20;
 }
 
 //shows the enemy on the screen
 void Squirtle::show(SDL_Surface * screen, int count)
 {
+	if(!isDead())
 	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
 }
 
@@ -58,6 +61,5 @@ void Squirtle::setClips()
   clips[5].h = 36;
 
 }
-
 
 

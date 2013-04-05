@@ -57,5 +57,3 @@ SDL_Surface * Sprite::load_image(std::string filename)
 	}
 		return optimizedImage;
 }
-
-
