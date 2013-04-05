@@ -13,7 +13,7 @@ void Gatling::fire(){
 //shows the weapon on the screen
 void Gatling::show(SDL_Surface * screen)
 {
-
+	apply_surface(xpos, ypos, weapon, screen, &clips);
 }
 
 void Gatling::setClips(){
