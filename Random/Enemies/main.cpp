@@ -299,6 +299,135 @@ if (strcmp(enemy,"marowak.png")==0){
   sprites[5].w = 111;
   sprites[5].h = 107;
 }
+
+if (strcmp(enemy,"Rarticuno.png")==0){
+  sprites[0].x = 528;
+  sprites[0].y = 38;
+  sprites[0].w = 154;
+  sprites[0].h = 63;
+
+  sprites[1].x = 691;
+  sprites[1].y = 38;
+  sprites[1].w = 154;
+  sprites[1].h = 63;
+
+  sprites[2].x = 993;
+  sprites[2].y = 0;
+  sprites[2].w = 128;
+  sprites[2].h = 101;
+
+  sprites[3].x = 528;
+  sprites[3].y = 38;
+  sprites[3].w = 154;
+  sprites[3].h = 63;
+
+  sprites[4].x = 691;
+  sprites[4].y = 38;
+  sprites[4].w = 154;
+  sprites[4].h = 63;
+
+  sprites[5].x = 993;
+  sprites[5].y = 0;
+  sprites[5].w = 128;
+  sprites[5].h = 101;
+}
+
+if (strcmp(enemy,"Rcharmander.png")==0){
+  sprites[0].x = 149;
+  sprites[0].y = 4;
+  sprites[0].w = 31;
+  sprites[0].h = 30;
+
+  sprites[1].x = 180;
+  sprites[1].y = 4;
+  sprites[1].w = 31;
+  sprites[1].h = 30;
+
+  sprites[2].x = 214;
+  sprites[2].y = 4;
+  sprites[2].w = 31;
+  sprites[2].h = 30;
+
+  sprites[3].x = 246;
+  sprites[3].y = 4;
+  sprites[3].w = 31;
+  sprites[3].h = 30;
+
+  sprites[4].x = 149;
+  sprites[4].y = 4;
+  sprites[4].w = 31;
+  sprites[4].h = 30;
+
+  sprites[5].x = 180;
+  sprites[5].y = 4;
+  sprites[5].w = 31;
+  sprites[5].h = 30;
+}
+
+if (strcmp(enemy,"Rmarowak.png")==0){
+  sprites[0].x = 0;
+  sprites[0].y = 207;
+  sprites[0].w = 100;
+  sprites[0].h = 115;
+
+  sprites[1].x = 102;
+  sprites[1].y = 204;
+  sprites[1].w = 109;
+  sprites[1].h = 116;
+
+  sprites[2].x = 214;
+  sprites[2].y = 204;
+  sprites[2].w = 105;
+  sprites[2].h = 115;
+
+  sprites[3].x = 0;
+  sprites[3].y = 207;
+  sprites[3].w = 100;
+  sprites[3].h = 115;
+
+  sprites[4].x = 102;
+  sprites[4].y = 204;
+  sprites[4].w = 109;
+  sprites[4].h = 116;
+
+  sprites[5].x = 214;
+  sprites[5].y = 204;
+  sprites[5].w = 105;
+  sprites[5].h = 115;
+}
+if (strcmp(enemy,"Rzapdos.png")==0){
+sprites[0].x = 44;
+  sprites[0].y = 235;
+  sprites[0].w = 58;
+  sprites[0].h = 90;
+
+  sprites[1].x = 102;
+  sprites[1].y = 235;
+  sprites[1].w = 75;
+  sprites[1].h = 90;
+
+  sprites[2].x = 177;
+  sprites[2].y = 235;
+  sprites[2].w = 95;
+  sprites[2].h = 90;
+
+  sprites[3].x = 44;
+  sprites[3].y = 235;
+  sprites[3].w = 58;
+  sprites[3].h = 90;
+
+  sprites[4].x = 102;
+  sprites[4].y = 235;
+  sprites[4].w = 75;
+  sprites[4].h = 90;
+
+  sprites[5].x = 177;
+  sprites[5].y = 235;
+  sprites[5].w = 95;
+  sprites[5].h = 90;
+
+}
+
 if (strcmp(enemy,"articuno.png")==0){
   //Clip range for the charmander sprites
   sprites[0].x = 58;
