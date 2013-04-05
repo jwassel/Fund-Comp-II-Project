@@ -7,7 +7,7 @@
 #include "Enemy.h"
 #include <iostream>
 using namespace std;
-Weapon::Weapon(string filename,int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y){
+Weapon::Weapon(string filename,string explosionName,int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y){
 
 clipsize = Clipsize;
 price = Price;
@@ -18,6 +18,7 @@ xpos = x;
 ypos = y;
 
 sprite = load_image(filename.c_str());
+explosionImage = load_image(explosionName.c_str());
 
 }
 
@@ -26,7 +27,12 @@ void Weapon::show(int x, int y,SDL_Surface *screen)
 	apply_surface(x,y,sprite,screen);
 }
 
-void Weapon::handle_events(SDL_Event event,vector<Enemy*> enemies)
+void Weapon::showExplosion(int x, int y, SDL_Surface *screen)
+{
+      apply_surface(x,y,explosionImage,screen,NULL);
+}
+
+void Weapon::handle_events(SDL_Event event,vector<Enemy*> enemies, SDL_Surface * screen)
 {
 
 //The mouse offsets
@@ -41,11 +47,12 @@ int enemyHeight = 0;
       //If the left mouse button was pressed
       if (event.button.button == SDL_BUTTON_LEFT)
 	{
+	
 	  //Get the mouse offsets
 	  x = event.button.x;
 	  y = event.button.y;
-//gunshot.show(screen);
-	  //If the mouse is over the button
+
+	  showExplosion(x-7,y-7,screen);
 	  
 	for(int i=0;i<enemies.size();i++)
 	{
@@ -57,7 +64,6 @@ int enemyHeight = 0;
 	      && (y < enemyY + enemyHeight))
 	    {
 		enemies[i]->getAttacked(damage);
-//explosion.show(screen);
 	    }
 
 	}
@@ -68,7 +74,9 @@ int enemyHeight = 0;
 
 
 void Weapon::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip){ //applies new surface
-    //Holds offsets
+    
+
+//Holds offsets
     SDL_Rect shift;
 
     //Get offsets
@@ -77,6 +85,7 @@ void Weapon::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* desti
 
     //Blit
     SDL_BlitSurface(source, clip, destination, &shift);
+
 }
 
 SDL_Surface * Weapon::load_image(std::string filename)

@@ -2,7 +2,7 @@
 #include <string>
 #include "Pistol.h"
 
-Pistol::Pistol(string filename,int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y):Weapon(filename,Clipsize, Price, AmmoPrice, Damage, FireRate,x,y){
+Pistol::Pistol(string filename,string explosionName,int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y):Weapon(filename,explosionName,Clipsize, Price, AmmoPrice, Damage, FireRate,x,y){
 
 setClips();
 }
@@ -17,3 +17,5 @@ void Pistol::setClips(){
   clips[0].w = 68;
   clips[0].h = 39;
 }
+
+

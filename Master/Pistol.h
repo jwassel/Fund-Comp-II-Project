@@ -8,9 +8,9 @@
 class Pistol:public Weapon
 {
 	public:
-		Pistol(string,int, int,int,int,int,int,int);//constructor
-		void setClips();
-		void fire();
+		Pistol(string,string,int, int,int,int,int,int,int);//constructor
+		virtual void setClips();
+		virtual void fire();
 
 	private:
 		SDL_Rect clips[1];

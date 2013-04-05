@@ -27,6 +27,7 @@ using namespace std;
 //The screen surface
 SDL_Surface *screen = NULL;
 
+
 //The event structure
 SDL_Event event;
 
@@ -49,7 +50,7 @@ bool init()
 
     //Set up the screen
     screen = SDL_SetVideoMode( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE );
-
+//cout<<"In main " <<endl<<screen<<endl;
     //If there was an error in setting up the screen
     if( screen == NULL )
     {
@@ -88,11 +89,13 @@ void load_enemies()
 
 void load_weapons()
 {
-	pistol = new Pistol("weapons.png",10,100,15,10,20,0,0);
+	pistol = new Pistol("weapons.png","explosionsgunshot.PNG",10,100,15,10,20,0,0);
 	weapons.push_back(pistol);
 }
 int main( int argc, char* args[] )
 {
+
+
     //Quit flag
     bool quit = false;
 
@@ -116,27 +119,11 @@ int main( int argc, char* args[] )
         //Start the frame timer
         fps.start();
 
-        //While there's events to handle
-        while( SDL_PollEvent( &event ) )
-        {
-		
-	    for(int i=0;i<weapons.size();i++)
-		{
-			weapons[i]->handle_events(event,enemies);
-		}
-            //If the user has Xed out the window
-            if( event.type == SDL_QUIT )
-            {
-                //Quit the program
-                quit = true;
-            }
-        }
-	
 	//show the background
 	background.show(screen);
 	dome.show(screen);
 
-	//move the enemies
+//move the enemies
 	for(int i=0;i<enemies.size();i++)
 	{
 	 	enemies[i]->move();
@@ -153,13 +140,34 @@ int main( int argc, char* args[] )
 		}
 	}
 
-	
-
-	//show the enemies
+//show the enemies
 	for(int j=0;j<enemies.size();j++)
 	{
 	 enemies[j]->show(screen,count);
 	}
+
+        //While there's events to handle
+        while( SDL_PollEvent( &event ) )
+        {
+		
+	    for(int i=0;i<weapons.size();i++)
+		{
+			weapons[i]->handle_events(event,enemies,screen);
+		}
+            //If the user has Xed out the window
+            if( event.type == SDL_QUIT )
+            {
+                //Quit the program
+                quit = true;
+            }
+        }
+	
+
+	
+
+	
+
+	
 
         //Update the screen
         if( SDL_Flip( screen ) == -1 )

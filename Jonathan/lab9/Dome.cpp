@@ -124,6 +124,7 @@ else if(enemyY<middle && enemyY>top)
 
 
 void Dome::apply_surface(SDL_Surface* source, SDL_Surface* destination,SDL_Rect* clip)
+
 { //applies new surface
     //Holds offsets
     SDL_Rect shift;

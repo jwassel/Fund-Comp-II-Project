@@ -52,7 +52,7 @@ int enemyHeight = 0;
 	  x = event.button.x;
 	  y = event.button.y;
 
-	  showExplosion(x-7,y-7,screen);
+	  showExplosion(x-10,y-10,screen);
 	  
 	for(int i=0;i<enemies.size();i++)
 	{
