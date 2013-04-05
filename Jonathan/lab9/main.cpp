@@ -74,10 +74,10 @@ void load_enemies()
     squirtle = new Squirtle("squirtlej.png",1000,0,38,36,-5,10,20);
     enemies.push_back(squirtle);
     squirtle = new Squirtle("squirtlej.png",1100,0,38,36,-5,12,20);
-    enemies.push_back(squirtle);
+    //enemies.push_back(squirtle);
     poliwhirl = new Poliwhirl("poliwhirl.png",1200,500,75,80,-7,0,30);
-    enemies.push_back(poliwhirl);
-    rpidgey = new Rpidgey("Rpidgey.png",0,200,37,30,5,0,5);
+    //enemies.push_back(poliwhirl);
+  rpidgey = new Rpidgey("Rpidgey.png",0,200,37,30,5,0,5);
     enemies.push_back(rpidgey);
 }
 
@@ -125,7 +125,8 @@ int main( int argc, char* args[] )
 	for(int i=0;i<enemies.size();i++)
 	{
 	 	enemies[i]->move();
-		if(enemies[i]->isCollidingWithDome(dome.getX(),dome.getY(),dome.getWidth(),dome.getHeight()))
+	
+	if(dome.isCollidingWithEnemy(enemies[i]->getX(),enemies[i]->getY(),enemies[i]->getWidth(),enemies[i]->getHeight(),enemies[i]->getXVel()))
 		{
 			dome.getAttacked(enemies[i]->attack());
 			cout<<"Dome's health: "<<dome.getCurrentHealth()<<endl;

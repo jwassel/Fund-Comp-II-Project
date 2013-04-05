@@ -17,9 +17,10 @@ class Dome
 		void getAttacked(int);
 		int getCurrentHealth();
 		int isDead();
+		int isCollidingWithEnemy(int, int, int, int, int);
 	private:
 		SDL_Surface* sprite;
-		SDL_Rect clips[1]; //change this when get new clips
+		SDL_Rect clips[3]; //change this when get new clips
 		int xpos;
 		int ypos;
 		int width;

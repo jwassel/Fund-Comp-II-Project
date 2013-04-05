@@ -30,3 +30,24 @@ int Enemy::attack()
 	return power;
 }
 
+int Enemy::getY()
+{
+	return ypos;
+}
+
+int Enemy::getWidth()
+{
+	return width;
+}
+
+int Enemy::getHeight()
+{
+	return height;
+}
+
+int Enemy::getXVel()
+{
+	return xVel;
+}
+
+

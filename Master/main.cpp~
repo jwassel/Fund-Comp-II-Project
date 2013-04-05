@@ -126,7 +126,7 @@ int main( int argc, char* args[] )
 	{
 	 	enemies[i]->move();
 	
-	if(dome.isCollidingWithEnemy(enemies[i]->getX(),enemies[i]->getY(),enemies[i]->getWidth(),enemies[i]->getHeight(),enemies[i]->getXVel()))
+		if(dome.isCollidingWithEnemy(enemies[i]->getX(),enemies[i]->getY(),enemies[i]->getWidth(),enemies[i]->getHeight(),enemies[i]->getXVel()))
 		{
 			dome.getAttacked(enemies[i]->attack());
 			cout<<"Dome's health: "<<dome.getCurrentHealth()<<endl;

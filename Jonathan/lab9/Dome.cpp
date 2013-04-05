@@ -5,6 +5,9 @@
 #include <iostream>
 #include <string>
 using namespace std;
+const int MIDDLE_DOME = 355; //where on the screen the upper half of the dome is
+const int GOLDEN_DOME_X_BEG = 535; //the x position of the golden dome
+const int GOLDEN_DOME_X_END = 660;
 Dome::Dome(string filename,int x, int y, int w, int h, int max, int curr)
 {
 	sprite = load_image(filename.c_str());
@@ -86,6 +89,39 @@ int Dome::getCurrentHealth()
 {
 	return currentHealth;
 }
+
+
+int Dome::isCollidingWithEnemy(int x, int y, int w, int h, int xvel){
+int top=ypos;
+int middle=MIDDLE_DOME;
+int bottom=ypos+height;
+int enemyX;
+int enemyY = y+h;
+if(xvel>0)
+{
+	enemyX = x + w;
+}
+else
+{
+	enemyX = x;
+}
+if(enemyY>middle && enemyY<bottom)
+	{
+		if(enemyX>xpos && enemyX<xpos+width)
+		{
+			return 1;
+		}
+	}
+
+else if(enemyY<middle && enemyY>top)
+	{
+		if(enemyX>GOLDEN_DOME_X_BEG && enemyX<GOLDEN_DOME_X_END)
+			return 1;
+	}
+
+	return 0;
+}
+
 
 void Dome::apply_surface(SDL_Surface* source, SDL_Surface* destination,SDL_Rect* clip)
 { //applies new surface

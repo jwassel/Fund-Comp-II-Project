@@ -14,7 +14,7 @@ public:
 	virtual void setClips() = 0;
   	virtual void show(SDL_Surface *, int) = 0; //shows the enemy on the screen
 	int getX();
-	int isCollidingWithDome(int, int, int, int);
+	int isCollidingWithDome(int, int, int, int, int);
 	int attack();
 	int getY();
 	int getWidth();

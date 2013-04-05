@@ -16,6 +16,10 @@ public:
 	int getX();
 	int isCollidingWithDome(int, int, int, int);
 	int attack();
+	int getY();
+	int getWidth();
+	int getHeight();
+	int getXVel();
 
 protected:
 
