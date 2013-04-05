@@ -11,9 +11,10 @@ Rpidgey::Rpidgey(string filename, int x, int y, int w, int h, int xV, int yV, in
 
 void Rpidgey::move()
 {
-
+ if (xpos<521)
 	xpos+=xVel;
-
+else 
+	xpos-=20;
 }
 
 //shows the enemy on the screen

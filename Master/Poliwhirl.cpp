@@ -11,11 +11,13 @@ Poliwhirl::Poliwhirl(string filename, int x, int y, int w, int h, int xV, int yV
 
 void Poliwhirl::move()
 {
-    //Move the dot left or right
-    xpos += xVel;
 
-    //Move the dot up or down
-    ypos += yVel;
+ if(ypos<600-height-50)
+	ypos+=yVel;
+else if (xpos>705)
+	xpos+=xVel;
+else 
+	xpos+=20;
 
 }
 

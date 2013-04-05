@@ -6,7 +6,7 @@
 #include <string>
 using namespace std;
 const int MIDDLE_DOME = 355; //where on the screen the upper half of the dome is
-const int GOLDEN_DOME_X_BEG = 535; //the x position of the golden dome
+const int GOLDEN_DOME_X_BEG = 520; //the x position of the golden dome
 const int GOLDEN_DOME_X_END = 660;
 Dome::Dome(string filename,int x, int y, int w, int h, int max, int curr)
 {
@@ -41,7 +41,6 @@ int Dome::isDead()
 {
 	if(currentHealth<=0)
 		return 1;
-
 	return 0;
 }
 
@@ -67,7 +66,7 @@ int Dome::getHeight()
 
 void Dome::setClips()
 {
-  //Clip range for the squirtle clips
+  //Clip range for the Dome clips
   clips[0].x = 300;
   clips[0].y = 55;
   clips[0].w = 230;

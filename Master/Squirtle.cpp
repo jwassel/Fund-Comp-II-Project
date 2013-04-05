@@ -11,11 +11,13 @@ Squirtle::Squirtle(string filename, int x, int y, int w, int h, int xV, int yV, 
 
 void Squirtle::move()
 {
- if(ypos<550)
+ if(ypos<600-height-50)
 	ypos+=yVel;
-else
+//dont need to check xvel, Squirtle xVel will always be negative, Rsquirtle will have the positive xvel
+else if (xpos>705)
 	xpos+=xVel;
-
+else 
+	xpos+=20;
 }
 
 //shows the enemy on the screen

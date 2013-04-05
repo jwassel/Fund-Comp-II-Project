@@ -2,6 +2,7 @@
 //The headers
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+#include "SDL/SDL_ttf.h"
 #include "Enemy.h"
 #include "Timer.h"
 #include "Sprite.h"
@@ -12,6 +13,7 @@
 #include "Dome.h"
 #include "Weapon.h"
 #include "Pistol.h"
+#include "Text.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -27,6 +29,7 @@ using namespace std;
 //The screen surface
 SDL_Surface *screen = NULL;
 
+SDL_Color textColor = { 255, 255, 255 };
 
 //The event structure
 SDL_Event event;
@@ -35,7 +38,7 @@ vector < Enemy * >enemies;
 Squirtle *squirtle;
 Poliwhirl *poliwhirl;
 Rpidgey *rpidgey;
-
+SDL_Surface *message = NULL;
 vector < Weapon * >weapons;
 Pistol *pistol;
 
@@ -52,11 +55,16 @@ init ()
   //Set up the screen
   screen =
     SDL_SetVideoMode (SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE);
-//cout<<"In main " <<endl<<screen<<endl;
+
   //If there was an error in setting up the screen
   if (screen == NULL)
     {
       cout << "Screen is null" << endl;
+      return false;
+    }
+
+  if (TTF_Init () == -1)
+    {
       return false;
     }
 
@@ -83,10 +91,8 @@ load_enemies ()
 {
   squirtle = new Squirtle ("squirtlej.png", 1000, 0, 38, 36, -5, 10, 20, 50);
   enemies.push_back (squirtle);
-  squirtle = new Squirtle ("squirtlej.png", 1100, 0, 38, 36, -5, 12, 20, 50);
-  enemies.push_back (squirtle);
   poliwhirl =
-    new Poliwhirl ("poliwhirl.png", 1200, 500, 75, 80, -7, 0, 30, 100);
+    new Poliwhirl ("poliwhirl.png", 1100, 0, 75, 80, -7, 12, 30, 100);
   enemies.push_back (poliwhirl);
   rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
   enemies.push_back (rpidgey);
@@ -191,10 +197,29 @@ main (int argc, char *args[])
 
       if (levelComplete)
 	{
-	  cout << "Level Complete" << endl;
+	  SDL_FillRect (screen, &screen->clip_rect,SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
+	  Text levelSuccess ("Level Complete", 2 * SCREEN_WIDTH / 5,2 * SCREEN_HEIGHT / 5, textColor);
+	  levelSuccess.show (screen);
+	  SDL_Flip (screen);
+	  SDL_Delay (2000);
 	  quit = true;
 	}
 
+      if (dome.isDead ())
+	{
+	  background.show (screen);
+	  for (int j = 0; j < enemies.size (); j++)
+	    {
+	      enemies[j]->show (screen, count);
+	    } SDL_Flip (screen);
+	  SDL_Delay (2000);
+	  SDL_FillRect (screen, &screen->clip_rect,SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
+	  Text levelFail ("Game Over", 2 * SCREEN_WIDTH / 5, 2 * SCREEN_HEIGHT / 5, textColor);
+	  levelFail.show (screen);
+	  SDL_Flip (screen);
+	  SDL_Delay (2000);
+	  quit = true;
+	}
 
 
       //Update the screen
