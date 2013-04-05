@@ -5,11 +5,13 @@
 #include "SDL/SDL_image.h"
 #include "Enemy.h"
 #include "Sprite.h"
-Enemy::Enemy(string filename, int x,int y, int w, int h, int xv, int yv, int p):Sprite(filename,x,y,w,h)
+Enemy::Enemy(string filename, int x,int y, int w, int h, int xv, int yv, int p, int hea):Sprite(filename,x,y,w,h)
 {
 	xVel = xv;
 	yVel = yv;
-	power = p;		
+	power = p;	
+	health = hea;
+	dead = 0;
 }
 
 int Enemy::getX()
@@ -17,13 +19,6 @@ int Enemy::getX()
 	return xpos;
 }
 
-int Enemy::isCollidingWithDome(int x, int y, int width, int height)
-{
-	if(xpos>x && xpos<(x+width) && ypos>y && ypos<(y+height))
-		return 1;
-
-	return 0;
-}
 
 int Enemy::attack()
 {
@@ -50,4 +45,23 @@ int Enemy::getXVel()
 	return xVel;
 }
 
+int Enemy::isDead()
+{
+	if(health<=0 )
+		return 1;
+	if(xpos<0 || xpos >1200)
+	{
+		dead = 1;
+		return 1;
+	}
+
+	return 0;
+}
+
+void Enemy::getAttacked(int damage)
+{
+	health-=damage;
+	if(isDead())
+		dead = 1;
+}
 

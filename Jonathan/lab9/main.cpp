@@ -10,6 +10,8 @@
 #include "Poliwhirl.h"
 #include "Rpidgey.h"
 #include "Dome.h"
+#include "Weapon.h"
+#include "Pistol.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -32,6 +34,9 @@ vector<Enemy*> enemies;
 Squirtle* squirtle;
 Poliwhirl* poliwhirl;
 Rpidgey* rpidgey;
+
+vector<Weapon*> weapons;
+Pistol* pistol;
 
 bool init()
 {
@@ -71,16 +76,21 @@ void clean_up()
 //add all the enemies 
 void load_enemies()
 {
-    squirtle = new Squirtle("squirtlej.png",1000,0,38,36,-5,10,20);
+    squirtle = new Squirtle("squirtlej.png",1000,0,38,36,-5,10,20,50);
     enemies.push_back(squirtle);
-    squirtle = new Squirtle("squirtlej.png",1100,0,38,36,-5,12,20);
-    //enemies.push_back(squirtle);
-    poliwhirl = new Poliwhirl("poliwhirl.png",1200,500,75,80,-7,0,30);
-    //enemies.push_back(poliwhirl);
-  rpidgey = new Rpidgey("Rpidgey.png",0,200,37,30,5,0,5);
-    enemies.push_back(rpidgey);
+    squirtle = new Squirtle("squirtlej.png",1100,0,38,36,-5,12,20,50);
+    enemies.push_back(squirtle);
+   poliwhirl = new Poliwhirl("poliwhirl.png",1200,500,75,80,-7,0,30,100);
+    enemies.push_back(poliwhirl);
+ rpidgey = new Rpidgey("Rpidgey.png",0,200,37,30,5,0,5,10);
+   enemies.push_back(rpidgey);
 }
 
+void load_weapons()
+{
+	pistol = new Pistol("weapons.png",10,100,15,10,20,0,0);
+	weapons.push_back(pistol);
+}
 int main( int argc, char* args[] )
 {
     //Quit flag
@@ -99,6 +109,7 @@ int main( int argc, char* args[] )
     Background background("background.bmp");
     Dome dome("dome.png",485,135,230,465,2000,2000);
     load_enemies();
+    load_weapons();
     //While the user hasn't quit
     while( quit == false )
     {
@@ -108,7 +119,11 @@ int main( int argc, char* args[] )
         //While there's events to handle
         while( SDL_PollEvent( &event ) )
         {
-
+		
+	    for(int i=0;i<weapons.size();i++)
+		{
+			weapons[i]->handle_events(event,enemies);
+		}
             //If the user has Xed out the window
             if( event.type == SDL_QUIT )
             {
@@ -116,7 +131,7 @@ int main( int argc, char* args[] )
                 quit = true;
             }
         }
-
+	
 	//show the background
 	background.show(screen);
 	dome.show(screen);
@@ -125,20 +140,20 @@ int main( int argc, char* args[] )
 	for(int i=0;i<enemies.size();i++)
 	{
 	 	enemies[i]->move();
-	
+	if(enemies[i]->isDead())
+		continue;
 	if(dome.isCollidingWithEnemy(enemies[i]->getX(),enemies[i]->getY(),enemies[i]->getWidth(),enemies[i]->getHeight(),enemies[i]->getXVel()))
 		{
 			dome.getAttacked(enemies[i]->attack());
-			cout<<"Dome's health: "<<dome.getCurrentHealth()<<endl;
+			//cout<<"Dome's health: "<<dome.getCurrentHealth()<<endl;
 			if(dome.isDead())
 			{
-				cout<<"Dome is dead!"<<endl;
+				//cout<<"Dome is dead!"<<endl;
 			}
 		}
 	}
 
 	
-
 
 	//show the enemies
 	for(int j=0;j<enemies.size();j++)

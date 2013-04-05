@@ -7,7 +7,7 @@
 class Poliwhirl: public Enemy
 {
 	public:
-		Poliwhirl(string,int, int, int , int, int ,int,int); //constructor
+		Poliwhirl(string,int, int, int , int, int ,int,int,int); //constructor
 		 virtual void move(); //move function
 		virtual void show(SDL_Surface*,int);
 		virtual void setClips();

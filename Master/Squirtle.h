@@ -1,4 +1,3 @@
-
 #ifndef SQUIRTLE_H
 #define SQUIRTLE_H
 #include "Enemy.h"
@@ -8,7 +7,7 @@
 class Squirtle: public Enemy
 {
 	public:
-		Squirtle(string,int, int, int , int, int ,int,int); //constructor
+		Squirtle(string,int, int, int , int, int ,int,int,int); //constructor
 		 virtual void move(); //move function
 		virtual void show(SDL_Surface*,int);
 		virtual void setClips();

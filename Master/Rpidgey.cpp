@@ -4,7 +4,7 @@
 #include "Enemy.h"
 #include "SDL/SDL.h"
 #include <string>
-Rpidgey::Rpidgey(string filename, int x, int y, int w, int h, int xV, int yV, int p):Enemy(filename,x,y,w,h,xV,yV,p)
+Rpidgey::Rpidgey(string filename, int x, int y, int w, int h, int xV, int yV, int p, int hea):Enemy(filename,x,y,w,h,xV,yV,p,hea)
 {
 	setClips();
 }
@@ -19,6 +19,7 @@ void Rpidgey::move()
 //shows the enemy on the screen
 void Rpidgey::show(SDL_Surface * screen, int count)
 {
+	if(!isDead())
 	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
 }
 

@@ -6,7 +6,7 @@
 class Rpidgey: public Enemy
 {
 	public:
-		Rpidgey(string,int, int, int , int, int ,int,int); //constructor
+		Rpidgey(string,int, int, int , int, int ,int,int,int); //constructor
 		 virtual void move(); //move function
 		virtual void show(SDL_Surface*,int);
 		virtual void setClips();
