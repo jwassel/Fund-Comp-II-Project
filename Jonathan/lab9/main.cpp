@@ -197,8 +197,10 @@ main (int argc, char *args[])
 
       if (levelComplete)
 	{
-	  SDL_FillRect (screen, &screen->clip_rect,SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
-	  Text levelSuccess ("Level Complete", 2 * SCREEN_WIDTH / 5,2 * SCREEN_HEIGHT / 5, textColor);
+	  SDL_FillRect (screen, &screen->clip_rect,
+			SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
+	  Text levelSuccess ("Level Complete", 2 * SCREEN_WIDTH / 5,
+			     2 * SCREEN_HEIGHT / 5, textColor);
 	  levelSuccess.show (screen);
 	  SDL_Flip (screen);
 	  SDL_Delay (2000);
@@ -213,8 +215,10 @@ main (int argc, char *args[])
 	      enemies[j]->show (screen, count);
 	    } SDL_Flip (screen);
 	  SDL_Delay (2000);
-	  SDL_FillRect (screen, &screen->clip_rect,SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
-	  Text levelFail ("Game Over", 2 * SCREEN_WIDTH / 5, 2 * SCREEN_HEIGHT / 5, textColor);
+	  SDL_FillRect (screen, &screen->clip_rect,
+			SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
+	  Text levelFail ("Game Over", 2 * SCREEN_WIDTH / 5,
+			  2 * SCREEN_HEIGHT / 5, textColor);
 	  levelFail.show (screen);
 	  SDL_Flip (screen);
 	  SDL_Delay (2000);
