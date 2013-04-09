@@ -364,6 +364,102 @@ if (strcmp(enemy,"Rcharmander.png")==0){
   sprites[5].h = 30;
 }
 
+if (strcmp(enemy,"Rsquirtle.png")==0){
+  sprites[0].x = 115;
+  sprites[0].y = 110;
+  sprites[0].w = 37;
+  sprites[0].h = 36;
+
+  sprites[1].x = 153;
+  sprites[1].y = 110;
+  sprites[1].w = 39;
+  sprites[1].h = 36;
+
+  sprites[2].x = 192;
+  sprites[2].y = 108;
+  sprites[2].w = 38;
+  sprites[2].h = 36;
+
+  sprites[3].x = 230;
+  sprites[3].y = 108;
+  sprites[3].w = 39;
+  sprites[3].h = 38;
+
+  sprites[4].x = 268;
+  sprites[4].y = 108;
+  sprites[4].w = 37;
+  sprites[4].h = 36;
+
+  sprites[5].x = 307;
+  sprites[5].y = 108;
+  sprites[5].w = 39;
+  sprites[5].h = 36;
+}
+
+if (strcmp(enemy,"Rmachamp.png")==0){
+  sprites[0].x = 88;
+  sprites[0].y = 302;
+  sprites[0].w = 78;
+  sprites[0].h = 105;
+
+  sprites[1].x = 166;
+  sprites[1].y = 302;
+  sprites[1].w = 64;
+  sprites[1].h = 105;
+
+  sprites[2].x = 230;
+  sprites[2].y = 302;
+  sprites[2].w = 80;
+  sprites[2].h = 105;
+
+  sprites[3].x = 88;
+  sprites[3].y = 302;
+  sprites[3].w = 78;
+  sprites[3].h = 105;
+
+  sprites[4].x = 166;
+  sprites[4].y = 302;
+  sprites[4].w = 64;
+  sprites[4].h = 105;
+
+  sprites[5].x = 230;
+  sprites[5].y = 302;
+  sprites[5].w = 80;
+  sprites[5].h = 105;
+}
+
+if (strcmp(enemy,"Rpoliwhirl.png")==0){
+  sprites[0].x = 199;
+  sprites[0].y = 165;
+  sprites[0].w = 103;
+  sprites[0].h = 95;
+
+  sprites[1].x = 302;
+  sprites[1].y = 165;
+  sprites[1].w = 107;
+  sprites[1].h = 95;
+
+  sprites[2].x = 409;
+  sprites[2].y = 165;
+  sprites[2].w = 118;
+  sprites[2].h = 95;
+
+  sprites[3].x = 527;
+  sprites[3].y = 165;
+  sprites[3].w = 108;
+  sprites[3].h = 95;
+
+  sprites[4].x = 635;
+  sprites[4].y = 165;
+  sprites[4].w = 100;
+  sprites[4].h = 95;
+
+  sprites[5].x = 735;
+  sprites[5].y = 165;
+  sprites[5].w = 75;
+  sprites[5].h = 95;
+}
+
 if (strcmp(enemy,"Rmarowak.png")==0){
   sprites[0].x = 0;
   sprites[0].y = 207;
