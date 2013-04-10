@@ -296,7 +296,10 @@ main (int argc, char *args[])
 int score=0;
 
 music = Mix_LoadMUS( "beat.mp3" );
-Mix_PlayMusic(music, -1);
+if( Mix_PlayMusic( music, -1 ) == -1 )
+                        {
+                            return 1;
+                        }  
   //Quit flag
   bool quit = false;
 
