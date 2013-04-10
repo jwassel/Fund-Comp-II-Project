@@ -1,10 +1,10 @@
-
+//Implementation of abstract Sprite class (enemy then specific pokemon inherit)
 #include "Sprite.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include <string>
 
-
+//constructor
 Sprite::Sprite(string filename, int x, int y, int w, int h)
 {
 	sprite = load_image(filename.c_str());
@@ -13,6 +13,9 @@ Sprite::Sprite(string filename, int x, int y, int w, int h)
 	width = w;
 	height = h;
 }
+//sdl functions to apply image to screen and to load the image
+
+
 void Sprite::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip){ //applies new surface
     //Holds offsets
     SDL_Rect shift;
