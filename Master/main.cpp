@@ -1,5 +1,9 @@
-
-//The headers
+/*
+Main file for our PokeDome SDL video game!
+CSE 20212 Spring 2013 Final Project
+Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
+*/
+//The headers and includes for all our classes
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include "SDL/SDL_ttf.h"
@@ -38,23 +42,33 @@ SDL_Color colorBlack = {0,0,0};
 //The event structure
 SDL_Event event;
 
-vector < Enemy * >enemies;
+//the different enemies the game can have
+vector < Enemy * >enemies; //vector to store the enemies in a given level
 Squirtle *squirtle;
 Poliwhirl *poliwhirl;
 Rpidgey *rpidgey;
-SDL_Surface *message = NULL;
-vector < Weapon * >weapons;
-vector < Weapon * >store;
 
+SDL_Surface *message = NULL;
+
+//vector that stores the user's current weapons
+vector < Weapon * >weapons;
+//stores all the weapons the user can buy (NOTE need to change to be of some base class cause the store must also show 
+vector < Weapon * >store;
+//all the possible weapons
 Pistol *pistol;
 PlasmaCannon* plasmaCannon;
 Gatling* gatling;
 Smg* smg;
 Lmg* lmg;
 
+//user can only use one weapon at a time
 int currentWeaponIndex = 0;
+
+//the current level and the maximum # of levels programmed by us
 int currentLevel = 1;
 int maxLevel = 2;
+
+//SDL initializing material
 bool
 init ()
 {
@@ -88,6 +102,7 @@ init ()
   return true;
 }
 
+//quits SDL
 void
 clean_up ()
 {
@@ -97,7 +112,7 @@ clean_up ()
   SDL_Quit ();
 }
 
-//add all the enemies 
+//add all the enemies for the given level 
 void
 load_enemies ()
 {
@@ -130,6 +145,7 @@ load_enemies ()
   }
 }
 
+//loads all the items to the store
 void load_store()
 {    // Clipsize, Price, AmmoPrice, Damage, FireRate, x on screen, y on screen
 
@@ -145,6 +161,7 @@ void load_store()
     store.push_back(lmg);
 }
 
+//takes user's click when on the store screen and updates their inventory
 bool purchaseFromStore(int x, int y, Text &continueToGame, Text&messageToUser)
 {
 
@@ -197,6 +214,7 @@ bool purchaseFromStore(int x, int y, Text &continueToGame, Text&messageToUser)
 	return false;	
 }
 
+//goes to the store screen and displays it
 int goToStore(Text &continueToGame, Text &gunsMessage, Text &storeHeader)
 {
 	SDL_FillRect (screen, &screen->clip_rect,
@@ -256,7 +274,7 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &storeHeader)
 	return 1;
 }
 
-
+//the main function
 int
 main (int argc, char *args[])
 {
@@ -287,6 +305,7 @@ main (int argc, char *args[])
   playButton.show(screen);
   SDL_Flip(screen);
   bool play = false;
+	//while they have not hit the play button
 	while(play==false)
 	{
 		while(SDL_PollEvent(&event))
@@ -315,17 +334,20 @@ main (int argc, char *args[])
 		}
 	}
 
+
   load_store();
   Text continueToGame ("Continue to Game", 2 * SCREEN_WIDTH / 5, 8 * SCREEN_HEIGHT / 9, colorWhite, 30);
    Text gunsMessage("Guns",100,10,colorWhite,20);
 	Text storeHeader("Select your items", 2*SCREEN_WIDTH/5, 0,colorWhite,40);
      Dome dome ("dome.png", 485, 135, 230, 465, 10000, 10000);
 bool gameIsOver= false;
+//while they have not beat the game or have not died 
 while(gameIsOver==false)
 {
 
   /*ITEM SELECTION*/
    int continued = goToStore(continueToGame,gunsMessage,storeHeader);
+	//continue will be 0 if they hit the X on the window while at the store
    if(!continued)
 	{
 		clean_up();
@@ -336,7 +358,7 @@ while(gameIsOver==false)
 /* START GAMEPLAY */
 
   /*LOAD  ENEMIES*/
-  load_enemies ();
+  load_enemies (); //loads enemies for current level
   quit = false;
   //While the user hasn't quit
   while (quit == false)
@@ -344,7 +366,8 @@ while(gameIsOver==false)
  
    //Start the frame timer
       fps.start ();
-      //show the background
+      //show the background and dome
+
       background.show (screen);
       dome.show (screen);
 
@@ -354,6 +377,7 @@ while(gameIsOver==false)
 	  enemies[i]->move ();
 	  if (enemies[i]->isDead ())
 	    continue;
+	//if the enemy is colliding with the dome then attack the dome with the enemie's power
 	  if (dome.isCollidingWithEnemy
 	      (enemies[i]->getX (), enemies[i]->getY (),
 	       enemies[i]->getWidth (), enemies[i]->getHeight (),
@@ -361,8 +385,10 @@ while(gameIsOver==false)
 	    {
 	      dome.getAttacked (enemies[i]->attack ());
 	      //cout<<"Dome's health: "<<dome.getCurrentHealth()<<endl;
+		//if the dome's health is <=0
 	      if (dome.isDead ())
 		{
+			//freeze the screen for a bit, don't show the dome, then show  game over screen and exit the game
 			 background.show (screen);
 			  for (int j = 0; j < enemies.size (); j++)
 			    {
@@ -392,6 +418,7 @@ while(gameIsOver==false)
       //While there's events to handle
       while (SDL_PollEvent (&event))
 	{
+		//switch weapons if they hit the left or right arrow keys
 	       if(event.type == SDL_KEYDOWN)
 		{
 			if(event.key.keysym.sym == SDLK_LEFT)
@@ -417,6 +444,7 @@ while(gameIsOver==false)
 	    }
 	}
 
+	//if all the enemies are dead then the level has been completed
       int levelComplete = 1;
       for (int j = 0; j < enemies.size (); j++)
 	{
@@ -427,6 +455,7 @@ while(gameIsOver==false)
 	    }
 	}
 
+	//show level completed screen
       if (levelComplete)
 	{
 	  SDL_FillRect (screen, &screen->clip_rect,
@@ -438,6 +467,7 @@ while(gameIsOver==false)
 	  SDL_Delay (2000);
 	  quit = true;
 	  currentLevel++;
+		//if there are no more levels, show they have beat the game and exit
           if(currentLevel>maxLevel)
 	  {
 		gameIsOver = true;
