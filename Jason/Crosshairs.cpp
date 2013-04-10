@@ -1,34 +1,18 @@
-//Implementation of abstract Sprite class (enemy then specific pokemon inherit)
-#include "Sprite.h"
+#include "Crosshairs.h"
+#include <iostream>
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include <string>
-
-//constructor
-Sprite::Sprite(string filename, int x, int y, int w, int h)
+Crosshairs::Crosshairs()
 {
-	sprite = load_image(filename.c_str());
-	xpos = x;
-	ypos = y;
-	width = w;
-	height = h;
-}
-//sdl functions to apply image to screen and to load the image
+image=load_image("crosshairs.png");
 
-
-void Sprite::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip){ //applies new surface
-    //Holds offsets
-    SDL_Rect shift;
-
-    //Get offsets
-    shift.x = x;
-    shift.y = y;
-
-    //Blit
-    SDL_BlitSurface(source, clip, destination, &shift);
+  SDL_ShowCursor(0);
+xposition=0;
+yposition=0;
 }
 
-SDL_Surface * Sprite::load_image(string filename)
+SDL_Surface * Crosshairs::load_image(std::string filename)
 {
 	//temporary storage for the image that's loaded
 	SDL_Surface* loadedImage = NULL;
@@ -60,3 +44,18 @@ SDL_Surface * Sprite::load_image(string filename)
 	}
 		return optimizedImage;
 }
+
+void Crosshairs::getMousePosition(){
+SDL_GetMouseState(&xposition, &yposition);
+
+}
+
+void Crosshairs::show(SDL_Surface *screen)
+{getMousePosition();
+  SDL_Rect shift;
+  shift.x = xposition-18;
+  shift.y = yposition-18;
+  SDL_BlitSurface(image, NULL, screen, &shift);
+}
+
+

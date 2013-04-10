@@ -1,4 +1,4 @@
-
+//Header file for the Enemy class
 //This is the abstract class for our enemies
 #ifndef ENEMY_H
 #define ENEMY_H
@@ -11,17 +11,17 @@ class Enemy:public Sprite{
 public:
 	Enemy( string, int, int, int, int, int, int,int,int); //constructor
 	virtual void move()=0; //moves the enemy; diff for every enemy so virtual
-	virtual void setClips() = 0;
+	virtual void setClips() = 0; //sets the clips on the sprite sheet
   	virtual void show(SDL_Surface *, int) = 0; //shows the enemy on the screen
 	int getX();
 	
-	int attack();
+	int attack(); //returns the attack variable
 	int getY();
 	int getWidth();
 	int getHeight();
 	int getXVel();
-	void getAttacked(int);
-	int isDead();
+	void getAttacked(int); //removes from it's health
+	int isDead(); //true if health = 0 or if they have moved on past screen
 
 protected:
 

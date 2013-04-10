@@ -22,11 +22,6 @@ explosionImage = load_image(explosionName.c_str());
 
 }
 
-void Weapon::show(int x, int y,SDL_Surface *screen)
-{
-	apply_surface(x,y,sprite,screen);
-}
-
 void Weapon::showExplosion(int x, int y, SDL_Surface *screen)
 {
       apply_surface(x,y,explosionImage,screen,NULL);
@@ -51,7 +46,7 @@ int enemyHeight = 0;
 	  //Get the mouse offsets
 	  x = event.button.x;
 	  y = event.button.y;
-
+////NEED TO CHANGE THIS HARDCODE, should be half of the weapon explosion size
 	  showExplosion(x-7,y-7,screen);
 	  
 	for(int i=0;i<enemies.size();i++)
@@ -121,4 +116,11 @@ SDL_Surface * Weapon::load_image(std::string filename)
 		return optimizedImage;
 }
 
+int Weapon::getXpos() {
+	return xpos;
+}
+
+int Weapon::getYpos() {
+	return ypos;
+}
 

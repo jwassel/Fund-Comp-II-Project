@@ -7,14 +7,23 @@ using namespace std;
 class Text
 {
 	public:
-		Text(string,int,int,SDL_Color);
-		   void apply_surface(int, int, SDL_Surface *,SDL_Surface *); //applies new surface
-void show(SDL_Surface*);
+		Text(string,int,int,SDL_Color, int);
+		void apply_surface(int, int, SDL_Surface *,SDL_Surface *); //applies new surface
+		void show(SDL_Surface*);
+		int getTextXpos();
+		int getTextYpos();
+		int getWidth();
+		int getHeight();
+		int isClicked(int, int); //returns 1 if clicked
+		void setText(string);
 	private:
 		SDL_Surface* message;
 		string words;
 		int xpos;
 		int ypos;
+		int width;
+		int height;
+		int size;
 		SDL_Color color;
 };
 
