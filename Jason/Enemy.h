@@ -6,6 +6,7 @@
 #include "Sprite.h"
 #include <iostream>
 #include <string>
+#include "Constants.h"
 using namespace std;
 class Enemy:public Sprite{
 public:

@@ -50,7 +50,7 @@ int Enemy::isDead()
 {
 	if(health<=0 )
 		return 1;
-	if(xpos<0 || xpos >1200)
+	if(xpos<0 || xpos >SCREEN_WIDTH)
 	{
 		dead = 1;
 		return 1;

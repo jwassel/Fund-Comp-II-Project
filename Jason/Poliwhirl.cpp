@@ -12,12 +12,12 @@ Poliwhirl::Poliwhirl(string filename, int x, int y, int w, int h, int xV, int yV
 void Poliwhirl::move()
 {
 
- if(ypos<600-height-50)
+ if(ypos<GROUND-height)
 	ypos+=yVel;
-else if (xpos>705)
+else if (xpos>DOME_BASE_X_END)
 	xpos+=xVel;
 else 
-	xpos+=20;
+	xpos+=BOUNCE;
 
 }
 

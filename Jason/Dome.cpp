@@ -4,11 +4,9 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include <iostream>
+
 #include <string>
 using namespace std;
-const int MIDDLE_DOME = 355; //where on the screen the upper half of the dome is
-const int GOLDEN_DOME_X_BEG = 520; //the x position of the golden dome
-const int GOLDEN_DOME_X_END = 660; //The x position plus width of golden dome
 
 //constructor
 Dome::Dome(string filename,int x, int y, int w, int h, int max, int curr)
@@ -107,6 +105,7 @@ else
 {
 	enemyX = x;
 }
+//if enemy on lower portion
 if(enemyY>middle && enemyY<bottom)
 	{
 		if(enemyX>xpos && enemyX<xpos+width)
@@ -115,9 +114,9 @@ if(enemyY>middle && enemyY<bottom)
 		}
 	}
 
-else if(enemyY<middle && enemyY>top)
+else if(enemyY<middle && enemyY>top) //if on upper portion
 	{
-		if(enemyX>GOLDEN_DOME_X_BEG && enemyX<GOLDEN_DOME_X_END)
+		if(enemyX>DOME_HEAD_X_BEG && enemyX<DOME_HEAD_X_END)
 			return 1;
 	}
 

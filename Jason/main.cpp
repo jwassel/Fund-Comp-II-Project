@@ -23,16 +23,21 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Lmg.h"
 #include "PlasmaCannon.h"
 #include "Text.h"
+#include "Constants.h"
 #include "Crosshairs.h"
 #include <boost/lexical_cast.hpp>
 #include <string>
 #include <vector>
 #include <iostream>
 //Screen size at bits per pixel
+/*
 const int SCREEN_HEIGHT = 600;
 const int SCREEN_WIDTH = 1200;
 const int SCREEN_BPP = 32;
-
+const int LEVEL_BONUS = 100;
+const int HIT_BONUS = 10;
+const int KILL_BONUS = 25;
+*/
 //The frame rate
 const int FRAMES_PER_SECOND = 20;
 using namespace std;
@@ -130,7 +135,7 @@ load_enemies ()
 
    squirtle = new Squirtle ("squirtlej.png", 1000, 0, 38, 36, -5, 10, 20, 50);
    poliwhirl = new Poliwhirl ("poliwhirl.png", 1100, 0, 75, 80, -7, 12, 30, 100);  
-   rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
+   rpidgey = new Rpidgey ("Rpidgey.png", 0, 400, 37, 30, 5, 0, 5, 10);
   enemies.push_back (squirtle);
   enemies.push_back (poliwhirl);
   enemies.push_back (rpidgey);
@@ -363,7 +368,7 @@ Mix_PlayMusic( music, -1 );
   Text continueToGame ("Continue to Game", 2 * SCREEN_WIDTH / 5, 8 * SCREEN_HEIGHT / 9, colorWhite, 30);
    Text gunsMessage("Guns",100,10,colorWhite,20);
 	Text storeHeader("Select your items", 2*SCREEN_WIDTH/5, 0,colorWhite,40);
-     Dome dome ("dome.png", 485, 135, 230, 465, 10000, 10000);
+     Dome dome ("dome.png", DOME_BASE_X_BEG, GROUND-DOME_HEIGHT, DOME_BASE_W, DOME_HEIGHT, 10000, 10000);
 bool gameIsOver= false;
 
 Text scoretext("Score: ",20,20,colorWhite,30);
@@ -532,8 +537,7 @@ while(gameIsOver==false)
 	}
 
 crosshairs.show(screen);
-//awards score for the player lasting longer
-score++;
+
 
 
       //Update the screen
