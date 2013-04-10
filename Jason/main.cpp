@@ -66,7 +66,7 @@ Smg* smg;
 Lmg* lmg;
 
 //Music
-Mix_Music *music = NULL;
+Mix_Music *music;
 
 
 //user can only use one weapon at a time
@@ -295,11 +295,6 @@ main (int argc, char *args[])
 //score for the game, increases through the while loop, also will increase based on enemies killed
 int score=0;
 
-music = Mix_LoadMUS( "beat.mp3" );
-if( Mix_PlayMusic( music, -1 ) == -1 )
-                        {
-                            return 1;
-                        }  
   //Quit flag
   bool quit = false;
 
@@ -314,6 +309,13 @@ if( Mix_PlayMusic( music, -1 ) == -1 )
     {
       return 1;
     }
+
+music = Mix_LoadMUS( "beat.wav" );
+if( music == NULL )
+    {
+        return false;    
+    }
+Mix_PlayMusic( music, -1 );
 
 /*HOME SCREEN*/
   Background background ("background.bmp");
@@ -403,18 +405,18 @@ while(gameIsOver==false)
       //show the background and dome
 
       background.show (screen);
-statsborder.show(screen);
+	statsborder.show(screen);
       dome.show (screen);
 
-//currently segfaults after ~30 seconds
-scoretext.show(screen);
-actualscoretext.setText(boost::lexical_cast<string>( score ));
-actualscoretext.show(screen);
-weaponname.show(screen);
-//weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
-domename.show(screen);
-domehealth.setText(boost::lexical_cast<string>(dome.getCurrentHealth()));
-domehealth.show(screen);
+	scoretext.show(screen);
+	actualscoretext.setText(boost::lexical_cast<string>( score ));
+	actualscoretext.show(screen);
+	weaponname.show(screen);
+	weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
+	domename.show(screen);
+	//divide health by 100 so it is easier for the user to read
+	domehealth.setText(boost::lexical_cast<string>(dome.getCurrentHealth()/100));
+	domehealth.show(screen);
 
 //move the enemies
       for (int i = 0; i < enemies.size (); i++)
@@ -463,6 +465,9 @@ domehealth.show(screen);
       //While there's events to handle
       while (SDL_PollEvent (&event))
 	{
+
+
+
 		//switch weapons if they hit the left or right arrow keys
 	       if(event.type == SDL_KEYDOWN)
 		{

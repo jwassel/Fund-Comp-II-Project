@@ -16,6 +16,12 @@ void Smg::show(SDL_Surface * screen)
 	apply_surface(xpos, ypos, sprite, screen, &clips);
 }
 
+void Smg::showDuringGamePlay(int x,int y, SDL_Surface * screen){
+
+   apply_surface(x,y,sprite,screen,&clips);
+}
+
+
 void Smg::setClips(){
   clips.x = 285;
   clips.y = 88;

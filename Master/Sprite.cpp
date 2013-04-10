@@ -28,7 +28,7 @@ void Sprite::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* desti
     SDL_BlitSurface(source, clip, destination, &shift);
 }
 
-SDL_Surface * Sprite::load_image(std::string filename)
+SDL_Surface * Sprite::load_image(string filename)
 {
 	//temporary storage for the image that's loaded
 	SDL_Surface* loadedImage = NULL;

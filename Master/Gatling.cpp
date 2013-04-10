@@ -17,6 +17,11 @@ void Gatling::show(SDL_Surface *screen)
 	apply_surface(xpos, ypos, sprite, screen, &clips);
 }
 
+void Gatling::showDuringGamePlay(int x,int y, SDL_Surface * screen){
+
+   apply_surface(x,y,sprite,screen,&clips);
+}
+
 void Gatling::setClips(){
   clips.x = 0;
   clips.y = 185;

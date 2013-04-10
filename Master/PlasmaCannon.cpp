@@ -22,6 +22,11 @@ void PlasmaCannon::setClips(){
   clips.w = 125;
   clips.h = 60;
 }
+void PlasmaCannon::showDuringGamePlay(int x,int y, SDL_Surface * screen){
+
+   apply_surface(x,y,sprite,screen,&clips);
+}
+
 
 int PlasmaCannon::getWidth() {
 	return clips.w;

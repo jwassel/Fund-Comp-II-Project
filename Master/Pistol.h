@@ -15,7 +15,7 @@ class Pistol:public Weapon
 		int getWidth();
 		int getHeight();
 		int isClicked(int,int);
-
+void showDuringGamePlay(int ,int , SDL_Surface * );
 	private:
 		SDL_Rect clips;
 };

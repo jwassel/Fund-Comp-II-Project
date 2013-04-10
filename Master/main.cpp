@@ -7,6 +7,7 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include "SDL/SDL_ttf.h"
+#include "SDL/SDL_mixer.h"
 #include "Enemy.h"
 #include "Timer.h"
 #include "Sprite.h"
@@ -22,6 +23,8 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Lmg.h"
 #include "PlasmaCannon.h"
 #include "Text.h"
+#include "Crosshairs.h"
+#include <boost/lexical_cast.hpp>
 #include <string>
 #include <vector>
 #include <iostream>
@@ -36,6 +39,7 @@ using namespace std;
 
 //The screen surface
 SDL_Surface *screen = NULL;
+SDL_Surface *cursor=NULL;
 
 SDL_Color colorWhite = { 255, 255, 255 };
 SDL_Color colorBlack = {0,0,0};
@@ -61,6 +65,10 @@ Gatling* gatling;
 Smg* smg;
 Lmg* lmg;
 
+//Music
+Mix_Music *music;
+
+
 //user can only use one weapon at a time
 int currentWeaponIndex = 0;
 
@@ -83,6 +91,7 @@ init ()
   screen =
     SDL_SetVideoMode (SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE);
 
+if( Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 ) { return false; }
   //If there was an error in setting up the screen
   if (screen == NULL)
     {
@@ -106,7 +115,7 @@ init ()
 void
 clean_up ()
 {
-  
+  //ADD STUFF FREEING SURFACES
 
   //Quit SDL
   SDL_Quit ();
@@ -149,15 +158,15 @@ load_enemies ()
 void load_store()
 {    // Clipsize, Price, AmmoPrice, Damage, FireRate, x on screen, y on screen
 
-    plasmaCannon = new PlasmaCannon("weapons.png", "explosionsgunshot.PNG", 25,1000,100,100,1,100,450);
+    plasmaCannon = new PlasmaCannon("weapons.png", "explosionplasma.PNG", 25,1000,100,100,1,100,450);
     store.push_back(plasmaCannon);
-    pistol = new Pistol("weapons.png", "explosionsgunshot.PNG", 12,100,10,15,5,100,60);
+    pistol = new Pistol("weapons.png", "explosionpistol.png", 12,100,10,15,5,100,60);
     store.push_back(pistol);
-    gatling = new Gatling("weapons.png", "explosionsgunshot.PNG", 60,400,30,8,30,100,250);
+    gatling = new Gatling("weapons.png", "explosiongatling.png", 60,400,30,8,30,100,250);
     store.push_back(gatling);
-    smg = new Smg("weapons.png", "explosionsgunshot.PNG", 40,500,35,15,20,100,150);
+    smg = new Smg("weapons.png", "explosionsmg.PNG", 40,500,35,15,20,100,150);
     store.push_back(smg);
-    lmg = new Lmg("weapons.png", "explosionsgunshot.PNG", 100,700,40,25,18,100,350);
+    lmg = new Lmg("weapons.png", "explosionlmg.PNG", 100,700,40,25,18,100,350);
     store.push_back(lmg);
 }
 
@@ -216,7 +225,8 @@ bool purchaseFromStore(int x, int y, Text &continueToGame, Text&messageToUser)
 
 //goes to the store screen and displays it
 int goToStore(Text &continueToGame, Text &gunsMessage, Text &storeHeader)
-{
+{  
+  SDL_ShowCursor(1);
 	SDL_FillRect (screen, &screen->clip_rect,
 			SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
 	//store screen
@@ -233,6 +243,7 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &storeHeader)
    bool continueButton = false;
    while(continueButton == false)
    {
+	
 
 	while (SDL_PollEvent (&event)) {
 		//If a mouse button was pressed
@@ -270,15 +281,19 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &storeHeader)
 
 	}
    }
-
+ SDL_ShowCursor(0);
 	return 1;
 }
+
+
+
 
 //the main function
 int
 main (int argc, char *args[])
 {
-
+//score for the game, increases through the while loop, also will increase based on enemies killed
+int score=0;
 
   //Quit flag
   bool quit = false;
@@ -288,7 +303,6 @@ main (int argc, char *args[])
   //The frame rate regulator
   Timer fps;
 
- 
 
   //Initialize
   if (init () == false)
@@ -296,14 +310,24 @@ main (int argc, char *args[])
       return 1;
     }
 
+music = Mix_LoadMUS( "beat.wav" );
+if( music == NULL )
+    {
+        return false;    
+    }
+Mix_PlayMusic( music, -1 );
+
 /*HOME SCREEN*/
   Background background ("background.bmp");
+  Background statsborder("border.png");
   background.show(screen);
+  
   Text pokeDome("POKEDOME",2*SCREEN_WIDTH/5, SCREEN_HEIGHT/5,colorBlack,50);
   pokeDome.show(screen);
   Text playButton("Play",SCREEN_WIDTH/2,3*SCREEN_HEIGHT/5,colorBlack,30);
   playButton.show(screen);
   SDL_Flip(screen);
+
   bool play = false;
 	//while they have not hit the play button
 	while(play==false)
@@ -341,6 +365,14 @@ main (int argc, char *args[])
 	Text storeHeader("Select your items", 2*SCREEN_WIDTH/5, 0,colorWhite,40);
      Dome dome ("dome.png", 485, 135, 230, 465, 10000, 10000);
 bool gameIsOver= false;
+
+Text scoretext("Score: ",20,20,colorWhite,30);
+Text actualscoretext( boost::lexical_cast<string>( score ),110,20,colorWhite,30);
+Text weaponname("Weapon: " ,350,20,colorWhite,30);
+Text domename ("Dome Health: ",1000,10,colorWhite,20);
+Text domehealth(boost::lexical_cast<string>(dome.getCurrentHealth()),1050,30,colorWhite,30);
+
+ Crosshairs crosshairs;
 //while they have not beat the game or have not died 
 while(gameIsOver==false)
 {
@@ -360,16 +392,31 @@ while(gameIsOver==false)
   /*LOAD  ENEMIES*/
   load_enemies (); //loads enemies for current level
   quit = false;
+
+
+
   //While the user hasn't quit
   while (quit == false)
     {
- 
+
+
    //Start the frame timer
       fps.start ();
       //show the background and dome
 
       background.show (screen);
+	statsborder.show(screen);
       dome.show (screen);
+
+	scoretext.show(screen);
+	actualscoretext.setText(boost::lexical_cast<string>( score ));
+	actualscoretext.show(screen);
+	weaponname.show(screen);
+	weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
+	domename.show(screen);
+	//divide health by 100 so it is easier for the user to read
+	domehealth.setText(boost::lexical_cast<string>(dome.getCurrentHealth()/100));
+	domehealth.show(screen);
 
 //move the enemies
       for (int i = 0; i < enemies.size (); i++)
@@ -384,7 +431,7 @@ while(gameIsOver==false)
 	       enemies[i]->getXVel ()))
 	    {
 	      dome.getAttacked (enemies[i]->attack ());
-	      //cout<<"Dome's health: "<<dome.getCurrentHealth()<<endl;
+//cout<<"Dome's health: "<<dome.getCurrentHealth()<<endl;
 		//if the dome's health is <=0
 	      if (dome.isDead ())
 		{
@@ -418,6 +465,9 @@ while(gameIsOver==false)
       //While there's events to handle
       while (SDL_PollEvent (&event))
 	{
+
+
+
 		//switch weapons if they hit the left or right arrow keys
 	       if(event.type == SDL_KEYDOWN)
 		{
@@ -473,7 +523,7 @@ while(gameIsOver==false)
 		gameIsOver = true;
  		SDL_FillRect (screen, &screen->clip_rect,
 			SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
-		Text gameWon("You have beat the game!",2 * SCREEN_WIDTH / 5,2 * SCREEN_HEIGHT / 5, colorWhite, 40);
+		Text gameWon("You have beaten the game!",2 * SCREEN_WIDTH / 5,2 * SCREEN_HEIGHT / 5, colorWhite, 40);
 		gameWon.show(screen);
 		SDL_Flip(screen);
 		SDL_Delay(2000);
@@ -482,6 +532,9 @@ while(gameIsOver==false)
 	  }
 	}
 
+crosshairs.show(screen);
+//awards score for the player lasting longer
+score++;
 
 
       //Update the screen

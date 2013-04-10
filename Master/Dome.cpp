@@ -88,7 +88,7 @@ clips[2].x = 890;
 }
 
 int Dome::getCurrentHealth()
-{
+{cout<<currentHealth<<endl;
 	return currentHealth;
 }
 

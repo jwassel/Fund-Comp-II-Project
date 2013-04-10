@@ -18,10 +18,18 @@ void Pistol::setClips(){
   clips.h = 39;
 }
 
+
+
 void Pistol::show(SDL_Surface *screen)
 {
 	apply_surface(xpos,ypos,sprite,screen,&clips);
 }
+
+void Pistol::showDuringGamePlay(int x,int y, SDL_Surface * screen){
+
+   apply_surface(x,y,sprite,screen,&clips);
+}
+
 
 int Pistol::getWidth() {
 	return clips.w;

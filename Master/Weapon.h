@@ -19,6 +19,7 @@ public:
 	void showExplosion(int,int,SDL_Surface *); //shows the explosion for the particular weapon
 	int getXpos();
 	int getYpos();
+	virtual void showDuringGamePlay(int, int, SDL_Surface*)=0;
 
 protected:
 	
