@@ -1,4 +1,5 @@
-//Get good image and set clips.
+
+/*Implementation of Dome class*/
 #include "Dome.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
@@ -7,7 +8,9 @@
 using namespace std;
 const int MIDDLE_DOME = 355; //where on the screen the upper half of the dome is
 const int GOLDEN_DOME_X_BEG = 520; //the x position of the golden dome
-const int GOLDEN_DOME_X_END = 660;
+const int GOLDEN_DOME_X_END = 660; //The x position plus width of golden dome
+
+//constructor
 Dome::Dome(string filename,int x, int y, int w, int h, int max, int curr)
 {
 	sprite = load_image(filename.c_str());
