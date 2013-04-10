@@ -135,7 +135,7 @@ load_enemies ()
 
    squirtle = new Squirtle ("squirtlej.png", 1000, 0, 38, 36, -5, 10, 20, 50);
    poliwhirl = new Poliwhirl ("poliwhirl.png", 1100, 0, 75, 80, -7, 12, 30, 100);  
-   rpidgey = new Rpidgey ("Rpidgey.png", 0, 400, 37, 30, 5, 0, 5, 10);
+   rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
   enemies.push_back (squirtle);
   enemies.push_back (poliwhirl);
   enemies.push_back (rpidgey);
