@@ -9,7 +9,7 @@
 using namespace std;
 class Weapon{
 public:
-	Weapon(string,string,int,int,int,int,int,int,int); //constructor
+	Weapon(string,string,int,int,int,int,int,int,int,int); //constructor
 	virtual void fire()=0; 
 	virtual void setClips()=0; //sets the clip fo the weapon (how it will look on the store screen)
 	virtual void show(SDL_Surface *)=0; //shows the weapon on the screen
@@ -19,22 +19,21 @@ public:
 	void showExplosion(int,int,SDL_Surface *); //shows the explosion for the particular weapon
 	int getXpos();
 	int getYpos();
+	int getSize();
 	virtual void showDuringGamePlay(int, int, SDL_Surface*)=0;
 
 protected:
 	
 	SDL_Surface * sprite; //the image shown on the store screen
 	SDL_Surface * explosionImage; //the image shown when the fire
-	int power;
 	int clipsize;
 	int price; //price to buy the gun
 	int ammoPrice; //price to buy ammo
 	int damage; //how much damamge it does when fired at something
 	int fireRate;
-
         int xpos;
 	int ypos;
-	
+	int explosionSize;
 };
 
 #endif

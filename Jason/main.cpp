@@ -158,15 +158,15 @@ load_enemies ()
 void load_store()
 {    // Clipsize, Price, AmmoPrice, Damage, FireRate, x on screen, y on screen
 
-    plasmaCannon = new PlasmaCannon("weapons.png", "explosionplasma.PNG", 25,1000,100,100,1,100,450);
+    plasmaCannon = new PlasmaCannon("weapons.png", "explosionplasma.PNG", 25,1000,100,100,1,100,450,40);
     store.push_back(plasmaCannon);
-    pistol = new Pistol("weapons.png", "explosionpistol.png", 12,100,10,15,5,100,60);
+    pistol = new Pistol("weapons.png", "explosionpistol.png", 12,100,10,15,5,100,60,8);
     store.push_back(pistol);
-    gatling = new Gatling("weapons.png", "explosiongatling.png", 60,400,30,8,30,100,250);
+    gatling = new Gatling("weapons.png", "explosiongatling.png", 60,400,30,8,30,100,250,30);
     store.push_back(gatling);
-    smg = new Smg("weapons.png", "explosionsmg.PNG", 40,500,35,15,20,100,150);
+    smg = new Smg("weapons.png", "explosionsmg.PNG", 40,500,35,15,20,100,150,20);
     store.push_back(smg);
-    lmg = new Lmg("weapons.png", "explosionlmg.PNG", 100,700,40,25,18,100,350);
+    lmg = new Lmg("weapons.png", "explosionlmg.PNG", 100,700,40,25,18,100,350,26);
     store.push_back(lmg);
 }
 
@@ -409,7 +409,7 @@ while(gameIsOver==false)
       dome.show (screen);
 
 	scoretext.show(screen);
-	actualscoretext.setText(boost::lexical_cast<string>( score ));
+	actualscoretext.setText(boost::lexical_cast<string>(score));
 	actualscoretext.show(screen);
 	weaponname.show(screen);
 	weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
@@ -417,21 +417,20 @@ while(gameIsOver==false)
 	//divide health by 100 so it is easier for the user to read
 	domehealth.setText(boost::lexical_cast<string>(dome.getCurrentHealth()/100));
 	domehealth.show(screen);
-
 //move the enemies
       for (int i = 0; i < enemies.size (); i++)
 	{
 	  enemies[i]->move ();
 	  if (enemies[i]->isDead ())
 	    continue;
-	//if the enemy is colliding with the dome then attack the dome with the enemie's power
+	//if the enemy is colliding with the dome then attack the dome with the enemy's power
 	  if (dome.isCollidingWithEnemy
 	      (enemies[i]->getX (), enemies[i]->getY (),
 	       enemies[i]->getWidth (), enemies[i]->getHeight (),
 	       enemies[i]->getXVel ()))
 	    {
 	      dome.getAttacked (enemies[i]->attack ());
-//cout<<"Dome's health: "<<dome.getCurrentHealth()<<endl;
+
 		//if the dome's health is <=0
 	      if (dome.isDead ())
 		{

@@ -7,7 +7,7 @@
 #include "Enemy.h"
 #include <iostream>
 using namespace std;
-Weapon::Weapon(string filename,string explosionName,int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y){
+Weapon::Weapon(string filename,string explosionName,int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y,int expsize){
 
 clipsize = Clipsize;
 price = Price;
@@ -16,6 +16,7 @@ damage = Damage;
 fireRate = fireRate;
 xpos = x;
 ypos = y;
+explosionSize=expsize;
 
 sprite = load_image(filename.c_str());
 explosionImage = load_image(explosionName.c_str());
@@ -25,6 +26,10 @@ explosionImage = load_image(explosionName.c_str());
 void Weapon::showExplosion(int x, int y, SDL_Surface *screen)
 {
       apply_surface(x,y,explosionImage,screen,NULL);
+}
+
+int Weapon::getSize(){
+return explosionSize;
 }
 
 void Weapon::handle_events(SDL_Event event,vector<Enemy*> enemies, SDL_Surface * screen)
@@ -47,7 +52,7 @@ int enemyHeight = 0;
 	  x = event.button.x;
 	  y = event.button.y;
 ////NEED TO CHANGE THIS HARDCODE, should be half of the weapon explosion size
-	  showExplosion(x-7,y-7,screen);
+	  showExplosion(x-getSize()/2,y-getSize()/2,screen);
 	  
 	for(int i=0;i<enemies.size();i++)
 	{

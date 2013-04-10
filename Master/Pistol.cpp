@@ -2,7 +2,7 @@
 #include <string>
 #include "Pistol.h"
 
-Pistol::Pistol(string filename, string explosionName, int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y):Weapon(filename,explosionName,Clipsize, Price, AmmoPrice, Damage, FireRate,x,y){
+Pistol::Pistol(string filename, string explosionName, int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y, int expsize):Weapon(filename,explosionName,Clipsize, Price, AmmoPrice, Damage, FireRate,x,y,expsize){
 
 setClips();
 }

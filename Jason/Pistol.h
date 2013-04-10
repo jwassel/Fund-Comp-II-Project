@@ -8,7 +8,7 @@
 class Pistol:public Weapon
 {
 	public:
-		Pistol(string,string,int, int,int,int,int,int,int);//constructor
+		Pistol(string,string,int, int,int,int,int,int,int,int);//constructor
 		virtual void setClips();
 		virtual void fire();
 		virtual void show(SDL_Surface *); //shows the weapon on the screen

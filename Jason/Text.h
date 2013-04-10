@@ -25,6 +25,7 @@ class Text
 		int height;
 		int size;
 		SDL_Color color;
+		TTF_Font *font;
 };
 
 #endif
