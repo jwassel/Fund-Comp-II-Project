@@ -295,8 +295,8 @@ main (int argc, char *args[])
 //score for the game, increases through the while loop, also will increase based on enemies killed
 int score=0;
 
-/*music = Mix_LoadMUS( "beat.mp3" );
-Mix_PlayMusic(music, -1);*/
+music = Mix_LoadMUS( "beat.mp3" );
+Mix_PlayMusic(music, -1);
   //Quit flag
   bool quit = false;
 
@@ -305,7 +305,6 @@ Mix_PlayMusic(music, -1);*/
   //The frame rate regulator
   Timer fps;
 
- 
 
   //Initialize
   if (init () == false)
@@ -362,7 +361,13 @@ Mix_PlayMusic(music, -1);*/
      Dome dome ("dome.png", 485, 135, 230, 465, 10000, 10000);
 bool gameIsOver= false;
 
+Text scoretext("Score: ",20,20,colorWhite,30);
+Text actualscoretext( boost::lexical_cast<string>( score ),110,20,colorWhite,30);
+Text weaponname("Weapon: " ,350,20,colorWhite,30);
+Text domename ("Dome Health: ",1000,10,colorWhite,20);
+Text domehealth(boost::lexical_cast<string>(dome.getCurrentHealth()),1050,30,colorWhite,30);
 
+ Crosshairs crosshairs;
 //while they have not beat the game or have not died 
 while(gameIsOver==false)
 {
@@ -382,10 +387,13 @@ while(gameIsOver==false)
   /*LOAD  ENEMIES*/
   load_enemies (); //loads enemies for current level
   quit = false;
+
+
+
   //While the user hasn't quit
   while (quit == false)
     {
- Crosshairs crosshairs;
+
 
    //Start the frame timer
       fps.start ();
@@ -395,19 +403,16 @@ while(gameIsOver==false)
 statsborder.show(screen);
       dome.show (screen);
 
-//currently segfaults
-/*Text scoretext("Score: ",20,20,colorWhite,30);
+//currently segfaults after ~30 seconds
 scoretext.show(screen);
-Text actualscoretext( boost::lexical_cast<string>( score ),110,20,colorWhite,30);
+actualscoretext.setText(boost::lexical_cast<string>( score ));
 actualscoretext.show(screen);
-Text weaponname("Weapon: " ,350,20,colorWhite,30);
 weaponname.show(screen);
-weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
-Text domename ("Dome Health: ",1000,10,colorWhite,20);
+//weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
 domename.show(screen);
-//Text domehealth(boost::lexical_cast<string>(dome.getCurrentHealth()),1050,30,colorWhite,30);
-//domehealth.show(screen);
-*/
+domehealth.setText(boost::lexical_cast<string>(dome.getCurrentHealth()));
+domehealth.show(screen);
+
 //move the enemies
       for (int i = 0; i < enemies.size (); i++)
 	{
@@ -421,7 +426,7 @@ domename.show(screen);
 	       enemies[i]->getXVel ()))
 	    {
 	      dome.getAttacked (enemies[i]->attack ());
-cout<<"Dome's health: "<<dome.getCurrentHealth()<<endl;
+//cout<<"Dome's health: "<<dome.getCurrentHealth()<<endl;
 		//if the dome's health is <=0
 	      if (dome.isDead ())
 		{
