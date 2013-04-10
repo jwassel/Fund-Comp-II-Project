@@ -1,10 +1,11 @@
 
-//implementation of the abstract enemy class
+//Implementation of the abstract enemy class
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include "Enemy.h"
 #include "Sprite.h"
+//constructor
 Enemy::Enemy(string filename, int x,int y, int w, int h, int xv, int yv, int p, int hea):Sprite(filename,x,y,w,h)
 {
 	xVel = xv;
@@ -57,7 +58,7 @@ int Enemy::isDead()
 
 	return 0;
 }
-
+//reduces the enemy's health by damage
 void Enemy::getAttacked(int damage)
 {
 	health-=damage;
