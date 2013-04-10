@@ -18,6 +18,8 @@ public:
 	SDL_Surface * load_image(string); //takes in image of sprite
 	void handle_events(SDL_Event ,vector<Enemy*>,SDL_Surface*);
 	void showExplosion(int,int,SDL_Surface *); //shows the explosion for the particular weapon
+	int getXpos();
+	int getYpos();
 
 protected:
 	

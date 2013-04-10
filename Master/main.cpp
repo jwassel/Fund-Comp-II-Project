@@ -13,6 +13,10 @@
 #include "Dome.h"
 #include "Weapon.h"
 #include "Pistol.h"
+#include "Gatling.h"
+#include "Smg.h"
+#include "Lmg.h"
+#include "PlasmaCannon.h"
 #include "Text.h"
 #include <string>
 #include <vector>
@@ -29,8 +33,8 @@ using namespace std;
 //The screen surface
 SDL_Surface *screen = NULL;
 
-SDL_Color textColor = { 255, 255, 255 };
-
+SDL_Color colorWhite = { 255, 255, 255 };
+SDL_Color colorBlack = {0,0,0};
 //The event structure
 SDL_Event event;
 
@@ -40,8 +44,17 @@ Poliwhirl *poliwhirl;
 Rpidgey *rpidgey;
 SDL_Surface *message = NULL;
 vector < Weapon * >weapons;
-Pistol *pistol;
+vector < Weapon * >store;
 
+Pistol *pistol;
+PlasmaCannon* plasmaCannon;
+Gatling* gatling;
+Smg* smg;
+Lmg* lmg;
+
+int currentWeaponIndex = 0;
+int currentLevel = 1;
+int maxLevel = 2;
 bool
 init ()
 {
@@ -78,8 +91,7 @@ init ()
 void
 clean_up ()
 {
-  //Free the surface
-  //SDL_FreeSurface(background);
+  
 
   //Quit SDL
   SDL_Quit ();
@@ -89,23 +101,161 @@ clean_up ()
 void
 load_enemies ()
 {
-  squirtle = new Squirtle ("squirtlej.png", 1000, 0, 38, 36, -5, 10, 20, 50);
+  if(currentLevel==1)
+  {
+
+   squirtle = new Squirtle ("squirtlej.png", 1000, 0, 38, 36, -5, 10, 20, 50);
+   poliwhirl = new Poliwhirl ("poliwhirl.png", 1100, 0, 75, 80, -7, 12, 30, 100);  
+   rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
   enemies.push_back (squirtle);
-  poliwhirl =
-    new Poliwhirl ("poliwhirl.png", 1100, 0, 75, 80, -7, 12, 30, 100);
   enemies.push_back (poliwhirl);
-  rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
   enemies.push_back (rpidgey);
+  }
+  else if(currentLevel==2)
+  {
+	enemies.clear();
+       squirtle = new Squirtle ("squirtlej.png", 1000, 0, 38, 36, -10, 20, 20, 50);
+      poliwhirl = new Poliwhirl ("poliwhirl.png", 1100, 0, 75, 80, -14, 24, 30, 100);  
+      rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 10, 0, 5, 10);
+        enemies.push_back (squirtle);
+  	enemies.push_back (poliwhirl);
+  	enemies.push_back (rpidgey);
+       squirtle = new Squirtle ("squirtlej.png", 1000, -100, 38, 36, -10, 20, 20, 50);
+      poliwhirl = new Poliwhirl ("poliwhirl.png", 1100, -100, 75, 80, -14, 24, 30, 100);  
+      rpidgey = new Rpidgey ("Rpidgey.png", 0, 300, 37, 30, 10, 0, 5, 10);
+    enemies.push_back (squirtle);
+  	enemies.push_back (poliwhirl);
+  	enemies.push_back (rpidgey);
+	
+  }
 }
 
-void
-load_weapons ()
-{
-  pistol =
-    new Pistol ("weapons.png", "explosionsgunshot.PNG", 10, 100, 15, 10, 20,
-		0, 0);
-  weapons.push_back (pistol);
+void load_store()
+{    // Clipsize, Price, AmmoPrice, Damage, FireRate, x on screen, y on screen
+
+    plasmaCannon = new PlasmaCannon("weapons.png", "explosionsgunshot.PNG", 25,1000,100,100,1,100,450);
+    store.push_back(plasmaCannon);
+    pistol = new Pistol("weapons.png", "explosionsgunshot.PNG", 12,100,10,15,5,100,60);
+    store.push_back(pistol);
+    gatling = new Gatling("weapons.png", "explosionsgunshot.PNG", 60,400,30,8,30,100,250);
+    store.push_back(gatling);
+    smg = new Smg("weapons.png", "explosionsgunshot.PNG", 40,500,35,15,20,100,150);
+    store.push_back(smg);
+    lmg = new Lmg("weapons.png", "explosionsgunshot.PNG", 100,700,40,25,18,100,350);
+    store.push_back(lmg);
 }
+
+bool purchaseFromStore(int x, int y, Text &continueToGame, Text&messageToUser)
+{
+
+	if(continueToGame.isClicked(x,y)) {
+		return true;
+	}
+	
+	if(pistol->isClicked(x,y))
+	{
+		messageToUser.setText("Succesfully Added Pistol");
+		messageToUser.show(screen);
+		SDL_Flip(screen);
+		weapons.push_back (pistol);
+	}
+
+	if(gatling->isClicked(x,y))
+	{
+		messageToUser.setText("Succesfully Added Gatling");
+		messageToUser.show(screen);
+		SDL_Flip(screen);
+		weapons.push_back(gatling);
+
+	}
+
+	if(lmg->isClicked(x,y))
+	{
+		messageToUser.setText("Succesfully Added LMG");
+		messageToUser.show(screen);
+		SDL_Flip(screen);
+		weapons.push_back(lmg);
+
+	}
+
+	if(smg->isClicked(x,y))
+	{
+		messageToUser.setText("Succesfully Added SMG");
+		messageToUser.show(screen);
+		SDL_Flip(screen);
+		weapons.push_back(smg);
+
+	}
+
+	if(plasmaCannon->isClicked(x,y))
+	{
+		messageToUser.setText("Succesfully Added Plasma Cannon");
+		messageToUser.show(screen);
+		SDL_Flip(screen);
+		weapons.push_back(plasmaCannon);
+	}
+	return false;	
+}
+
+int goToStore(Text &continueToGame, Text &gunsMessage, Text &storeHeader)
+{
+	SDL_FillRect (screen, &screen->clip_rect,
+			SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
+	//store screen
+	for(int j=0;j<store.size();j++)
+	{
+		store[j]->show(screen); //x, y, surface
+	}
+	continueToGame.show(screen);
+	gunsMessage.show(screen);
+	storeHeader.show(screen);
+	SDL_Flip(screen);
+
+     Text messageToUser("Succesfully Added",continueToGame.getTextXpos()+continueToGame.getWidth()+50,continueToGame.getTextYpos(),colorWhite,20);
+   bool continueButton = false;
+   while(continueButton == false)
+   {
+
+	while (SDL_PollEvent (&event)) {
+		//If a mouse button was pressed
+		if (event.type == SDL_MOUSEBUTTONDOWN)
+		{
+			//If the left mouse button was pressed
+			if (event.button.button == SDL_BUTTON_LEFT)
+			{
+	  			//Get the mouse offsets
+	  			int x = event.button.x;
+	  			int y = event.button.y;
+			SDL_FillRect (screen, &screen->clip_rect,
+							SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
+					//store screen
+					for(int j=0;j<store.size();j++)
+					{
+						store[j]->show(screen); //x, y, surface
+					}
+					continueToGame.show(screen);
+					gunsMessage.show(screen);
+					storeHeader.show(screen);
+					SDL_Flip(screen);
+				continueButton = purchaseFromStore(x,y,continueToGame,messageToUser);
+				if(weapons.size()==0)
+					continueButton = false;
+			}
+		}
+
+		//If the user has Xed out the window
+		  if (event.type == SDL_QUIT)
+		    {
+		      //Quit the program
+		      return 0;
+		    }
+
+	}
+   }
+
+	return 1;
+}
+
 
 int
 main (int argc, char *args[])
@@ -120,23 +270,80 @@ main (int argc, char *args[])
   //The frame rate regulator
   Timer fps;
 
-
+ 
 
   //Initialize
   if (init () == false)
     {
       return 1;
     }
+
+/*HOME SCREEN*/
   Background background ("background.bmp");
-  Dome dome ("dome.png", 485, 135, 230, 465, 2000, 2000);
+  background.show(screen);
+  Text pokeDome("POKEDOME",2*SCREEN_WIDTH/5, SCREEN_HEIGHT/5,colorBlack,50);
+  pokeDome.show(screen);
+  Text playButton("Play",SCREEN_WIDTH/2,3*SCREEN_HEIGHT/5,colorBlack,30);
+  playButton.show(screen);
+  SDL_Flip(screen);
+  bool play = false;
+	while(play==false)
+	{
+		while(SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_MOUSEBUTTONDOWN)
+			{
+				//If the left mouse button was pressed
+				if (event.button.button == SDL_BUTTON_LEFT)
+				{
+		  			//Get the mouse offsets
+		  			int x = event.button.x;
+		  			int y = event.button.y;
+					if(playButton.isClicked(x,y))
+						play = true;
+			
+				}
+			}
+
+		//If the user has Xed out the window
+			  if (event.type == SDL_QUIT)
+			    {
+			      //Quit the program
+			      return 0;
+			    }
+
+		}
+	}
+
+  load_store();
+  Text continueToGame ("Continue to Game", 2 * SCREEN_WIDTH / 5, 8 * SCREEN_HEIGHT / 9, colorWhite, 30);
+   Text gunsMessage("Guns",100,10,colorWhite,20);
+	Text storeHeader("Select your items", 2*SCREEN_WIDTH/5, 0,colorWhite,40);
+     Dome dome ("dome.png", 485, 135, 230, 465, 10000, 10000);
+bool gameIsOver= false;
+while(gameIsOver==false)
+{
+
+  /*ITEM SELECTION*/
+   int continued = goToStore(continueToGame,gunsMessage,storeHeader);
+   if(!continued)
+	{
+		clean_up();
+		return 0;
+	}
+
+
+/* START GAMEPLAY */
+
+  /*LOAD  ENEMIES*/
   load_enemies ();
-  load_weapons ();
+  quit = false;
   //While the user hasn't quit
   while (quit == false)
     {
-      //Start the frame timer
+ 
+   //Start the frame timer
       fps.start ();
-
       //show the background
       background.show (screen);
       dome.show (screen);
@@ -156,7 +363,22 @@ main (int argc, char *args[])
 	      //cout<<"Dome's health: "<<dome.getCurrentHealth()<<endl;
 	      if (dome.isDead ())
 		{
-		  //cout<<"Dome is dead!"<<endl;
+			 background.show (screen);
+			  for (int j = 0; j < enemies.size (); j++)
+			    {
+			      enemies[j]->show (screen, count);
+			    } SDL_Flip (screen);
+			  SDL_Delay (2000);
+			  SDL_FillRect (screen, &screen->clip_rect,
+			  				SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
+			  Text levelFail ("Game Over", 2 * SCREEN_WIDTH / 5,
+					  2 * SCREEN_HEIGHT / 5, colorWhite,40);
+			  levelFail.show (screen);
+			  SDL_Flip (screen);
+			  SDL_Delay (2000);
+			  quit = true;
+			  gameIsOver = true;
+			  break;
 		}
 	    }
 	}
@@ -170,20 +392,32 @@ main (int argc, char *args[])
       //While there's events to handle
       while (SDL_PollEvent (&event))
 	{
-
-	  for (int i = 0; i < weapons.size (); i++)
-	    {
-	      weapons[i]->handle_events (event, enemies, screen);
-	    }
+	       if(event.type == SDL_KEYDOWN)
+		{
+			if(event.key.keysym.sym == SDLK_LEFT)
+			{
+				if(currentWeaponIndex==0) currentWeaponIndex = weapons.size()-1;
+				else currentWeaponIndex--;
+			}
+			else if( event.key.keysym.sym == SDLK_RIGHT)
+			{
+				if(currentWeaponIndex==weapons.size()-1) currentWeaponIndex = 0;
+				else currentWeaponIndex++;
+			}
+		}
+	      weapons[currentWeaponIndex]->handle_events (event, enemies, screen);
+	    
 	  //If the user has Xed out the window
 	  if (event.type == SDL_QUIT)
 	    {
 	      //Quit the program
 	      quit = true;
+		gameIsOver = true;
+		break;
 	    }
 	}
 
-      int levelComplete = 0;
+      int levelComplete = 1;
       for (int j = 0; j < enemies.size (); j++)
 	{
 	  if (!enemies[j]->isDead ())
@@ -191,8 +425,6 @@ main (int argc, char *args[])
 	      levelComplete = 0;
 	      break;
 	    }
-	  else
-	    levelComplete = 1;
 	}
 
       if (levelComplete)
@@ -200,30 +432,26 @@ main (int argc, char *args[])
 	  SDL_FillRect (screen, &screen->clip_rect,
 			SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
 	  Text levelSuccess ("Level Complete", 2 * SCREEN_WIDTH / 5,
-			     2 * SCREEN_HEIGHT / 5, textColor);
+			     2 * SCREEN_HEIGHT / 5, colorWhite, 40);
 	  levelSuccess.show (screen);
 	  SDL_Flip (screen);
 	  SDL_Delay (2000);
 	  quit = true;
+	  currentLevel++;
+          if(currentLevel>maxLevel)
+	  {
+		gameIsOver = true;
+ 		SDL_FillRect (screen, &screen->clip_rect,
+			SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
+		Text gameWon("You have beat the game!",2 * SCREEN_WIDTH / 5,2 * SCREEN_HEIGHT / 5, colorWhite, 40);
+		gameWon.show(screen);
+		SDL_Flip(screen);
+		SDL_Delay(2000);
+		break;
+			
+	  }
 	}
 
-      if (dome.isDead ())
-	{
-	  background.show (screen);
-	  for (int j = 0; j < enemies.size (); j++)
-	    {
-	      enemies[j]->show (screen, count);
-	    } SDL_Flip (screen);
-	  SDL_Delay (2000);
-	  SDL_FillRect (screen, &screen->clip_rect,
-			SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
-	  Text levelFail ("Game Over", 2 * SCREEN_WIDTH / 5,
-			  2 * SCREEN_HEIGHT / 5, textColor);
-	  levelFail.show (screen);
-	  SDL_Flip (screen);
-	  SDL_Delay (2000);
-	  quit = true;
-	}
 
 
       //Update the screen
@@ -240,6 +468,8 @@ main (int argc, char *args[])
 	}
       count++;
     }
+
+} //ends gameIsOver while loop
 
   //Clean up
   clean_up ();

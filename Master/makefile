@@ -1,9 +1,9 @@
-OBJECTS = main.o Timer.o Enemy.o Squirtle.o Sprite.o Background.o Poliwhirl.o Rpidgey.o Dome.o Weapon.o Pistol.o Text.o
+OBJECTS = main.o Timer.o Enemy.o Squirtle.o Sprite.o Background.o Poliwhirl.o Rpidgey.o Dome.o Weapon.o Pistol.o Gatling.o Lmg.o Smg.o PlasmaCannon.o Text.o
 OUTPUT = main
 SDLLINKS = -lSDL -lSDL_image -lSDL_ttf
 ($OUTPUT): $(OBJECTS)
 	g++ $(OBJECTS) -o $(OUTPUT) $(SDLLINKS)
-main.o: main.cpp Enemy.h Squirtle.h Timer.h Background.h Poliwhirl.h Rpidgey.h Weapon.h Pistol.h Text.h
+main.o: main.cpp Enemy.h Squirtle.h Timer.h Background.h Poliwhirl.h Rpidgey.h Weapon.h Pistol.h Gatling.h Lmg.h Smg.h PlasmaCannon.h Text.h
 	g++ -c main.cpp
 Enemy.o: Enemy.cpp Enemy.h
 	g++ -c Enemy.cpp
@@ -25,6 +25,14 @@ Weapon.o: Weapon.cpp Weapon.h Enemy.h
 	g++ -c Weapon.cpp
 Pistol.o: Pistol.cpp Pistol.h
 	g++ -c Pistol.cpp
+Gatling.o: Gatling.cpp Gatling.h
+	g++ -c Gatling.cpp
+Lmg.o: Lmg.cpp Lmg.h
+	g++ -c Lmg.cpp
+Smg.o: Smg.cpp Smg.h
+	g++ -c Smg.cpp
+PlasmaCannon.o: PlasmaCannon.cpp PlasmaCannon.h
+	g++ -c PlasmaCannon.cpp
 Text.o: Text.cpp Text.h
 	g++ -c Text.cpp
 clean:

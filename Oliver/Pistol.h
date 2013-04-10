@@ -12,6 +12,9 @@ class Pistol:public Weapon
 		virtual void setClips();
 		virtual void fire();
 		virtual void show(SDL_Surface *); //shows the weapon on the screen
+		int getWidth();
+		int getHeight();
+		int isClicked(int,int);
 
 	private:
 		SDL_Rect clips;

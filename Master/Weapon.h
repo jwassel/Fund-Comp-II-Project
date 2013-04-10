@@ -13,11 +13,13 @@ public:
 	Weapon(string,string,int,int,int,int,int,int,int); //constructor
 	virtual void fire()=0; //moves the enemy; diff for every enemy so virtual
 	virtual void setClips()=0;
-        void show(int,int,SDL_Surface *); //shows the weapon on the screen
+	virtual void show(SDL_Surface *)=0; //shows the weapon on the screen
 	void apply_surface(int, int, SDL_Surface *,SDL_Surface *,SDL_Rect * = NULL); //applies new surface
 	SDL_Surface * load_image(string); //takes in image of sprite
 	void handle_events(SDL_Event ,vector<Enemy*>,SDL_Surface*);
 	void showExplosion(int,int,SDL_Surface *); //shows the explosion for the particular weapon
+	int getXpos();
+	int getYpos();
 
 protected:
 	

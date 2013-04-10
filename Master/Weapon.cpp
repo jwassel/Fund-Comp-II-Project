@@ -22,11 +22,6 @@ explosionImage = load_image(explosionName.c_str());
 
 }
 
-void Weapon::show(int x, int y,SDL_Surface *screen)
-{
-	apply_surface(x,y,sprite,screen);
-}
-
 void Weapon::showExplosion(int x, int y, SDL_Surface *screen)
 {
       apply_surface(x,y,explosionImage,screen,NULL);
@@ -121,4 +116,10 @@ SDL_Surface * Weapon::load_image(std::string filename)
 		return optimizedImage;
 }
 
+int Weapon::getXpos() {
+	return xpos;
+}
 
+int Weapon::getYpos() {
+	return ypos;
+}

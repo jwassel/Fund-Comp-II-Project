@@ -116,4 +116,10 @@ SDL_Surface * Weapon::load_image(std::string filename)
 		return optimizedImage;
 }
 
+int Weapon::getXpos() {
+	return xpos;
+}
 
+int Weapon::getYpos() {
+	return ypos;
+}
