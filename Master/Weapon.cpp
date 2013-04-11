@@ -51,7 +51,6 @@ int enemyHeight = 0;
 	  //Get the mouse offsets
 	  x = event.button.x;
 	  y = event.button.y;
-////NEED TO CHANGE THIS HARDCODE, should be half of the weapon explosion size
 	  showExplosion(x-getSize()/2,y-getSize()/2,screen);
 	  
 	for(int i=0;i<enemies.size();i++)

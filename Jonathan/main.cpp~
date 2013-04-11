@@ -128,9 +128,9 @@ clean_up ()
 }
 
 //add all the enemies for the given level 
-void
-load_enemies ()
+void load_enemies ()
 {
+   enemies.clear();
   if(currentLevel==1)
   {
 
@@ -149,7 +149,6 @@ load_enemies ()
   }
   else if(currentLevel==2)
   {
-	enemies.clear();
        squirtle = new Squirtle ("squirtlej.png", 1000, 0, 38, 36, -10, 20, 20, 50);
       poliwhirl = new Poliwhirl ("poliwhirl.png", 1100, 0, 75, 80, -14, 24, 30, 100);  
       rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 10, 0, 5, 10);
@@ -263,9 +262,13 @@ bool purchaseFromStore(int x, int y, Text &continueToGame, Text&messageToUser,Te
 }
 
 //goes to the store screen and displays it
-int goToStore(Text &continueToGame, Text &gunsMessage, Text &storeHeader, Text &moneyText, Text &actualMoneyText)
+int goToStore(Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &storeHeader, Text &moneyText, Text &actualMoneyText,Text &pistolPriceText,Text &plasmaCannonPriceText,Text &gatlingPriceText,Text &smgPriceText,Text &lmgPriceText)
 {  
-  SDL_ShowCursor(1);
+	//set money text since money could change each time you come to the store
+	actualMoneyText.setText(boost::lexical_cast<string>(money));
+
+
+  	SDL_ShowCursor(1);
 	SDL_FillRect (screen, &screen->clip_rect,
 			SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
 	//store screen
@@ -275,9 +278,15 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &storeHeader, Text &
 	}
 	continueToGame.show(screen);
 	gunsMessage.show(screen);
+	priceHeader.show(screen);
 	storeHeader.show(screen);
 	moneyText.show(screen);
 	actualMoneyText.show(screen);
+	pistolPriceText.show(screen);
+	plasmaCannonPriceText.show(screen);
+	gatlingPriceText.show(screen);
+	smgPriceText.show(screen);
+	lmgPriceText.show(screen);
 	SDL_Flip(screen);
 
      Text messageToUser("",continueToGame.getTextXpos()+continueToGame.getWidth()+50,continueToGame.getTextYpos(),colorWhite,20);
@@ -312,10 +321,16 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &storeHeader, Text &
 				
 					continueToGame.show(screen);
 					gunsMessage.show(screen);
+					priceHeader.show(screen);
 					storeHeader.show(screen);
 					messageToUser.show(screen);
 					moneyText.show(screen);
 					actualMoneyText.show(screen);
+					pistolPriceText.show(screen);
+					plasmaCannonPriceText.show(screen);
+					gatlingPriceText.show(screen);
+					smgPriceText.show(screen);
+					lmgPriceText.show(screen);
 					SDL_Flip(screen);
 
 				
@@ -339,8 +354,7 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &storeHeader, Text &
 
 
 //the main function
-int
-main (int argc, char *args[])
+int main (int argc, char *args[])
 {
 //user's score for the game,
 int score=0;
@@ -376,11 +390,13 @@ Mix_PlayMusic( music, -1 );
   Text playButton("Play",SCREEN_WIDTH/2,3*SCREEN_HEIGHT/5,colorBlack,30);
   playButton.show(screen);
   SDL_Flip(screen);
-
   bool play = false;
 	//while they have not hit the play button
+	int c = 0;
 	while(play==false)
 	{
+	
+		
 		while(SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -405,13 +421,21 @@ Mix_PlayMusic( music, -1 );
 			    }
 
 		}
+	
 	}
 
 
   load_store();
   Text continueToGame ("Continue to Game", 2 * SCREEN_WIDTH / 5, 8 * SCREEN_HEIGHT / 9, colorWhite, 30);
    Text gunsMessage("Guns",100,10,colorWhite,20);
+	Text priceHeader("Price",gunsMessage.getTextXpos()+gunsMessage.getWidth()+30,10,colorWhite,20);
 	Text storeHeader("Select your items", 2*SCREEN_WIDTH/5, 0,colorWhite,40);
+	Text pistolPriceText(boost::lexical_cast<string>( PISTOL_PRICE ),PISTOL_X+pistol->getWidth()+20,PISTOL_Y,colorWhite,20);
+	Text plasmaCannonPriceText(boost::lexical_cast<string>( PLASMA_CANNON_PRICE ),PLASMA_CANNON_X+plasmaCannon->getWidth()+20,PLASMA_CANNON_Y,colorWhite,20);
+	Text gatlingPriceText(boost::lexical_cast<string>( GATLING_PRICE ),GATLING_X+gatling->getWidth()+20,GATLING_Y,colorWhite,20);
+	Text smgPriceText(boost::lexical_cast<string>( SMG_PRICE ),SMG_X+smg->getWidth()+20,SMG_Y,colorWhite,20);
+	Text lmgPriceText(boost::lexical_cast<string>( LMG_PRICE ),LMG_X+lmg->getWidth()+20,LMG_Y,colorWhite,20);
+
      Dome dome ("dome.png", DOME_BASE_X_BEG, SCREEN_HEIGHT-DOME_HEIGHT, DOME_BASE_W, DOME_HEIGHT, 10000, 10000);
 bool gameIsOver= false;
 
@@ -433,7 +457,7 @@ while(gameIsOver==false)
 {
 
   /*ITEM SELECTION*/
-   int continued = goToStore(continueToGame,gunsMessage,storeHeader,moneyText,actualMoneyText);
+   int continued = goToStore(continueToGame,gunsMessage,priceHeader,storeHeader,moneyText,actualMoneyText,pistolPriceText,plasmaCannonPriceText,gatlingPriceText,smgPriceText,lmgPriceText);
 	//continue will be 0 if they hit the X on the window while at the store
    if(!continued)
 	{
