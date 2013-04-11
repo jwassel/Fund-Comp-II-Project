@@ -172,13 +172,13 @@ void load_store()
 
     plasmaCannon = new PlasmaCannon("weapons.png", "explosionplasma.PNG", 25,1000,100,100,1,100,450,40);
     store.push_back(plasmaCannon);
-    pistol = new Pistol("weapons.png", "explosionpistol.png", 12,100,10,15,5,100,60,8);
+    pistol = new Pistol("weapons.png", "explosionpistol.png", 12,PISTOL_PRICE,PISTOL_AMMO_PRICE,PISTOL_DAMAGE,5,PISTOL_X,PISTOL_Y,PISTOL_EXP_SIZE);
     store.push_back(pistol);
-    gatling = new Gatling("weapons.png", "explosiongatling.png", 60,400,30,8,30,100,250,30);
+    gatling = new Gatling("weapons.png", "explosiongatling.png", 60,GATLING_PRICE,GATLING_AMMO_PRICE,GATLING_DAMAGE,30,GATLING_X,GATLING_Y,GATLING_EXP_SIZE);
     store.push_back(gatling);
-    smg = new Smg("weapons.png", "explosionsmg.PNG", 40,500,35,15,20,100,150,20);
+    smg = new Smg("weapons.png", "explosionsmg.PNG", 40,SMG_PRICE,SMG_AMMO_PRICE,SMG_DAMAGE,20,SMG_X,SMG_Y,SMG_EXP_SIZE);
     store.push_back(smg);
-    lmg = new Lmg("weapons.png", "explosionlmg.PNG", 100,700,40,25,18,100,350,26);
+    lmg = new Lmg("weapons.png", "explosionlmg.PNG", 100,LMG_PRICE,LMG_AMMO_PRICE,LMG_DAMAGE,18,LMG_X,LMG_Y,LMG_EXP_SIZE);
     store.push_back(lmg);
 }
 
@@ -265,6 +265,10 @@ bool purchaseFromStore(int x, int y, Text &continueToGame, Text&messageToUser,Te
 //goes to the store screen and displays it
 int goToStore(Text &continueToGame, Text &gunsMessage, Text &storeHeader, Text &moneyText, Text &actualMoneyText)
 {  
+	//set money text since money could change each time you come to the store
+	actualMoneyText.setText(boost::lexical_cast<string>(money));
+
+
   SDL_ShowCursor(1);
 	SDL_FillRect (screen, &screen->clip_rect,
 			SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
@@ -280,7 +284,7 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &storeHeader, Text &
 	actualMoneyText.show(screen);
 	SDL_Flip(screen);
 
-     Text messageToUser("Succesfully Added",continueToGame.getTextXpos()+continueToGame.getWidth()+50,continueToGame.getTextYpos(),colorWhite,20);
+     Text messageToUser("",continueToGame.getTextXpos()+continueToGame.getWidth()+50,continueToGame.getTextYpos(),colorWhite,20);
    bool continueButton = false;
    while(continueButton == false)
    {
@@ -305,7 +309,10 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &storeHeader, Text &
 					}
 				continueButton = purchaseFromStore(x,y,continueToGame,messageToUser,actualMoneyText);
 				if(continueButton&&weapons.size()==0)
+				{
+					continueButton = false;
 					messageToUser.setText("You Need at least 1 weapon!");
+				}
 				
 					continueToGame.show(screen);
 					gunsMessage.show(screen);
@@ -530,7 +537,7 @@ while(gameIsOver==false)
 				else currentWeaponIndex++;
 			}
 		}
-	      weapons[currentWeaponIndex]->handle_events (event, enemies, screen,score);
+	      weapons[currentWeaponIndex]->handle_events (event, enemies, screen,score,money);
 	      
 	  //If the user has Xed out the window
 	  if (event.type == SDL_QUIT)
@@ -557,6 +564,7 @@ while(gameIsOver==false)
       if (levelComplete)
 	{
 	 	score+=LEVEL_BONUS;
+		money+=LEVEL_BONUS;
 	  SDL_FillRect (screen, &screen->clip_rect,
 			SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
 	  Text levelSuccess ("Level Complete", 2 * SCREEN_WIDTH / 5,
