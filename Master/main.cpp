@@ -315,7 +315,7 @@ int score=0;
       return 1;
     }
 
-music = Mix_LoadMUS( "beat.wav" );
+music = Mix_LoadMUS( "Pokemon Theme Song Instrumental.wav" );
 if( music == NULL )
     {
         return false;    
@@ -368,7 +368,7 @@ Mix_PlayMusic( music, -1 );
   Text continueToGame ("Continue to Game", 2 * SCREEN_WIDTH / 5, 8 * SCREEN_HEIGHT / 9, colorWhite, 30);
    Text gunsMessage("Guns",100,10,colorWhite,20);
 	Text storeHeader("Select your items", 2*SCREEN_WIDTH/5, 0,colorWhite,40);
-     Dome dome ("dome.png", DOME_BASE_X_BEG, GROUND-DOME_HEIGHT, DOME_BASE_W, DOME_HEIGHT, 10000, 10000);
+     Dome dome ("dome.png", DOME_BASE_X_BEG, SCREEN_HEIGHT-DOME_HEIGHT, DOME_BASE_W, DOME_HEIGHT, 10000, 10000);
 bool gameIsOver= false;
 
 Text scoretext("Score: ",20,20,colorWhite,30);
@@ -420,7 +420,7 @@ while(gameIsOver==false)
 	weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
 	domename.show(screen);
 	//divide health by 100 so it is easier for the user to read
-	domehealth.setText(boost::lexical_cast<string>(dome.getCurrentHealth()/100));
+	domehealth.setText(boost::lexical_cast<string>(dome.getCurrentHealth()/HEALTH_DIVISION_FACTOR));
 	domehealth.show(screen);
 //move the enemies
       for (int i = 0; i < enemies.size (); i++)
@@ -429,10 +429,7 @@ while(gameIsOver==false)
 	  if (enemies[i]->isDead ())
 	    continue;
 	//if the enemy is colliding with the dome then attack the dome with the enemy's power
-	  if (dome.isCollidingWithEnemy
-	      (enemies[i]->getX (), enemies[i]->getY (),
-	       enemies[i]->getWidth (), enemies[i]->getHeight (),
-	       enemies[i]->getXVel ()))
+	  if (dome.isCollidingWithEnemy(enemies[i]->getX (), enemies[i]->getY (),enemies[i]->getWidth (), enemies[i]->getHeight (),enemies[i]->getXVel()))
 	    {
 	      dome.getAttacked (enemies[i]->attack ());
 

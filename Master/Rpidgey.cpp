@@ -12,7 +12,7 @@ Rpidgey::Rpidgey(string filename, int x, int y, int w, int h, int xV, int yV, in
 void Rpidgey::move()
 {
 
- if (xpos+width<DOME_BASE_X_BEG)
+ if (xpos+width<=DOME_HEAD_X_BEG)
 	xpos+=xVel;
 else 
 	xpos-=BOUNCE;

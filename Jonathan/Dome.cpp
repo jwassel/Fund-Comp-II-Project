@@ -91,10 +91,8 @@ int Dome::getCurrentHealth()
 }
 
 
-int Dome::isCollidingWithEnemy(int x, int y, int w, int h, int xvel){
-int top=ypos;
-int middle=MIDDLE_DOME;
-int bottom=ypos+height;
+int Dome::isCollidingWithEnemy(int x, int y, int w, int h, int xvel)
+{
 int enemyX;
 int enemyY = y+h;
 if(xvel>0)
@@ -106,7 +104,7 @@ else
 	enemyX = x;
 }
 //if enemy on lower portion
-if(enemyY>middle && enemyY<bottom)
+if(enemyY>=MIDDLE_DOME && enemyY<=SCREEN_HEIGHT)
 	{
 		if(enemyX>xpos && enemyX<xpos+width)
 		{
@@ -114,7 +112,7 @@ if(enemyY>middle && enemyY<bottom)
 		}
 	}
 
-else if(enemyY<middle && enemyY>top) //if on upper portion
+else if(enemyY<MIDDLE_DOME && enemyY>=ypos) //if on upper portion
 	{
 		if(enemyX>DOME_HEAD_X_BEG && enemyX<DOME_HEAD_X_END)
 			return 1;

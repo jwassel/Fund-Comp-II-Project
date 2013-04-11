@@ -11,10 +11,10 @@ Squirtle::Squirtle(string filename, int x, int y, int w, int h, int xV, int yV, 
 
 void Squirtle::move()
 {
- if(ypos<GROUND-height)
+ if(ypos+height<GROUND)
 	ypos+=yVel;
 //dont need to check xvel, Squirtle xVel will always be negative, Rsquirtle will have the positive xvel
-else if (xpos>DOME_BASE_X_END )
+else if (xpos>=DOME_BASE_X_END )
 	xpos+=xVel;
 else 
 	xpos+= BOUNCE;
