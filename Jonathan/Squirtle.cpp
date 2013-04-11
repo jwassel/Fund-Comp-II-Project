@@ -13,11 +13,15 @@ void Squirtle::move()
 {
  if(ypos+height<GROUND)
 	ypos+=yVel;
+else
+	xpos+=xVel;
 //dont need to check xvel, Squirtle xVel will always be negative, Rsquirtle will have the positive xvel
+/*
 else if (xpos>=DOME_BASE_X_END )
 	xpos+=xVel;
 else 
 	xpos+= BOUNCE;
+*/
 }
 
 //shows the enemy on the screen

@@ -59,10 +59,13 @@ int Enemy::isDead()
 	return 0;
 }
 //reduces the enemy's health by damage
-void Enemy::getAttacked(int damage)
+void Enemy::getAttacked(int damage, int &score)
 {
 	health-=damage;
 	if(isDead())
+	{
 		dead = 1;
+		score+=KILL_BONUS;
+	}
 }
 

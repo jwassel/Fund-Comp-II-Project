@@ -3,6 +3,7 @@
 #define WEAPON_H
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+#include "Constants.h"
 #include <iostream>
 #include <string>
 #include "Enemy.h"
@@ -15,11 +16,12 @@ public:
 	virtual void show(SDL_Surface *)=0; //shows the weapon on the screen
 	void apply_surface(int, int, SDL_Surface *,SDL_Surface *,SDL_Rect * = NULL); //applies new surface
 	SDL_Surface * load_image(string); //takes in image of sprite
-	void handle_events(SDL_Event ,vector<Enemy*>,SDL_Surface*); //handles when the user clicks since this means they're firing a weapon
+	void handle_events(SDL_Event ,vector<Enemy*>,SDL_Surface*, int &); //handles when the user clicks since this means they're firing a weapon
 	void showExplosion(int,int,SDL_Surface *); //shows the explosion for the particular weapon
 	int getXpos();
 	int getYpos();
 	int getSize();
+	int getPrice();
 	virtual void showDuringGamePlay(int, int, SDL_Surface*)=0;
 
 protected:

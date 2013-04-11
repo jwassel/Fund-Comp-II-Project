@@ -32,7 +32,7 @@ int Weapon::getSize(){
 return explosionSize;
 }
 
-void Weapon::handle_events(SDL_Event event,vector<Enemy*> enemies, SDL_Surface * screen)
+void Weapon::handle_events(SDL_Event event,vector<Enemy*> enemies, SDL_Surface * screen, int &score)
 {
 
 //The mouse offsets
@@ -63,7 +63,8 @@ int enemyHeight = 0;
 	if ((x > enemyX) && (x < enemyX + enemyWidth) && (y > enemyY)
 	      && (y < enemyY + enemyHeight))
 	    {
-		enemies[i]->getAttacked(damage);
+		enemies[i]->getAttacked(damage,score);
+		score+=HIT_BONUS;
 	    }
 
 	}
@@ -72,7 +73,10 @@ int enemyHeight = 0;
     }
 }
 
-
+int Weapon::getPrice()
+{
+	return price;
+}
 void Weapon::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip){ //applies new surface
     
 

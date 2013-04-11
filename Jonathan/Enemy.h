@@ -21,7 +21,7 @@ public:
 	int getWidth();
 	int getHeight();
 	int getXVel();
-	void getAttacked(int); //removes from it's health
+	void getAttacked(int, int&); //removes from it's health
 	int isDead(); //true if health = 0 or if they have moved on past screen
 
 protected:
