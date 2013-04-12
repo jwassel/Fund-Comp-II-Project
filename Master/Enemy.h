@@ -31,6 +31,7 @@ protected:
 	int power;
 	int health;
 	int dead;
+	int hasEntered;
 	//SDL_Rect *currentClip;
 };
 

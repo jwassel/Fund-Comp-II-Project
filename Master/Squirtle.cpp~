@@ -19,7 +19,7 @@ else
 
 	if(xpos>0 && xpos<SCREEN_WIDTH)
 	{
-		hasEntered = 1;
+		onScreen = 1;
 	}
 
 //dont need to check xvel, Squirtle xVel will always be negative, Rsquirtle will have the positive xvel

@@ -134,7 +134,7 @@ void load_enemies ()
   if(currentLevel==1)
   {
 
-   squirtle = new Squirtle ("squirtlej.png", 1000, 0, 38, 36, -5, 10, 20, 50);
+   squirtle = new Squirtle ("squirtlej.png", 4000, 0, 38, 36, -5, 10, 20, 50);
    rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
   enemies.push_back (squirtle);
   enemies.push_back (rpidgey);
