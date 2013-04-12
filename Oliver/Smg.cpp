@@ -2,7 +2,7 @@
 #include <string>
 #include "Smg.h"
 
-Smg::Smg(string filename, string explosionName, int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y):Weapon(filename, explosionName, Clipsize, Price, AmmoPrice, Damage, FireRate,x,y){
+Smg::Smg(string filename, string explosionName, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y, int expsize,int max, int current, int maxclip, int currentclip):Weapon(filename, explosionName,  Price, AmmoPrice, Damage, FireRate,x,y, expsize,max,current,maxclip, currentclip){
 
 setClips();
 }
@@ -15,6 +15,12 @@ void Smg::show(SDL_Surface * screen)
 {
 	apply_surface(xpos, ypos, sprite, screen, &clips);
 }
+
+void Smg::showDuringGamePlay(int x,int y, SDL_Surface * screen){
+
+   apply_surface(x,y,sprite,screen,&clips);
+}
+
 
 void Smg::setClips(){
   clips.x = 285;

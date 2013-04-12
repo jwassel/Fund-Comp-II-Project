@@ -12,8 +12,8 @@ xpos=x;
 ypos=y;
 color=c;
 size = s;
-TTF_Font *font = NULL;
-font = TTF_OpenFont ("Arial.ttf", size);
+font = NULL;
+font = TTF_OpenFont ("Advert.ttf", size);
 TTF_SizeText(font,line.c_str(),&width,&height);
 
 
@@ -21,10 +21,23 @@ message = TTF_RenderText_Solid (font, words.c_str(), color);
 
 }
 
+void Text::setX(int newX)
+{
+	xpos = newX;
+}
+void Text::setSize(int newSize)
+{
+	size = newSize;
+	font = TTF_OpenFont ("Advert.ttf", size);
+	TTF_SizeText(font,words.c_str(),&width,&height);
+}
+void Text::setY(int newY)
+{
+	ypos = newY;
+}
 void Text::setText(string newText)
 {
-	TTF_Font *font = NULL;
-	font = TTF_OpenFont ("Arial.ttf", size);
+
 	TTF_SizeText(font,newText.c_str(),&width,&height);
 	words = newText;
 	message = TTF_RenderText_Solid (font, words.c_str(), color);

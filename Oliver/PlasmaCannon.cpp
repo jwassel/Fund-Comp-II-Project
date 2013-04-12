@@ -2,7 +2,7 @@
 #include <string>
 #include "PlasmaCannon.h"
 
-PlasmaCannon::PlasmaCannon(string filename, string explosionName, int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y):Weapon(filename, explosionName,Clipsize, Price, AmmoPrice, Damage, FireRate,x,y){
+PlasmaCannon::PlasmaCannon(string filename, string explosionName, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y,int expsize, int max, int current, int maxclip, int currentclip):Weapon(filename, explosionName, Price, AmmoPrice, Damage, FireRate,x,y,expsize,max,current,maxclip, currentclip){
 
 setClips();
 }
@@ -22,6 +22,11 @@ void PlasmaCannon::setClips(){
   clips.w = 125;
   clips.h = 60;
 }
+void PlasmaCannon::showDuringGamePlay(int x,int y, SDL_Surface * screen){
+
+   apply_surface(x,y,sprite,screen,&clips);
+}
+
 
 int PlasmaCannon::getWidth() {
 	return clips.w;
