@@ -77,7 +77,7 @@ const int LMG_MAX_CLIP_AMMO= 50;
 //The frame rate
 const int FRAMES_PER_SECOND = 20;
 
-//reload time
+
 const int RELOAD_TIME=40;
 
 
