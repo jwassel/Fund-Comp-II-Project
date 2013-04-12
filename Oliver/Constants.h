@@ -82,7 +82,7 @@ const int BOMB_VELOCITY = 7;
 const int VOLTORB_RANGE = 50;
 const int VOLTORB_PRICE = 100;
 const int VOLTORB_DAMAGE = 100;
-const int VOLTORB_X = 100; // need to be determined
+const int VOLTORB_X = 500; // need to be determined
 const int VOLTORB_Y = 100; //need to be determined
 
 #endif

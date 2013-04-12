@@ -136,7 +136,7 @@ void load_enemies ()
    enemies.clear();
   if(currentLevel==1)
   {
-    //voltorb = new Voltorb ("bombs.png", 100, 100, 100, 100); WHY IS THIS IN HERE??
+    //voltorb = new Voltorb ("bombs.png", 100, 100, 100, 100);
    squirtle = new Squirtle ("squirtlej.png", 1300, 0, 38, 36, -5, 10, 20, 50);
    rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
   enemies.push_back (squirtle);
