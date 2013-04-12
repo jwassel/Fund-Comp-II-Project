@@ -31,6 +31,7 @@ const int PISTOL_DAMAGE = 15;
 const int PISTOL_X = 100;
 const int PISTOL_Y = 60;
 const int PISTOL_EXP_SIZE = 8;
+const int PISTOL_MAX_AMMO = 200;
 
 //Plasma Cannon information
 const int PLASMA_CANNON_PRICE = 1000;
@@ -39,6 +40,7 @@ const int PLASMA_CANNON_DAMAGE = 100;
 const int PLASMA_CANNON_X = 100;
 const int PLASMA_CANNON_Y = 450;
 const int PLASMA_CANNON_EXP_SIZE = 40;
+const int PLASMA_CANNON_MAX_AMMO = 200;
 
 //Gatling information
 const int GATLING_PRICE = 400;
@@ -47,6 +49,7 @@ const int GATLING_DAMAGE = 8;
 const int GATLING_X = 100;
 const int GATLING_Y = 250;
 const int GATLING_EXP_SIZE = 30;
+const int GATLING_MAX_AMMO = 200;
 
 //SMG information
 const int SMG_PRICE = 500;
@@ -55,6 +58,8 @@ const int SMG_DAMAGE = 15;
 const int SMG_X = 100;
 const int SMG_Y = 150;
 const int SMG_EXP_SIZE = 20;
+const int SMG_MAX_AMMO = 200;
+
 
 //lMG information
 const int LMG_PRICE = 700;
@@ -63,6 +68,9 @@ const int LMG_DAMAGE = 25;
 const int LMG_X = 100;
 const int LMG_Y = 350;
 const int LMG_EXP_SIZE = 26;
+const int LMG_MAX_AMMO = 200;
 
+//The frame rate
+const int FRAMES_PER_SECOND = 20;
 
 #endif

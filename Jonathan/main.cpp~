@@ -30,16 +30,8 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include <vector>
 #include <iostream>
 //Screen size at bits per pixel
-/*
-const int SCREEN_HEIGHT = 600;
-const int SCREEN_WIDTH = 1200;
-const int SCREEN_BPP = 32;
-const int LEVEL_BONUS = 100;
-const int HIT_BONUS = 10;
-const int KILL_BONUS = 25;
-*/
-//The frame rate
-const int FRAMES_PER_SECOND = 20;
+
+
 using namespace std;
 
 //The screen surface
@@ -134,7 +126,7 @@ void load_enemies ()
   if(currentLevel==1)
   {
 
-   squirtle = new Squirtle ("squirtlej.png", 1000, 0, 38, 36, -5, 10, 20, 50);
+   squirtle = new Squirtle ("squirtlej.png", 4000, 0, 38, 36, -5, 10, 20, 50);
    rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
   enemies.push_back (squirtle);
   enemies.push_back (rpidgey);
@@ -180,6 +172,64 @@ void load_store()
     lmg = new Lmg("weapons.png", "explosionlmg.PNG", 100,LMG_PRICE,LMG_AMMO_PRICE,LMG_DAMAGE,18,LMG_X,LMG_Y,LMG_EXP_SIZE);
     store.push_back(lmg);
 }
+
+void goToInstructions(Text &backButton)
+{
+	 SDL_FillRect (screen, &screen->clip_rect,
+	SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
+	backButton.show(screen);
+	Text actualInstructions("PokeDome",SCREEN_WIDTH/2-100,0,colorWhite,30);
+	actualInstructions.show(screen);
+	actualInstructions.setSize(20);
+	actualInstructions.setX(50);
+
+	actualInstructions.setText("Goal: Protect the Golden Dome by shooting the Pokemon");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.show(screen);
+	
+	actualInstructions.setText("Before each level, you can go to the store to buy items");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.show(screen);
+
+	actualInstructions.setText("Buy Weapons and Ammo at the store, click to shoot");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.show(screen);
+
+	actualInstructions.setText("To switch amongst your weapons, use the arrow keys");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.show(screen);
+
+	actualInstructions.setText("Buy Health for the Dome at the store");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.show(screen);
+
+	actualInstructions.setText("Once the Dome's Health is 0, you lose");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.show(screen);
+	SDL_Flip(screen);
+	bool goBack = false;
+	while(goBack==false)
+	{
+		while(SDL_PollEvent(&event))
+		{
+			if(event.type == SDL_MOUSEBUTTONDOWN)
+			{
+				if (event.button.button == SDL_BUTTON_LEFT)
+				{
+		  			//Get the mouse offsets
+		  			int x = event.button.x;
+		  			int y = event.button.y;
+					if(backButton.isClicked(x,y))
+					{
+						goBack = true;
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+
 
 //takes user's click when on the store screen and updates their inventory
 bool purchaseFromStore(int x, int y, Text &continueToGame, Text&messageToUser,Text &actualMoneyText)
@@ -389,8 +439,12 @@ Mix_PlayMusic( music, -1 );
   pokeDome.show(screen);
   Text playButton("Play",SCREEN_WIDTH/2,3*SCREEN_HEIGHT/5,colorBlack,30);
   playButton.show(screen);
+	Text instructions("Instructions",playButton.getTextXpos(),playButton.getTextYpos()+50,colorBlack,30);
+	instructions.show(screen);
+	Text backButton("Back",SCREEN_WIDTH/2,SCREEN_HEIGHT-50,colorWhite,30);
   SDL_Flip(screen);
   bool play = false;
+  bool goBack = false;
 	//while they have not hit the play button
 	int c = 0;
 	while(play==false)
@@ -409,6 +463,16 @@ Mix_PlayMusic( music, -1 );
 		  			int y = event.button.y;
 					if(playButton.isClicked(x,y))
 						play = true;
+					if(instructions.isClicked(x,y))
+					{
+						goToInstructions(backButton);
+						background.show(screen);
+						pokeDome.show(screen);
+						playButton.show(screen);
+						instructions.show(screen);
+						SDL_Flip(screen);
+						
+					}
 			
 				}
 			}
@@ -428,7 +492,7 @@ Mix_PlayMusic( music, -1 );
   load_store();
   Text continueToGame ("Continue to Game", 2 * SCREEN_WIDTH / 5, 8 * SCREEN_HEIGHT / 9, colorWhite, 30);
    Text gunsMessage("Guns",100,10,colorWhite,20);
-	Text priceHeader("Price",gunsMessage.getTextXpos()+gunsMessage.getWidth()+30,10,colorWhite,20);
+	Text priceHeader("Price ($)",gunsMessage.getTextXpos()+gunsMessage.getWidth()+30,10,colorWhite,20);
 	Text storeHeader("Select your items", 2*SCREEN_WIDTH/5, 0,colorWhite,40);
 	Text pistolPriceText(boost::lexical_cast<string>( PISTOL_PRICE ),PISTOL_X+pistol->getWidth()+20,PISTOL_Y,colorWhite,20);
 	Text plasmaCannonPriceText(boost::lexical_cast<string>( PLASMA_CANNON_PRICE ),PLASMA_CANNON_X+plasmaCannon->getWidth()+20,PLASMA_CANNON_Y,colorWhite,20);

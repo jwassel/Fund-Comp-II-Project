@@ -13,6 +13,7 @@ Enemy::Enemy(string filename, int x,int y, int w, int h, int xv, int yv, int p, 
 	power = p;	
 	health = hea;
 	dead = 0;
+	hasEntered=0;
 }
 
 int Enemy::getX()
@@ -50,9 +51,9 @@ int Enemy::isDead()
 {
 	if(health<=0 )
 		return 1;
-	if(xpos<0 || xpos >SCREEN_WIDTH)
+	if((xpos<0 || xpos >SCREEN_WIDTH) && hasEntered)
 	{
-		dead = 1;
+
 		return 1;
 	}
 

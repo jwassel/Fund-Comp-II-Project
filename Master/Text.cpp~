@@ -29,7 +29,7 @@ void Text::setSize(int newSize)
 {
 	size = newSize;
 	font = TTF_OpenFont ("Advert.ttf", size);
-	TTF_SizeText(font,words.c_str(),&width,&height);
+	TTF_SizeText(font,line.c_str(),&width,&height);
 }
 void Text::setY(int newY)
 {

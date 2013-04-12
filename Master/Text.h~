@@ -18,7 +18,6 @@ class Text
 		void setText(string);
 		void setY(int);
 		void setSize(int);
-		void setX(int);
 	private:
 		SDL_Surface* message;
 		string words;

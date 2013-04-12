@@ -15,6 +15,13 @@ void Squirtle::move()
 	ypos+=yVel;
 else
 	xpos+=xVel;
+
+
+	if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
+
 //dont need to check xvel, Squirtle xVel will always be negative, Rsquirtle will have the positive xvel
 /*
 else if (xpos>=DOME_BASE_X_END )
