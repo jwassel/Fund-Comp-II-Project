@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include <string>
 
+
 class Squirtle: public Enemy
 {
 	public:
