@@ -10,7 +10,7 @@ class Voltorb:public Bomb
 	public:
 		Voltorb(string,int,int,int,int);//constructor
 		virtual void setClips(); //sets the clip fo the Bomb (how it will look on the store screen)
-		virtual void show(SDL_Surface *, int); //shows the Bomb on the screen
+		virtual void show(SDL_Surface *, vector<Enemy*> enemies, int &score, int &money); //shows the Bomb on the screen
 		virtual int getHeight();
 		virtual int getWidth();
 		virtual int move();

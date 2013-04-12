@@ -1,6 +1,7 @@
 #include "Bomb.h"
 #include <string>
 #include "Voltorb.h"
+#include <cmath>
 
 Voltorb::Voltorb(string filename, int Price, int Damage, int x, int y):Bomb(filename, Price, Damage, x, y){
 mod = 1; 
@@ -48,19 +49,36 @@ void Voltorb::setClips(){
 
 
 
-void Voltorb::show(SDL_Surface *screen, int count)
+void Voltorb::show(SDL_Surface *screen, vector<Enemy*> enemies, int &score, int &money)
 {
+int enemyX = 0;
+int enemyY = 0;
+int enemyWidth = 0;
+int enemyHeight = 0;
+
+
 	 if(ypos>=GROUND-getHeight())
  	mod=4;
  	
  	if (mod==4){
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%mod]);
-	apply_surface(xpos,ypos,sprite,screen,&clips[(count+1)%mod]);
-	apply_surface(xpos,ypos,sprite,screen,&clips[(count+2)%mod]);
-	apply_surface(xpos,ypos,sprite,screen,&clips[(count+3)%mod]);
-	}
+	apply_surface(xpos,ypos,sprite,screen,&clips[1]);
+	apply_surface(xpos,ypos,sprite,screen,&clips[2]);
+	apply_surface(xpos,ypos,sprite,screen,&clips[3]);
+		for(int i=0;i<enemies.size();i++)
+	{
+	enemyX = enemies[i]->getX();
+	enemyY = enemies[i]->getY();
+	enemyWidth = enemies[i]->getWidth();
+	enemyHeight = enemies[i]->getHeight();
+	if (abs(xpos - (enemyX+enemyWidth/2)) < VOLTORB_RANGE)
+	    {
+		enemies[i]->getAttacked(damage,score,money);
+	    	score+=HIT_BONUS;
+	    	money+=HIT_BONUS;
+	    	}
+	}}
 	else
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%mod]);
+	apply_surface(xpos,ypos,sprite,screen,&clips[0]);
 	mod=1;
 	
 }

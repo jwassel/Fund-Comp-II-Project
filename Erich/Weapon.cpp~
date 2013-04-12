@@ -7,32 +7,50 @@
 #include "Enemy.h"
 #include <iostream>
 using namespace std;
-Weapon::Weapon(string filename,string explosionName,int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y){
+Weapon::Weapon(string filename,string explosionName, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y,int expsize, int max, int current, int maxclip, int currentclip){
 
-clipsize = Clipsize;
+
 price = Price;
 ammoPrice = AmmoPrice;
 damage = Damage;
 fireRate = fireRate;
 xpos = x;
 ypos = y;
+explosionSize=expsize;
+maxAmmo=max;
+currentAmmo=current;
+maxClipAmmo=maxclip;
+currentClipAmmo=currentclip;
+reloadTime=20;
+
 
 sprite = load_image(filename.c_str());
 explosionImage = load_image(explosionName.c_str());
 
 }
 
-void Weapon::show(int x, int y,SDL_Surface *screen)
-{
-	apply_surface(x,y,sprite,screen);
+int Weapon::getCurrentClipAmmo(){
+return currentClipAmmo;
+
 }
+
+
+int Weapon::getCurrentAmmo(){
+return currentAmmo;
+
+}
+
 
 void Weapon::showExplosion(int x, int y, SDL_Surface *screen)
 {
       apply_surface(x,y,explosionImage,screen,NULL);
 }
 
-void Weapon::handle_events(SDL_Event event,vector<Enemy*> enemies, SDL_Surface * screen)
+int Weapon::getSize(){
+return explosionSize;
+}
+
+void Weapon::handle_events(SDL_Event event,vector<Enemy*> enemies, SDL_Surface * screen, int &score, int &money)
 {
 
 //The mouse offsets
@@ -41,6 +59,8 @@ int enemyX = 0;
 int enemyY = 0;
 int enemyWidth = 0;
 int enemyHeight = 0;
+if(currentClipAmmo>0)
+  {
   //If a mouse button was pressed
   if (event.type == SDL_MOUSEBUTTONDOWN)
     {
@@ -51,9 +71,9 @@ int enemyHeight = 0;
 	  //Get the mouse offsets
 	  x = event.button.x;
 	  y = event.button.y;
-
-	  showExplosion(x-7,y-7,screen);
+	  showExplosion(x-getSize()/2,y-getSize()/2,screen);
 	  
+	  currentClipAmmo--;
 	for(int i=0;i<enemies.size();i++)
 	{
 	enemyX = enemies[i]->getX();
@@ -63,16 +83,29 @@ int enemyHeight = 0;
 	if ((x > enemyX) && (x < enemyX + enemyWidth) && (y > enemyY)
 	      && (y < enemyY + enemyHeight))
 	    {
-		enemies[i]->getAttacked(damage);
+		enemies[i]->getAttacked(damage,score,money);
+		score+=HIT_BONUS;
+		money+=HIT_BONUS;
 	    }
 
 	}
 
 	}
     }
+  }
+else{
+reloadTime--;
+if(reloadTime<=0){
+currentClipAmmo=maxClipAmmo;
+currentAmmo=currentAmmo-maxClipAmmo;
+reloadTime=20;}
+}
 }
 
-
+int Weapon::getPrice()
+{
+	return price;
+}
 void Weapon::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip){ //applies new surface
     
 
@@ -121,4 +154,11 @@ SDL_Surface * Weapon::load_image(std::string filename)
 		return optimizedImage;
 }
 
+int Weapon::getXpos() {
+	return xpos;
+}
+
+int Weapon::getYpos() {
+	return ypos;
+}
 

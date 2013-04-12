@@ -1,24 +1,44 @@
-#include "weapon.h"
+#include "Weapon.h"
 #include <string>
-#include "plasmaCannon.h"
+#include "PlasmaCannon.h"
 
-plasmaCannon::plasmaCannon(int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y):weapon(Clipsize, Price, AmmoPrice, Damage, FireRate,x,y){
+PlasmaCannon::PlasmaCannon(string filename, string explosionName, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y,int expsize, int max, int current, int maxclip, int currentclip):Weapon(filename, explosionName, Price, AmmoPrice, Damage, FireRate,x,y,expsize,max,current,maxclip, currentclip){
 
 setClips();
 }
 
-void plasmaCannon::fire(){
+void PlasmaCannon::fire(){
 }
 
-//shows the weapon on the screen
-void plasmaCannon::show(SDL_Surface * screen)
+//shows the Weapon on the screen
+void PlasmaCannon::show(SDL_Surface * screen)
 {
-	apply_surface(xpos, ypos, Weapon, screen, &clips);
+	apply_surface(xpos, ypos, sprite, screen, &clips);
 }
 
-void plasmaCannon::setClips(){
+void PlasmaCannon::setClips(){
   clips.x = 271;
   clips.y = 311;
   clips.w = 125;
   clips.h = 60;
+}
+void PlasmaCannon::showDuringGamePlay(int x,int y, SDL_Surface * screen){
+
+   apply_surface(x,y,sprite,screen,&clips);
+}
+
+
+int PlasmaCannon::getWidth() {
+	return clips.w;
+}
+int PlasmaCannon::getHeight() {
+	return clips.h;
+}
+
+int PlasmaCannon::isClicked(int x, int y)
+{
+	if(x>=xpos && x<=xpos+getWidth() && y>=ypos && y<=ypos+getHeight())
+		return 1;
+
+	return 0;
 }

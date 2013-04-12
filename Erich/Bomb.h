@@ -12,7 +12,7 @@ class Bomb{
 public:
 	Bomb(string,int,int,int,int); //constructor
 	virtual void setClips()=0; //sets the clip fo the Bomb (how it will look on the store screen)
-	virtual void show(SDL_Surface *,int)=0; //shows the Bomb on the screen
+	virtual void show(SDL_Surface *, vector<Enemy*> enemies, int &score, int &money)=0; //shows the Bomb on the screen
 	virtual int getHeight()=0;
 	virtual int getWidth()=0;
 	void setPos(int, int);

@@ -1,24 +1,44 @@
-#include "weapon.h"
+#include "Weapon.h"
 #include <string>
-#include "lmg.h"
+#include "Lmg.h"
 
-lmg::lmg(int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y):weapon(Clipsize, Price, AmmoPrice, Damage, FireRate,x,y){
+Lmg::Lmg(string filename, string explosionName, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y, int expsize,int max, int currentAmmo, int maxclip, int currentclip):Weapon(filename, explosionName, Price, AmmoPrice, Damage, FireRate,x,y,expsize,max,currentAmmo,maxclip, currentclip){
 
 setClips();
 }
 
-void lmg::fire(){
+void Lmg::fire(){
 }
 
-//shows the weapon on the screen
-void lmg::show(SDL_Surface * screen)
+//shows the Weapon on the screen
+void Lmg::show(SDL_Surface * screen)
 {
-	apply_surface(xpos, ypos, Weapon, screen, &clips);
+	apply_surface(xpos, ypos, sprite, screen, &clips);
 }
 
-void lmg::setClips(){
+void Lmg::showDuringGamePlay(int x,int y, SDL_Surface * screen){
+
+   apply_surface(x,y,sprite,screen,&clips);
+}
+
+
+void Lmg::setClips(){
   clips.x = 270;
   clips.y = 170;
   clips.w = 125;
   clips.h = 57;
+}
+
+int Lmg::getWidth(){
+	return clips.w;
+}
+
+int Lmg::getHeight() {
+	return clips.h;
+}
+
+int Lmg::isClicked(int x, int y) {
+	if(x>=xpos && x<=xpos+getWidth() && y>=ypos && y<=ypos+getHeight())
+		return 1;
+	return 0;
 }
