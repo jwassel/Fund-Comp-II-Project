@@ -1,23 +1,45 @@
-OBJECTS = main.o Timer.o weapon.o plasmaCannon.o pistol.o gatling.o smg.o lmg.o
+OBJECTS = main.o Timer.o Enemy.o Squirtle.o Sprite.o Background.o Poliwhirl.o Rpidgey.o Dome.o Weapon.o Pistol.o Gatling.o Lmg.o Smg.o PlasmaCannon.o Text.o Crosshairs.o Voltorb.o Bomb.o
 OUTPUT = main
-SDLLINKS = -lSDL -lSDL_image
+SDLLINKS = -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
 ($OUTPUT): $(OBJECTS)
 	g++ $(OBJECTS) -o $(OUTPUT) $(SDLLINKS)
-main.o: main.cpp Timer.h weapon.h plasmaCannon.h pistol.h gatling.h smg.h lmg.h
+main.o: main.cpp Enemy.h Squirtle.h Timer.h Background.h Poliwhirl.h Rpidgey.h Weapon.h Pistol.h Gatling.h Lmg.h Smg.h PlasmaCannon.h Text.h  Crosshairs.h Voltorb.h Bomb.h
 	g++ -c main.cpp
-weapon.o: weapon.cpp weapon.h
-	g++ -c weapon.cpp
+Enemy.o: Enemy.cpp Enemy.h
+	g++ -c Enemy.cpp
 Timer.o: Timer.cpp Timer.h
 	g++ -c Timer.cpp
-plasmaCannon.o: plasmaCannon.cpp plasmaCannon.h
-	g++ -c plasmaCannon.cpp
-pistol.o: pistol.cpp pistol.h
-	g++ -c pistol.cpp
-gatling.o: gatling.cpp gatling.h
-	g++ -c gatling.cpp
-smg.o: smg.cpp smg.h
-	g++ -c smg.cpp
-lmg.o: lmg.cpp lmg.h
-	g++ -c lmg.cpp
+Squirtle.o: Squirtle.cpp Squirtle.h
+	g++ -c Squirtle.cpp
+Sprite.o: Sprite.cpp Sprite.h
+	g++ -c Sprite.cpp
+Background.o: Background.cpp Background.h
+	g++ -c Background.cpp
+Poliwhirl.o: Poliwhirl.cpp Poliwhirl.h
+	g++ -c Poliwhirl.cpp
+Rpidgey.o: Rpidgey.cpp Rpidgey.h
+	g++ -c Rpidgey.cpp
+Dome.o: Dome.cpp Dome.h
+	g++ -c Dome.cpp
+Weapon.o: Weapon.cpp Weapon.h Enemy.h
+	g++ -c Weapon.cpp
+Pistol.o: Pistol.cpp Pistol.h
+	g++ -c Pistol.cpp
+Gatling.o: Gatling.cpp Gatling.h
+	g++ -c Gatling.cpp
+Lmg.o: Lmg.cpp Lmg.h
+	g++ -c Lmg.cpp
+Smg.o: Smg.cpp Smg.h
+	g++ -c Smg.cpp
+PlasmaCannon.o: PlasmaCannon.cpp PlasmaCannon.h
+	g++ -c PlasmaCannon.cpp
+Text.o: Text.cpp Text.h
+	g++ -c Text.cpp
+Crosshairs.o: Crosshairs.cpp Crosshairs.h
+	g++ -c Crosshairs.cpp
+Voltorb.o: Voltorb.cpp Voltorb.h
+	g++ -c Voltorb.cpp
+Bomb.o: Bomb.cpp Bomb.h
+	g++ -c Bomb.cpp
 clean:
 	rm -rf core* *.o $(PROJ)
