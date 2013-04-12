@@ -30,16 +30,8 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include <vector>
 #include <iostream>
 //Screen size at bits per pixel
-/*
-const int SCREEN_HEIGHT = 600;
-const int SCREEN_WIDTH = 1200;
-const int SCREEN_BPP = 32;
-const int LEVEL_BONUS = 100;
-const int HIT_BONUS = 10;
-const int KILL_BONUS = 25;
-*/
-//The frame rate
-const int FRAMES_PER_SECOND = 20;
+
+
 using namespace std;
 
 //The screen surface
@@ -48,6 +40,7 @@ SDL_Surface *cursor=NULL;
 
 SDL_Color colorWhite = { 255, 255, 255 };
 SDL_Color colorBlack = {0,0,0};
+SDL_Color colorRed = {220,20,20};
 //The event structure
 SDL_Event event;
 
@@ -134,7 +127,7 @@ void load_enemies ()
   if(currentLevel==1)
   {
 
-   squirtle = new Squirtle ("squirtlej.png", 4000, 0, 38, 36, -5, 10, 20, 50);
+   squirtle = new Squirtle ("squirtlej.png", 1300, 0, 38, 36, -5, 10, 20, 50);
    rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
   enemies.push_back (squirtle);
   enemies.push_back (rpidgey);
@@ -167,19 +160,82 @@ void load_enemies ()
 
 //loads all the items to the store
 void load_store()
-{    // Clipsize, Price, AmmoPrice, Damage, FireRate, x on screen, y on screen
+{    // Filename, explosionname, Price, AmmoPrice, Damage, FireRate, x on screen, y on screen, explosion size,maxAmmo, currentAmmo,maxClipAmmo, currentclipAmmo)
 
-    plasmaCannon = new PlasmaCannon("weapons.png", "explosionplasma.PNG", 25,1000,100,100,1,100,450,40);
+    plasmaCannon = new PlasmaCannon("weapons.png", "explosionplasma.PNG",PLASMA_CANNON_PRICE,PLASMA_CANNON_AMMO_PRICE,PLASMA_CANNON_DAMAGE,5,PLASMA_CANNON_X,PLASMA_CANNON_Y,PLASMA_CANNON_EXP_SIZE,PLASMA_CANNON_MAX_AMMO,PLASMA_CANNON_MAX_AMMO,PLASMA_CANNON_MAX_CLIP_AMMO,PLASMA_CANNON_MAX_CLIP_AMMO);
     store.push_back(plasmaCannon);
-    pistol = new Pistol("weapons.png", "explosionpistol.png", 12,PISTOL_PRICE,PISTOL_AMMO_PRICE,PISTOL_DAMAGE,5,PISTOL_X,PISTOL_Y,PISTOL_EXP_SIZE);
+    pistol = new Pistol("weapons.png", "explosionpistol.png", PISTOL_PRICE,PISTOL_AMMO_PRICE,PISTOL_DAMAGE,5,PISTOL_X,PISTOL_Y,PISTOL_EXP_SIZE,PISTOL_MAX_AMMO,PISTOL_MAX_AMMO,PISTOL_MAX_CLIP_AMMO,PISTOL_MAX_CLIP_AMMO);
     store.push_back(pistol);
-    gatling = new Gatling("weapons.png", "explosiongatling.png", 60,GATLING_PRICE,GATLING_AMMO_PRICE,GATLING_DAMAGE,30,GATLING_X,GATLING_Y,GATLING_EXP_SIZE);
+    gatling = new Gatling("weapons.png", "explosiongatling.png",  GATLING_PRICE,GATLING_AMMO_PRICE,GATLING_DAMAGE,5,GATLING_X,GATLING_Y,GATLING_EXP_SIZE,GATLING_MAX_AMMO,GATLING_MAX_AMMO,GATLING_MAX_CLIP_AMMO,GATLING_MAX_CLIP_AMMO);
     store.push_back(gatling);
-    smg = new Smg("weapons.png", "explosionsmg.PNG", 40,SMG_PRICE,SMG_AMMO_PRICE,SMG_DAMAGE,20,SMG_X,SMG_Y,SMG_EXP_SIZE);
+    smg = new Smg("weapons.png", "explosionsmg.PNG",SMG_PRICE,SMG_AMMO_PRICE,SMG_DAMAGE,5,SMG_X,SMG_Y,SMG_EXP_SIZE,SMG_MAX_AMMO,SMG_MAX_AMMO,SMG_MAX_CLIP_AMMO,SMG_MAX_CLIP_AMMO);
     store.push_back(smg);
-    lmg = new Lmg("weapons.png", "explosionlmg.PNG", 100,LMG_PRICE,LMG_AMMO_PRICE,LMG_DAMAGE,18,LMG_X,LMG_Y,LMG_EXP_SIZE);
+    lmg = new Lmg("weapons.png", "explosionlmg.PNG",LMG_PRICE,LMG_AMMO_PRICE,LMG_DAMAGE,5,LMG_X,LMG_Y,LMG_EXP_SIZE,LMG_MAX_AMMO,LMG_MAX_AMMO,LMG_MAX_CLIP_AMMO,LMG_MAX_CLIP_AMMO);
     store.push_back(lmg);
 }
+
+void goToInstructions(Text &backButton)
+{
+	 SDL_FillRect (screen, &screen->clip_rect,
+	SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
+	backButton.show(screen);
+	Text actualInstructions("PokeDome",SCREEN_WIDTH/2-100,0,colorWhite,30);
+	actualInstructions.show(screen);
+	actualInstructions.setSize(20);
+	actualInstructions.setX(50);
+
+	actualInstructions.setText("Goal: Protect the Golden Dome by shooting the Pokemon");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+20);
+	actualInstructions.show(screen);
+	
+	actualInstructions.setText("Before each level, you can go to the store to buy items");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.show(screen);
+
+	actualInstructions.setText("Buy Weapons and Ammo at the store, click to shoot");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.show(screen);
+
+	actualInstructions.setText("To switch amongst your weapons, use the arrow keys");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.show(screen);
+
+	actualInstructions.setText("Buy Health for the Dome at the store");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.show(screen);
+
+	actualInstructions.setText("Once the Dome's Health is 0, you lose");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.show(screen);
+
+	actualInstructions.setText("To reload when your clip is empty, shake the mouse quickly");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.show(screen);
+
+	SDL_Flip(screen);
+	bool goBack = false;
+	while(goBack==false)
+	{
+		while(SDL_PollEvent(&event))
+		{
+			if(event.type == SDL_MOUSEBUTTONDOWN)
+			{
+				if (event.button.button == SDL_BUTTON_LEFT)
+				{
+		  			//Get the mouse offsets
+		  			int x = event.button.x;
+		  			int y = event.button.y;
+					if(backButton.isClicked(x,y))
+					{
+						goBack = true;
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+
 
 //takes user's click when on the store screen and updates their inventory
 bool purchaseFromStore(int x, int y, Text &continueToGame, Text&messageToUser,Text &actualMoneyText)
@@ -389,8 +445,12 @@ Mix_PlayMusic( music, -1 );
   pokeDome.show(screen);
   Text playButton("Play",SCREEN_WIDTH/2,3*SCREEN_HEIGHT/5,colorBlack,30);
   playButton.show(screen);
+	Text instructions("Instructions",playButton.getTextXpos(),playButton.getTextYpos()+50,colorBlack,30);
+	instructions.show(screen);
+	Text backButton("Back",SCREEN_WIDTH/2,SCREEN_HEIGHT-50,colorWhite,30);
   SDL_Flip(screen);
   bool play = false;
+  bool goBack = false;
 	//while they have not hit the play button
 	int c = 0;
 	while(play==false)
@@ -409,6 +469,16 @@ Mix_PlayMusic( music, -1 );
 		  			int y = event.button.y;
 					if(playButton.isClicked(x,y))
 						play = true;
+					if(instructions.isClicked(x,y))
+					{
+						goToInstructions(backButton);
+						background.show(screen);
+						pokeDome.show(screen);
+						playButton.show(screen);
+						instructions.show(screen);
+						SDL_Flip(screen);
+						
+					}
 			
 				}
 			}
@@ -442,16 +512,15 @@ bool gameIsOver= false;
 
 
 
-Text scoretext("Score: ",20,20,colorWhite,30);
-Text actualscoretext( boost::lexical_cast<string>( score ),110,20,colorWhite,30);
-Text weaponname("Weapon: " ,350,20,colorWhite,30);
-Text domename ("Dome Health: ",1000,10,colorWhite,20);
-Text domehealth(boost::lexical_cast<string>(dome.getCurrentHealth()),1050,30,colorWhite,30);
 
 Text moneyText("Money: $ ",900,0,colorWhite,30);
 Text actualMoneyText(boost::lexical_cast<string>(money),moneyText.getTextXpos()+moneyText.getWidth(),0,colorWhite,30);
 
+
+//class that replaces mouse with the crosshairs
  Crosshairs crosshairs;
+
+
 //while they have not beat the game or have not died 
 while(gameIsOver==false)
 {
@@ -464,7 +533,16 @@ while(gameIsOver==false)
 		clean_up();
 		return 0;
 	}
-
+Text reload("RELOAD!" ,400,300,colorRed, 100);
+Text scoretext("Score: ",20,20,colorWhite,30);
+Text actualscoretext( boost::lexical_cast<string>( score ),110,20,colorWhite,30);
+Text weaponname("Weapon: " ,350,20,colorWhite,30);
+Text cliptext("Clip: ", 750,10,colorWhite,30);
+Text cliptotal(boost::lexical_cast<string>( weapons[0]->getCurrentClipAmmo() ),850,10,colorWhite,30);
+Text totaltext("Total: ", 750,40,colorWhite,30);
+Text total(boost::lexical_cast<string>( weapons[0]->getCurrentAmmo() ),850,40,colorWhite,30);
+Text domename ("Dome Health: ",1000,10,colorWhite,20);
+Text domehealth(boost::lexical_cast<string>(dome.getCurrentHealth()),1050,30,colorWhite,30);
 
 /* START GAMEPLAY */
 
@@ -482,20 +560,30 @@ while(gameIsOver==false)
    //Start the frame timer
       fps.start ();
       //show the background and dome
-
-      background.show (screen);
-	statsborder.show(screen);
-      dome.show (screen);
-
-	scoretext.show(screen);
-	actualscoretext.setText(boost::lexical_cast<string>(score));
-	actualscoretext.show(screen);
-	weaponname.show(screen);
-	weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
-	domename.show(screen);
 	//divide health by 100 so it is easier for the user to read
 	domehealth.setText(boost::lexical_cast<string>(dome.getCurrentHealth()/HEALTH_DIVISION_FACTOR));
+
+cliptotal.setText(boost::lexical_cast<string>( weapons[currentWeaponIndex]->getCurrentClipAmmo()));
+actualscoretext.setText(boost::lexical_cast<string>(score));
+total.setText(boost::lexical_cast<string>( weapons[currentWeaponIndex]->getCurrentAmmo()) );
+
+	
+      background.show (screen);
+	statsborder.show(screen);
+
+      dome.show (screen);
+	cliptext.show(screen);
+	scoretext.show(screen);
+	actualscoretext.show(screen);
+	weaponname.show(screen);
+	domename.show(screen);
 	domehealth.show(screen);
+	total.show(screen);
+	cliptotal.show(screen);
+	totaltext.show(screen);
+weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
+if(weapons[currentWeaponIndex]->getCurrentClipAmmo()==0&&count%6>2)
+reload.show(screen);
 //move the enemies
       for (int i = 0; i < enemies.size (); i++)
 	{

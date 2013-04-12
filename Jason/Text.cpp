@@ -21,6 +21,20 @@ message = TTF_RenderText_Solid (font, words.c_str(), color);
 
 }
 
+void Text::setX(int newX)
+{
+	xpos = newX;
+}
+void Text::setSize(int newSize)
+{
+	size = newSize;
+	font = TTF_OpenFont ("Advert.ttf", size);
+	TTF_SizeText(font,words.c_str(),&width,&height);
+}
+void Text::setY(int newY)
+{
+	ypos = newY;
+}
 void Text::setText(string newText)
 {
 

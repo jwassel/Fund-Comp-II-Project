@@ -2,7 +2,7 @@
 #include <string>
 #include "Smg.h"
 
-Smg::Smg(string filename, string explosionName, int Clipsize, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y, int expsize):Weapon(filename, explosionName, Clipsize, Price, AmmoPrice, Damage, FireRate,x,y, expsize){
+Smg::Smg(string filename, string explosionName, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y, int expsize,int max, int current, int maxclip, int currentclip):Weapon(filename, explosionName,  Price, AmmoPrice, Damage, FireRate,x,y, expsize,max,current,maxclip, currentclip){
 
 setClips();
 }

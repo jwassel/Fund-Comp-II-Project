@@ -16,6 +16,9 @@ class Text
 		int getHeight();
 		int isClicked(int, int); //returns 1 if clicked
 		void setText(string);
+		void setY(int);
+		void setSize(int);
+		void setX(int);
 	private:
 		SDL_Surface* message;
 		string words;

@@ -40,6 +40,7 @@ SDL_Surface *cursor=NULL;
 
 SDL_Color colorWhite = { 255, 255, 255 };
 SDL_Color colorBlack = {0,0,0};
+SDL_Color colorRed = {220,20,20};
 //The event structure
 SDL_Event event;
 
@@ -126,7 +127,7 @@ void load_enemies ()
   if(currentLevel==1)
   {
 
-   squirtle = new Squirtle ("squirtlej.png", 4000, 0, 38, 36, -5, 10, 20, 50);
+   squirtle = new Squirtle ("squirtlej.png", 1300, 0, 38, 36, -5, 10, 20, 50);
    rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
   enemies.push_back (squirtle);
   enemies.push_back (rpidgey);
@@ -159,17 +160,17 @@ void load_enemies ()
 
 //loads all the items to the store
 void load_store()
-{    // Clipsize, Price, AmmoPrice, Damage, FireRate, x on screen, y on screen
+{    // Filename, explosionname, Price, AmmoPrice, Damage, FireRate, x on screen, y on screen, explosion size,maxAmmo, currentAmmo,maxClipAmmo, currentclipAmmo)
 
-    plasmaCannon = new PlasmaCannon("weapons.png", "explosionplasma.PNG", 25,1000,100,100,1,100,450,40);
+    plasmaCannon = new PlasmaCannon("weapons.png", "explosionplasma.PNG",PLASMA_CANNON_PRICE,PLASMA_CANNON_AMMO_PRICE,PLASMA_CANNON_DAMAGE,5,PLASMA_CANNON_X,PLASMA_CANNON_Y,PLASMA_CANNON_EXP_SIZE,PLASMA_CANNON_MAX_AMMO,PLASMA_CANNON_MAX_AMMO,PLASMA_CANNON_MAX_CLIP_AMMO,PLASMA_CANNON_MAX_CLIP_AMMO);
     store.push_back(plasmaCannon);
-    pistol = new Pistol("weapons.png", "explosionpistol.png", 12,PISTOL_PRICE,PISTOL_AMMO_PRICE,PISTOL_DAMAGE,5,PISTOL_X,PISTOL_Y,PISTOL_EXP_SIZE);
+    pistol = new Pistol("weapons.png", "explosionpistol.png", PISTOL_PRICE,PISTOL_AMMO_PRICE,PISTOL_DAMAGE,5,PISTOL_X,PISTOL_Y,PISTOL_EXP_SIZE,PISTOL_MAX_AMMO,PISTOL_MAX_AMMO,PISTOL_MAX_CLIP_AMMO,PISTOL_MAX_CLIP_AMMO);
     store.push_back(pistol);
-    gatling = new Gatling("weapons.png", "explosiongatling.png", 60,GATLING_PRICE,GATLING_AMMO_PRICE,GATLING_DAMAGE,30,GATLING_X,GATLING_Y,GATLING_EXP_SIZE);
+    gatling = new Gatling("weapons.png", "explosiongatling.png",  GATLING_PRICE,GATLING_AMMO_PRICE,GATLING_DAMAGE,5,GATLING_X,GATLING_Y,GATLING_EXP_SIZE,GATLING_MAX_AMMO,GATLING_MAX_AMMO,GATLING_MAX_CLIP_AMMO,GATLING_MAX_CLIP_AMMO);
     store.push_back(gatling);
-    smg = new Smg("weapons.png", "explosionsmg.PNG", 40,SMG_PRICE,SMG_AMMO_PRICE,SMG_DAMAGE,20,SMG_X,SMG_Y,SMG_EXP_SIZE);
+    smg = new Smg("weapons.png", "explosionsmg.PNG",SMG_PRICE,SMG_AMMO_PRICE,SMG_DAMAGE,5,SMG_X,SMG_Y,SMG_EXP_SIZE,SMG_MAX_AMMO,SMG_MAX_AMMO,SMG_MAX_CLIP_AMMO,SMG_MAX_CLIP_AMMO);
     store.push_back(smg);
-    lmg = new Lmg("weapons.png", "explosionlmg.PNG", 100,LMG_PRICE,LMG_AMMO_PRICE,LMG_DAMAGE,18,LMG_X,LMG_Y,LMG_EXP_SIZE);
+    lmg = new Lmg("weapons.png", "explosionlmg.PNG",LMG_PRICE,LMG_AMMO_PRICE,LMG_DAMAGE,5,LMG_X,LMG_Y,LMG_EXP_SIZE,LMG_MAX_AMMO,LMG_MAX_AMMO,LMG_MAX_CLIP_AMMO,LMG_MAX_CLIP_AMMO);
     store.push_back(lmg);
 }
 
@@ -206,6 +207,11 @@ void goToInstructions(Text &backButton)
 	actualInstructions.setText("Once the Dome's Health is 0, you lose");
 	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
 	actualInstructions.show(screen);
+
+	actualInstructions.setText("To reload when your clip is empty, shake the mouse quickly");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.show(screen);
+
 	SDL_Flip(screen);
 	bool goBack = false;
 	while(goBack==false)
@@ -506,16 +512,15 @@ bool gameIsOver= false;
 
 
 
-Text scoretext("Score: ",20,20,colorWhite,30);
-Text actualscoretext( boost::lexical_cast<string>( score ),110,20,colorWhite,30);
-Text weaponname("Weapon: " ,350,20,colorWhite,30);
-Text domename ("Dome Health: ",1000,10,colorWhite,20);
-Text domehealth(boost::lexical_cast<string>(dome.getCurrentHealth()),1050,30,colorWhite,30);
 
 Text moneyText("Money: $ ",900,0,colorWhite,30);
 Text actualMoneyText(boost::lexical_cast<string>(money),moneyText.getTextXpos()+moneyText.getWidth(),0,colorWhite,30);
 
+
+//class that replaces mouse with the crosshairs
  Crosshairs crosshairs;
+
+
 //while they have not beat the game or have not died 
 while(gameIsOver==false)
 {
@@ -528,7 +533,16 @@ while(gameIsOver==false)
 		clean_up();
 		return 0;
 	}
-
+Text reload("RELOAD!" ,400,300,colorRed, 100);
+Text scoretext("Score: ",20,20,colorWhite,30);
+Text actualscoretext( boost::lexical_cast<string>( score ),110,20,colorWhite,30);
+Text weaponname("Weapon: " ,350,20,colorWhite,30);
+Text cliptext("Clip: ", 750,10,colorWhite,30);
+Text cliptotal(boost::lexical_cast<string>( weapons[0]->getCurrentClipAmmo() ),850,10,colorWhite,30);
+Text totaltext("Total: ", 750,40,colorWhite,30);
+Text total(boost::lexical_cast<string>( weapons[0]->getCurrentAmmo() ),850,40,colorWhite,30);
+Text domename ("Dome Health: ",1000,10,colorWhite,20);
+Text domehealth(boost::lexical_cast<string>(dome.getCurrentHealth()),1050,30,colorWhite,30);
 
 /* START GAMEPLAY */
 
@@ -546,20 +560,30 @@ while(gameIsOver==false)
    //Start the frame timer
       fps.start ();
       //show the background and dome
-
-      background.show (screen);
-	statsborder.show(screen);
-      dome.show (screen);
-
-	scoretext.show(screen);
-	actualscoretext.setText(boost::lexical_cast<string>(score));
-	actualscoretext.show(screen);
-	weaponname.show(screen);
-	weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
-	domename.show(screen);
 	//divide health by 100 so it is easier for the user to read
 	domehealth.setText(boost::lexical_cast<string>(dome.getCurrentHealth()/HEALTH_DIVISION_FACTOR));
+
+cliptotal.setText(boost::lexical_cast<string>( weapons[currentWeaponIndex]->getCurrentClipAmmo()));
+actualscoretext.setText(boost::lexical_cast<string>(score));
+total.setText(boost::lexical_cast<string>( weapons[currentWeaponIndex]->getCurrentAmmo()) );
+
+	
+      background.show (screen);
+	statsborder.show(screen);
+
+      dome.show (screen);
+	cliptext.show(screen);
+	scoretext.show(screen);
+	actualscoretext.show(screen);
+	weaponname.show(screen);
+	domename.show(screen);
 	domehealth.show(screen);
+	total.show(screen);
+	cliptotal.show(screen);
+	totaltext.show(screen);
+weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
+if(weapons[currentWeaponIndex]->getCurrentClipAmmo()==0&&count%6>2)
+reload.show(screen);
 //move the enemies
       for (int i = 0; i < enemies.size (); i++)
 	{
