@@ -3,7 +3,7 @@
 #include "Voltorb.h"
 #include <cmath>
 
-Voltorb::Voltorb(string filename, int Price, int Damage, int x, int y):Bomb(filename, Price, Damage, x, y){
+Voltorb::Voltorb(string filename, int Price, int x, int y):Bomb(filename, Price, x, y){
 mod = 1; 
 //because the first three images are voltorb moving, not exploding. mod will be changed to four when it hits the ground in the move function
 setClips();
@@ -70,13 +70,13 @@ int enemyHeight = 0;
 	enemyY = enemies[i]->getY();
 	enemyWidth = enemies[i]->getWidth();
 	enemyHeight = enemies[i]->getHeight();
-	if (abs(xpos - (enemyX+enemyWidth/2)) < VOLTORB_RANGE)
+	if (abs(xpos - (enemyX+enemyWidth/2)) < VOLTORB_RANGE && abs(ypos - (enemyY+enemyHeight/2)) < VOLTORB_RANGE)
 	    {
 		enemies[i]->getAttacked(damage,score,money);
 	    	score+=HIT_BONUS;
 	    	money+=HIT_BONUS;
 	    	}
-	}
+	}}
 	else
 	apply_surface(xpos,ypos,sprite,screen,&clips[0]);
 	mod=1;

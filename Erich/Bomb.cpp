@@ -7,10 +7,9 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-Bomb::Bomb(string filename, int Price, int Damage, int x, int y){
+Bomb::Bomb(string filename, int Price, int x, int y){
 	
 price = Price;
-damage = Damage;
 xpos = x;
 ypos = y;
 

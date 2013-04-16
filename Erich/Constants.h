@@ -80,5 +80,8 @@ const int FRAMES_PER_SECOND = 20;
 //Bomb info
 const int BOMB_VELOCITY = 7;
 const int VOLTORB_RANGE = 50;
+const int ELECTRODE_RANGE = 100;
+const int VOLTORB_DAMAGE = 75;
+const int ELECTRODE_DAMAGE = 150;
 
 #endif

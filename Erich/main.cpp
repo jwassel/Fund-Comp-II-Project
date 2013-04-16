@@ -26,6 +26,7 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Constants.h"
 #include "Crosshairs.h"
 #include "Voltorb.h"
+#include "Electrode.h"
 #include "Bomb.h"
 #include <boost/lexical_cast.hpp>
 #include <string>
@@ -52,6 +53,7 @@ Squirtle *squirtle;
 Poliwhirl *poliwhirl;
 Rpidgey *rpidgey;
 Voltorb *voltorb;
+Electrode *electrode;
 
 SDL_Surface *message = NULL;
 
@@ -131,7 +133,8 @@ void load_enemies ()
    enemies.clear();
   if(currentLevel==1)
   {
-    voltorb = new Voltorb ("bombs.png", 100, 100, 100, 100);
+    voltorb = new Voltorb ("bombs.png", 100, 100, 100);
+    electrode = new Electrode ("bombs.png", 100, 100, 100);
    squirtle = new Squirtle ("squirtlej.png", 1300, 0, 38, 36, -5, 10, 20, 50);
    rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
   enemies.push_back (squirtle);
@@ -450,9 +453,11 @@ if( music == NULL )
 Mix_PlayMusic( music, -1 );
 
 
-    voltorb = new Voltorb("bombs.png", 100,100,200,40);
+    voltorb = new Voltorb("bombs.png", 100,200,40);
     bombs.push_back(voltorb);
-
+    electrode = new Electrode("bombs.png", 100,200,40);
+    bombs.push_back(electrode);
+    
 /*HOME SCREEN*/
   Background background ("background.bmp");
   Background statsborder("border.png");
@@ -567,7 +572,8 @@ Text domehealth(boost::lexical_cast<string>(dome.getCurrentHealth()),1050,30,col
   load_enemies (); //loads enemies for current level
   quit = false;
 
-int dropbomb=0;
+int dropVoltorb=0;
+int dropElectrode=0;
 
   //While the user hasn't quit
   while (quit == false)
@@ -602,10 +608,16 @@ weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
 if(weapons[currentWeaponIndex]->getCurrentClipAmmo()==0&&count%6>2)
 reload.show(screen);
 
-if (dropbomb){
+if (dropVoltorb){
 	voltorb->show(screen,enemies,score,money);
 	if (voltorb->move())
-	dropbomb=0;
+	dropVoltorb=0;
+}
+
+if (dropElectrode){
+	electrode->show(screen,enemies,score,money);
+	if (electrode->move())
+	dropElectrode=0;
 }
 //move the enemies
       for (int i = 0; i < enemies.size (); i++)
@@ -654,11 +666,18 @@ if (dropbomb){
 		//switch weapons if they hit the left or right arrow keys
 	       if(event.type == SDL_KEYDOWN)
 		{
-			if(event.key.keysym.sym == SDLK_SPACE){
-		dropbomb++;
+			if(event.key.keysym.sym == SDLK_v){
+		dropVoltorb++;
 		int xmouse, ymouse;
 		SDL_GetMouseState(&xmouse, &ymouse);
 		voltorb->setPos(xmouse, ymouse);
+		}
+
+			if(event.key.keysym.sym == SDLK_SPACE){
+		dropElectrode++;
+		int xmouse, ymouse;
+		SDL_GetMouseState(&xmouse, &ymouse);
+		electrode->setPos(xmouse, ymouse);
 		}
 
 			if(event.key.keysym.sym == SDLK_LEFT)
