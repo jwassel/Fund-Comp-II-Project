@@ -27,6 +27,8 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Crosshairs.h"
 #include "Voltorb.h"
 #include "Bomb.h"
+#include "Electrode.h"
+#include "Item.h"
 #include <boost/lexical_cast.hpp>
 #include <string>
 #include <vector>
@@ -57,8 +59,8 @@ SDL_Surface *message = NULL;
 
 //vector that stores the user's current weapons
 vector < Weapon * >weapons;
-//stores all the weapons the user can buy (NOTE need to change to be of some base class cause the store must also show 
-vector < Weapon * >store;
+
+vector < Item * >store;
 
 vector < Bomb * > bombs;
 //all the possible weapons
@@ -169,6 +171,10 @@ void load_enemies ()
 void load_store()
 {    // Filename, explosionname, Price, AmmoPrice, Damage, FireRate, x on screen, y on screen, explosion size,maxAmmo, currentAmmo,maxClipAmmo, currentclipAmmo)
 
+ /*   voltorb = new Voltorb ("bombs.png", VOLTORB_PRICE, VOLTORB_DAMAGE, VOLTORB_X, VOLTORB_Y);
+	store.push_back(voltorb);
+*/
+
     plasmaCannon = new PlasmaCannon("weapons.png", "explosionplasma.PNG",PLASMA_CANNON_PRICE,PLASMA_CANNON_AMMO_PRICE,PLASMA_CANNON_DAMAGE,5,PLASMA_CANNON_X,PLASMA_CANNON_Y,PLASMA_CANNON_EXP_SIZE,PLASMA_CANNON_MAX_AMMO,PLASMA_CANNON_MAX_AMMO,PLASMA_CANNON_MAX_CLIP_AMMO,PLASMA_CANNON_MAX_CLIP_AMMO);
     store.push_back(plasmaCannon);
     pistol = new Pistol("weapons.png", "explosionpistol.png", PISTOL_PRICE,PISTOL_AMMO_PRICE,PISTOL_DAMAGE,5,PISTOL_X,PISTOL_Y,PISTOL_EXP_SIZE,PISTOL_MAX_AMMO,PISTOL_MAX_AMMO,PISTOL_MAX_CLIP_AMMO,PISTOL_MAX_CLIP_AMMO);
@@ -179,7 +185,11 @@ void load_store()
     store.push_back(smg);
     lmg = new Lmg("weapons.png", "explosionlmg.PNG",LMG_PRICE,LMG_AMMO_PRICE,LMG_DAMAGE,5,LMG_X,LMG_Y,LMG_EXP_SIZE,LMG_MAX_AMMO,LMG_MAX_AMMO,LMG_MAX_CLIP_AMMO,LMG_MAX_CLIP_AMMO);
     store.push_back(lmg);
-    
+
+    voltorb = new Voltorb ("bombs.png", VOLTORB_PRICE, VOLTORB_DAMAGE, VOLTORB_X, VOLTORB_Y);
+	store.push_back(voltorb);
+
+	cout<<"size of store = "<<store.size()<<endl;
 
 }
 
@@ -255,6 +265,16 @@ bool purchaseFromStore(int x, int y, Text &continueToGame, Text&messageToUser,Te
 		return true;
 	}
 	
+	if(voltorb->isClicked(x,y))
+	{
+		if(money>=voltorb->getPrice())
+		{
+			money-=voltorb->getPrice();
+			actualMoneyText.setText(boost::lexical_cast<string>(money));
+			messageToUser.setText("Succesfully Added Voltorb");
+			bombs.push_back(voltorb);
+		}
+	}
 	if(pistol->isClicked(x,y))
 	{
 		if(money>=pistol->getPrice())
@@ -337,11 +357,7 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &
   	SDL_ShowCursor(1);
 	SDL_FillRect (screen, &screen->clip_rect,
 			SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
-	//store screen
-	for(int j=0;j<store.size();j++)
-	{
-		store[j]->show(screen); //x, y, surface
-	}
+
 	
 	continueToGame.show(screen);
 	gunsMessage.show(screen);
@@ -354,6 +370,11 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &
 	gatlingPriceText.show(screen);
 	smgPriceText.show(screen);
 	lmgPriceText.show(screen);
+	//store screen
+	for(int j=0;j<store.size();j++)
+	{
+		store[j]->showInStore(screen); //x, y, surface
+	}
 	SDL_Flip(screen);
 
      Text messageToUser("",continueToGame.getTextXpos()+continueToGame.getWidth()+50,continueToGame.getTextYpos(),colorWhite,20);
@@ -377,7 +398,7 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &
 					//store screen
 					for(int j=0;j<store.size();j++)
 					{
-						store[j]->show(screen); //x, y, surface
+						store[j]->showInStore(screen); //x, y, surface
 					}
 				continueButton = purchaseFromStore(x,y,continueToGame,messageToUser,actualMoneyText);
 				if(continueButton&&weapons.size()==0)

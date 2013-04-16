@@ -10,10 +10,11 @@ setClips();
 void PlasmaCannon::fire(){
 }
 
+
 //shows the Weapon on the screen
-void PlasmaCannon::show(SDL_Surface * screen)
+void PlasmaCannon::showInStore(SDL_Surface * screen)
 {
-	apply_surface(xpos, ypos, sprite, screen, &clips);
+	apply_surface(xInStore, yInStore, sprite, screen, &clips);
 }
 
 void PlasmaCannon::setClips(){
@@ -34,10 +35,9 @@ int PlasmaCannon::getWidth() {
 int PlasmaCannon::getHeight() {
 	return clips.h;
 }
-
 int PlasmaCannon::isClicked(int x, int y)
 {
-	if(x>=xpos && x<=xpos+getWidth() && y>=ypos && y<=ypos+getHeight())
+	if(x>=xInStore && x<=xInStore+getWidth() && y>=yInStore && y<=yInStore+getHeight())
 		return 1;
 
 	return 0;

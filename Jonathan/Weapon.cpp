@@ -7,21 +7,18 @@
 #include "Enemy.h"
 #include <iostream>
 using namespace std;
-Weapon::Weapon(string filename,string explosionName, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y,int expsize, int max, int current, int maxclip, int currentclip){
+Weapon::Weapon(string filename,string explosionName, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y,int expsize, int max, int current, int maxclip, int currentclip):Item(x,y,Price,filename){
 
 
-price = Price;
 ammoPrice = AmmoPrice;
 damage = Damage;
 fireRate = fireRate;
-xpos = x;
-ypos = y;
 explosionSize=expsize;
 maxAmmo=max;
 currentAmmo=current;
 maxClipAmmo=maxclip;
 currentClipAmmo=currentclip;
-reloadTime=30;
+reloadTime=RELOAD_TIME;
 
 
 sprite = load_image(filename.c_str());
@@ -39,6 +36,8 @@ int Weapon::getCurrentAmmo(){
 return currentAmmo;
 
 }
+
+
 
 
 void Weapon::showExplosion(int x, int y, SDL_Surface *screen)
@@ -101,11 +100,12 @@ currentAmmo=currentAmmo-maxClipAmmo;
 reloadTime=20;}
 }
 }
-
+/*
 int Weapon::getPrice()
 {
 	return price;
 }
+*/
 void Weapon::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip){ //applies new surface
     
 
@@ -154,11 +154,12 @@ SDL_Surface * Weapon::load_image(std::string filename)
 		return optimizedImage;
 }
 
+
 int Weapon::getXpos() {
-	return xpos;
+	return xInStore;
 }
 
 int Weapon::getYpos() {
-	return ypos;
+	return yInStore;
 }
 

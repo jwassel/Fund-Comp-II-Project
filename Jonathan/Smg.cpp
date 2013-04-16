@@ -10,11 +10,13 @@ setClips();
 void Smg::fire(){
 }
 
+
 //shows the Weapon on the screen
-void Smg::show(SDL_Surface * screen)
+void Smg::showInStore(SDL_Surface * screen)
 {
-	apply_surface(xpos, ypos, sprite, screen, &clips);
+	apply_surface(xInStore, yInStore, sprite, screen, &clips);
 }
+
 
 void Smg::showDuringGamePlay(int x,int y, SDL_Surface * screen){
 
@@ -36,9 +38,10 @@ int Smg::getWidth() {
 int Smg::getHeight() {
 	return clips.h;
 }
-
-int Smg::isClicked(int x, int y) {
-	if(x>=xpos && x<=xpos+getWidth() && y>=ypos && y<=ypos+getHeight())
+int Smg::isClicked(int x, int y)
+{
+	if(x>=xInStore && x<=xInStore+getWidth() && y>=yInStore && y<=yInStore+getHeight())
 		return 1;
+
 	return 0;
 }
