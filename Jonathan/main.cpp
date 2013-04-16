@@ -33,7 +33,6 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include <string>
 #include <vector>
 #include <iostream>
-//Screen size at bits per pixel
 
 
 using namespace std;
@@ -60,7 +59,8 @@ SDL_Surface *message = NULL;
 //vector that stores the user's current weapons
 vector < Weapon * >weapons;
 
-vector < Item * >store;
+vector < Weapon * >store;
+vector <Bomb *> storeBombs;
 
 vector < Bomb * > bombs;
 //all the possible weapons
@@ -169,7 +169,7 @@ void load_enemies ()
 
 //loads all the items to the store
 void load_store()
-{    // Filename, explosionname, Price, AmmoPrice, Damage, FireRate, x on screen, y on screen, explosion size,maxAmmo, currentAmmo,maxClipAmmo, currentclipAmmo)
+{    
 
  /*   voltorb = new Voltorb ("bombs.png", VOLTORB_PRICE, VOLTORB_DAMAGE, VOLTORB_X, VOLTORB_Y);
 	store.push_back(voltorb);
@@ -187,9 +187,8 @@ void load_store()
     store.push_back(lmg);
 
     voltorb = new Voltorb ("bombs.png", VOLTORB_PRICE, VOLTORB_DAMAGE, VOLTORB_X, VOLTORB_Y);
-	store.push_back(voltorb);
+	storeBombs.push_back(voltorb);
 
-	cout<<"size of store = "<<store.size()<<endl;
 
 }
 
@@ -372,8 +371,12 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &
 	lmgPriceText.show(screen);
 	//store screen
 	for(int j=0;j<store.size();j++)
-	{
+	{	
 		store[j]->showInStore(screen); //x, y, surface
+	}
+	for(int j=0;j<storeBombs.size();j++)
+	{	
+		storeBombs[j]->showInStore(screen); //x, y, surface
 	}
 	SDL_Flip(screen);
 
