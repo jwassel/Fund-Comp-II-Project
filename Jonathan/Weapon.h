@@ -10,7 +10,7 @@
 using namespace std;
 class Weapon{
 public:
-	Weapon(string,string,int,int,int,int,int,int,int,int); //constructor
+	Weapon(string,string,int,int,int,int,int,int,int,int,int,int,int); //constructor
 	virtual void fire()=0; 
 	virtual void setClips()=0; //sets the clip fo the weapon (how it will look on the store screen)
 	virtual void show(SDL_Surface *)=0; //shows the weapon on the screen
@@ -22,6 +22,8 @@ public:
 	int getYpos();
 	int getSize();
 	int getPrice();
+	int getCurrentClipAmmo();
+	int getCurrentAmmo();
 	virtual void showDuringGamePlay(int, int, SDL_Surface*)=0;
 
 protected:
@@ -36,6 +38,11 @@ protected:
         int xpos;
 	int ypos;
 	int explosionSize;
+	int maxAmmo;
+	int reloadTime;
+	int currentAmmo;
+	int currentClipAmmo;
+	int maxClipAmmo;
 };
 
 #endif
