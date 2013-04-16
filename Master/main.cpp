@@ -25,6 +25,8 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Text.h"
 #include "Constants.h"
 #include "Crosshairs.h"
+#include "Voltorb.h"
+#include "Bomb.h"
 #include <boost/lexical_cast.hpp>
 #include <string>
 #include <vector>
@@ -49,6 +51,7 @@ vector < Enemy * >enemies; //vector to store the enemies in a given level
 Squirtle *squirtle;
 Poliwhirl *poliwhirl;
 Rpidgey *rpidgey;
+Voltorb *voltorb;
 
 SDL_Surface *message = NULL;
 
@@ -56,6 +59,8 @@ SDL_Surface *message = NULL;
 vector < Weapon * >weapons;
 //stores all the weapons the user can buy (NOTE need to change to be of some base class cause the store must also show 
 vector < Weapon * >store;
+
+vector < Bomb * > bombs;
 //all the possible weapons
 Pistol *pistol;
 PlasmaCannon* plasmaCannon;
@@ -126,7 +131,7 @@ void load_enemies ()
    enemies.clear();
   if(currentLevel==1)
   {
-
+    voltorb = new Voltorb ("bombs.png", 100, 100, 100, 100);
    squirtle = new Squirtle ("squirtlej.png", 1300, 0, 38, 36, -5, 10, 20, 50);
    rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
   enemies.push_back (squirtle);
@@ -158,6 +163,9 @@ void load_enemies ()
   }
 }
 
+
+
+
 //loads all the items to the store
 void load_store()
 {    // Filename, explosionname, Price, AmmoPrice, Damage, FireRate, x on screen, y on screen, explosion size,maxAmmo, currentAmmo,maxClipAmmo, currentclipAmmo)
@@ -172,10 +180,13 @@ void load_store()
     store.push_back(smg);
     lmg = new Lmg("weapons.png", "explosionlmg.PNG",LMG_PRICE,LMG_AMMO_PRICE,LMG_DAMAGE,5,LMG_X,LMG_Y,LMG_EXP_SIZE,LMG_MAX_AMMO,LMG_MAX_AMMO,LMG_MAX_CLIP_AMMO,LMG_MAX_CLIP_AMMO);
     store.push_back(lmg);
+    
+
 }
 
 void goToInstructions(Text &backButton)
 {
+
 	 SDL_FillRect (screen, &screen->clip_rect,
 	SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
 	backButton.show(screen);
@@ -332,6 +343,7 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &
 	{
 		store[j]->show(screen); //x, y, surface
 	}
+	
 	continueToGame.show(screen);
 	gunsMessage.show(screen);
 	priceHeader.show(screen);
@@ -412,6 +424,7 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &
 //the main function
 int main (int argc, char *args[])
 {
+
 //user's score for the game,
 int score=0;
   //Quit flag
@@ -435,6 +448,10 @@ if( music == NULL )
         return false;    
     }
 Mix_PlayMusic( music, -1 );
+
+
+    voltorb = new Voltorb("bombs.png", 100,100,200,40);
+    bombs.push_back(voltorb);
 
 /*HOME SCREEN*/
   Background background ("background.bmp");
@@ -550,7 +567,7 @@ Text domehealth(boost::lexical_cast<string>(dome.getCurrentHealth()),1050,30,col
   load_enemies (); //loads enemies for current level
   quit = false;
 
-
+int dropbomb=0;
 
   //While the user hasn't quit
   while (quit == false)
@@ -584,6 +601,12 @@ total.setText(boost::lexical_cast<string>( weapons[currentWeaponIndex]->getCurre
 weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
 if(weapons[currentWeaponIndex]->getCurrentClipAmmo()==0&&count%6>2)
 reload.show(screen);
+
+if (dropbomb){
+	voltorb->show(screen,enemies,score,money);
+	if (voltorb->move())
+	dropbomb=0;
+}
 //move the enemies
       for (int i = 0; i < enemies.size (); i++)
 	{
@@ -628,12 +651,16 @@ reload.show(screen);
       //While there's events to handle
       while (SDL_PollEvent (&event))
 	{
-
-
-
 		//switch weapons if they hit the left or right arrow keys
 	       if(event.type == SDL_KEYDOWN)
 		{
+			if(event.key.keysym.sym == SDLK_SPACE){
+		dropbomb++;
+		int xmouse, ymouse;
+		SDL_GetMouseState(&xmouse, &ymouse);
+		voltorb->setPos(xmouse, ymouse);
+		}
+
 			if(event.key.keysym.sym == SDLK_LEFT)
 			{
 				if(currentWeaponIndex==0) currentWeaponIndex = weapons.size()-1;

@@ -1,4 +1,4 @@
-
+//Header file for abstarct Sprite class
 #include "SDL/SDL.h"
 #include <vector>
 #include <string>
@@ -17,7 +17,7 @@ class Sprite{
 	virtual void setClips() = 0;
 
     protected:
-       	SDL_Surface * sprite;
+       	SDL_Surface * sprite; //the image
 	int xpos;
 	int ypos;
 	int width;

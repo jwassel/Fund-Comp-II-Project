@@ -77,6 +77,10 @@ const int LMG_MAX_CLIP_AMMO= 50;
 //The frame rate
 const int FRAMES_PER_SECOND = 20;
 
+
+const int RELOAD_TIME=40;
+
+
 //Bomb info
 const int BOMB_VELOCITY = 7;
 const int VOLTORB_RANGE = 50;

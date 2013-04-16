@@ -31,8 +31,8 @@ const int PISTOL_DAMAGE = 10;
 const int PISTOL_X = 100;
 const int PISTOL_Y = 60;
 const int PISTOL_EXP_SIZE = 8;
-const int PISTOL_MAX_AMMO = 25;
-const int PISTOL_MAX_CLIP_AMMO= 10;
+const int PISTOL_MAX_AMMO = 150;
+const int PISTOL_MAX_CLIP_AMMO= 20;
 
 //Plasma Cannon information
 const int PLASMA_CANNON_PRICE = 1500;
@@ -74,9 +74,15 @@ const int LMG_EXP_SIZE = 26;
 const int LMG_MAX_AMMO = 400;
 const int LMG_MAX_CLIP_AMMO= 50;
 
-const int RELOAD_TIME=40;
-
 //The frame rate
 const int FRAMES_PER_SECOND = 20;
+
+
+const int RELOAD_TIME=40;
+
+
+//Bomb info
+const int BOMB_VELOCITY = 7;
+const int VOLTORB_RANGE = 50;
 
 #endif
