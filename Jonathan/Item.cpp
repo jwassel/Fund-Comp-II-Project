@@ -4,14 +4,15 @@ Item::Item(int x, int y, int p, string imageStr)
 	xInStore = x;
 	yInStore = y;
 	price = p;
-	sprite = load_image(imageStr.c_str());
+	//sprite = load_image(imageStr);
+
 }
 
 int Item::getPrice()
 {
 	return price;
 }
-
+/*
 void Item::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip){ //applies new surface
     //Holds offsets
     SDL_Rect shift;
@@ -55,4 +56,4 @@ SDL_Surface * Item::load_image(string filename)
 		}
 	}
 		return optimizedImage;
-}
+}*/

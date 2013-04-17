@@ -29,7 +29,6 @@ int Voltorb::move()
 
 void Voltorb::showInStore(SDL_Surface*screen)
 {
-
 	apply_surface(xInStore,yInStore,sprite,screen,&clips[1]);
 }
 	

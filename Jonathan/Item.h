@@ -12,14 +12,15 @@ class Item
 		virtual void showInStore(SDL_Surface*)=0;
 		virtual int isClicked(int,int) = 0;
 		int getPrice();
+		 //SDL_Surface* load_image(string);
+		//void apply_surface(int, int, SDL_Surface* , SDL_Surface* , SDL_Rect*);
 
 	protected:
 		int price;
 		SDL_Surface * sprite;
 		int xInStore;
 		int yInStore;
-		SDL_Surface* load_image(string);
-		void apply_surface(int, int, SDL_Surface* , SDL_Surface* , SDL_Rect*);
+	
 		
 };
 #endif

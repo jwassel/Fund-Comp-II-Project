@@ -22,7 +22,7 @@ const int BOUNCE=20;
 
 //what the health will appear as on teh screen
 const int HEALTH_DIVISION_FACTOR = 100;
-const int INITIAL_MONEY = 100;
+const int INITIAL_MONEY = 1500000;
 
 //Pistol information
 const int PISTOL_PRICE = 100;
@@ -89,7 +89,7 @@ const int VOLTORB_RANGE = 50;
 const int ELECTRODE_X = 200;
 const int ELECTRODE_Y = 60;
 const int VOLTORB_X = 600;
-const int VOLTORB_Y = 300;
+const int VOLTORB_Y = 150;
 const int VOLTORB_PRICE = 50;
 const int VOLTORB_DAMAGE = 50;
 const int ELECTRODE_PRICE = 100;
