@@ -15,7 +15,7 @@ class Pidgey: public Enemy
 
 
 	private:
-		SDL_Rect clips[6]; //the number of clips in the Pidgey sprite sheet
+		SDL_Rect clips[4]; //the number of clips in the Pidgey sprite sheet
 
 };
 #endif

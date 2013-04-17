@@ -1,6 +1,6 @@
 
-#ifndef Articuno_H
-#define Articuno_H
+#ifndef ARTICUNO_H
+#define ARTICUNO_H
 #include "Enemy.h"
 #include "Sprite.h"
 #include <string>
@@ -8,7 +8,7 @@
 class Articuno: public Enemy
 {
 	public:
-		Articuno(string,int, int, int , int, int ,int, int); //constructor
+		Articuno(string,int, int, int , int,int, int ,int, int); //constructor
 		 virtual void move(); //move function
 		virtual void show(SDL_Surface*,int);
 		virtual void setClips();

@@ -4,24 +4,24 @@
 #include "Enemy.h"
 #include "SDL/SDL.h"
 #include <string>
-Articuno::Articuno(string filename, int x, int y, int w, int h, int xV, int yV, int hea):Enemy(filename,x,y,w,h,xV,yV,hea)
+Articuno::Articuno(string filename, int x, int y, int w, int h, int xV, int yV, int p,int hea):Enemy(filename,x,y,w,h,xV,yV,p,hea)
 {
 	setClips();
 }
 
 void Articuno::move()
 {
- if(ypos<550)
-	ypos+=yVel;
-else
+  if (xpos>=DOME_HEAD_X_END)
 	xpos+=xVel;
+else 
+	xpos+=BOUNCE;
 
 }
 
 //shows the enemy on the screen
 void Articuno::show(SDL_Surface * screen, int count)
 {
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
+	apply_surface(xpos,ypos,sprite,screen,&clips[count%4]);
 }
 
 void Articuno::setClips()
