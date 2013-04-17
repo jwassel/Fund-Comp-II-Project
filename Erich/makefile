@@ -1,9 +1,9 @@
-OBJECTS = main.o Timer.o Enemy.o Squirtle.o Sprite.o Background.o Poliwhirl.o Rpidgey.o Dome.o Weapon.o Pistol.o Gatling.o Lmg.o Smg.o PlasmaCannon.o Text.o Crosshairs.o Voltorb.o Bomb.o Electrode.o
+OBJECTS = main.o Timer.o Enemy.o Squirtle.o Sprite.o Background.o Poliwhirl.o Rpidgey.o Dome.o Weapon.o Pistol.o Gatling.o Lmg.o Smg.o PlasmaCannon.o Text.o Crosshairs.o Voltorb.o Bomb.o Electrode.o Articuno.o
 OUTPUT = main
 SDLLINKS = -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
 ($OUTPUT): $(OBJECTS)
 	g++ $(OBJECTS) -o $(OUTPUT) $(SDLLINKS)
-main.o: main.cpp Enemy.h Squirtle.h Timer.h Background.h Poliwhirl.h Rpidgey.h Weapon.h Pistol.h Gatling.h Lmg.h Smg.h PlasmaCannon.h Text.h  Crosshairs.h Voltorb.h Bomb.h Electrode.h
+main.o: main.cpp Enemy.h Squirtle.h Timer.h Background.h Poliwhirl.h Rpidgey.h Weapon.h Pistol.h Gatling.h Lmg.h Smg.h PlasmaCannon.h Text.h  Crosshairs.h Voltorb.h Bomb.h Electrode.h Articuno.h 
 	g++ -c main.cpp
 Enemy.o: Enemy.cpp Enemy.h
 	g++ -c Enemy.cpp
@@ -43,5 +43,8 @@ Voltorb.o: Voltorb.cpp Voltorb.h
 	g++ -c Voltorb.cpp
 Bomb.o: Bomb.cpp Bomb.h
 	g++ -c Bomb.cpp
+Articuno.o: Articuno.cpp Articuno.h
+	g++ -c Articuno.cpp
+
 clean:
 	rm -rf core* *.o $(PROJ)

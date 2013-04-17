@@ -1,6 +1,6 @@
 
-#ifndef Marowak_H
-#define Marowak_H
+#ifndef MAROWAK_H
+#define MAROWAK_H
 #include "Enemy.h"
 #include "Sprite.h"
 #include <string>
@@ -15,7 +15,7 @@ class Marowak: public Enemy
 
 
 	private:
-		SDL_Rect clips[6]; //the number of clips in the Marowak sprite sheet
+		SDL_Rect clips[3]; //the number of clips in the Marowak sprite sheet
 
 };
 #endif

@@ -4,58 +4,48 @@
 #include "Enemy.h"
 #include "SDL/SDL.h"
 #include <string>
-Articuno::Articuno(string filename, int x, int y, int w, int h, int xV, int yV, int hea):Enemy(filename,x,y,w,h,xV,yV,hea)
+Articuno::Articuno(string filename, int x, int y, int w, int h, int xV, int yV, int p,int hea):Enemy(filename,x,y,w,h,xV,yV,p,hea)
 {
 	setClips();
 }
 
 void Articuno::move()
 {
- if(ypos<550)
-	ypos+=yVel;
-else
+  if (xpos>=DOME_HEAD_X_END)
 	xpos+=xVel;
+else 
+	xpos+=BOUNCE;
 
 }
 
 //shows the enemy on the screen
 void Articuno::show(SDL_Surface * screen, int count)
 {
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
+	apply_surface(xpos,ypos,sprite,screen,&clips[count%4]);
 }
 
 void Articuno::setClips()
 {
   //Clip range for the Articuno clips
-  clips[0].x = 0;
-  clips[0].y = 108;
-  clips[0].w = 38;
-  clips[0].h = 36;
+  clips[0].x = 58;
+  clips[0].y = 0;
+  clips[0].w = 134;
+  clips[0].h = 105;
 
-  clips[1].x = 38;
-  clips[1].y = 108;
-  clips[1].w = 38;
-  clips[1].h = 36;
+  clips[1].x = 202;
+  clips[1].y = 42;
+  clips[1].w = 150;
+  clips[1].h = 70;
 
-  clips[2].x = 76;
-  clips[2].y = 108;
-  clips[2].w = 40;
-  clips[2].h = 36;
+  clips[2].x = 352;
+  clips[2].y = 42;
+  clips[2].w = 150;
+  clips[2].h = 70;
 
-  clips[3].x = 115;
-  clips[3].y = 108;
-  clips[3].w = 39;
-  clips[3].h = 38;
-
-  clips[4].x = 155;
-  clips[4].y = 108;
-  clips[4].w = 37;
-  clips[4].h = 36;
-
-  clips[5].x = 192;
-  clips[5].y = 108;
-  clips[5].w = 39;
-  clips[5].h = 36;
+  clips[3].x = 507;
+  clips[3].y = 42;
+  clips[3].w = 150;
+  clips[3].h = 70;
 
 }
 

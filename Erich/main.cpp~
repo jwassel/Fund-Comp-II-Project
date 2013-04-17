@@ -28,6 +28,8 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Voltorb.h"
 #include "Electrode.h"
 #include "Bomb.h"
+#include "Articuno.h"
+//#include "Rzapdos.h"
 #include <boost/lexical_cast.hpp>
 #include <string>
 #include <vector>
@@ -53,6 +55,8 @@ Squirtle *squirtle;
 Poliwhirl *poliwhirl;
 Rpidgey *rpidgey;
 Voltorb *voltorb;
+//Rzapdos *rzapdos;
+Articuno *articuno;
 Electrode *electrode;
 
 SDL_Surface *message = NULL;
@@ -79,7 +83,7 @@ int currentWeaponIndex = 0;
 
 //the current level and the maximum # of levels programmed by us
 int currentLevel = 1;
-int maxLevel = 2;
+int maxLevel = 3;
 int money = INITIAL_MONEY;
 
 //SDL initializing material
@@ -163,6 +167,20 @@ void load_enemies ()
   	enemies.push_back (poliwhirl);
   	enemies.push_back (rpidgey);
 	
+  }
+  else if(currentLevel==3)
+  {  //rzapdos = new Rzapdos ("Rzapdos.png", 1000, 0, 38, 36, -10, 20, 20, 50);
+      poliwhirl = new Poliwhirl ("poliwhirl.png", 1100, 0, 75, 80, -14, 24, 30, 100);  
+      articuno = new Articuno ("articuno.png", 1100, 200, 140, 70, -10, 0, 5, 300);
+     //   enemies.push_back (rzapdos);
+  	enemies.push_back (poliwhirl);
+  	enemies.push_back (articuno);
+       squirtle = new Squirtle ("squirtlej.png", 1000, -100, 38, 36, -10, 20, 20, 50);
+      rpidgey = new Rpidgey ("Rpidgey.png", 0, 300, 37, 30, 10, 0, 5, 10);
+    enemies.push_back (squirtle);
+  	enemies.push_back (poliwhirl);
+  	enemies.push_back (rpidgey);
+
   }
 }
 

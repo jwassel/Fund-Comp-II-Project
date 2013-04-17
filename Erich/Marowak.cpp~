@@ -27,20 +27,20 @@ void Marowak::show(SDL_Surface * screen, int count)
 void Marowak::setClips()
 {
   //Clip range for the Marowak clips
-  sprites[0].x = 0;
-  sprites[0].y = 92;
-  sprites[0].w = 95;
-  sprites[0].h = 107;
+  clips[0].x = 0;
+  clips[0].y = 92;
+  clips[0].w = 95;
+  clips[0].h = 107;
 
-  sprites[1].x = 100;
-  sprites[1].y = 92;
-  sprites[1].w = 111;
-  sprites[1].h = 107;
+  clips[1].x = 100;
+  clips[1].y = 92;
+  clips[1].w = 111;
+  clips[1].h = 107;
 
-  sprites[2].x = 212;
-  sprites[2].y = 92;
-  sprites[2].w = 111;
-  sprites[2].h = 107;
+  clips[2].x = 212;
+  clips[2].y = 92;
+  clips[2].w = 111;
+  clips[2].h = 107;
 
 }
 

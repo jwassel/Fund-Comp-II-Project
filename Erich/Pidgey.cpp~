@@ -27,35 +27,26 @@ void Pidgey::show(SDL_Surface * screen, int count)
 void Pidgey::setClips()
 {
   //Clip range for the Pidgey clips
-  clips[0].x = 0;
-  clips[0].y = 108;
-  clips[0].w = 38;
-  clips[0].h = 36;
+clips[0].x = 8;
+  clips[0].y = 7;
+  clips[0].w = 37;
+  clips[0].h = 30;
 
-  clips[1].x = 38;
-  clips[1].y = 108;
-  clips[1].w = 38;
-  clips[1].h = 36;
+  clips[1].x = 48;
+  clips[1].y = 7;
+  clips[1].w = 37;
+  clips[1].h = 30;
 
-  clips[2].x = 76;
-  clips[2].y = 108;
-  clips[2].w = 40;
-  clips[2].h = 36;
+  clips[2].x = 88;
+  clips[2].y = 7;
+  clips[2].w = 37;
+  clips[2].h = 30;
 
-  clips[3].x = 115;
-  clips[3].y = 108;
-  clips[3].w = 39;
-  clips[3].h = 38;
+  clips[3].x = 131;
+  clips[3].y = 7;
+  clips[3].w = 37;
+  clips[3].h = 30;
 
-  clips[4].x = 155;
-  clips[4].y = 108;
-  clips[4].w = 37;
-  clips[4].h = 36;
-
-  clips[5].x = 192;
-  clips[5].y = 108;
-  clips[5].w = 39;
-  clips[5].h = 36;
 
 }
 

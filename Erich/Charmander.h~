@@ -1,6 +1,6 @@
 
-#ifndef CHARMANDER_H
-#define CHARMANDER_H
+#ifndef Charmander_H
+#define Charmander_H
 #include "Enemy.h"
 #include "Sprite.h"
 #include <string>

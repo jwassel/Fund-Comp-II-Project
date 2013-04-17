@@ -1,14 +1,14 @@
 
-#ifndef SQUIRTLE_H
-#define SQUIRTLE_H
+#ifndef MACHAMP_H
+#define MACHAMP_H
 #include "Enemy.h"
 #include "Sprite.h"
 #include <string>
 
-class Squirtle: public Enemy
+class Machamp: public Enemy
 {
 	public:
-		Squirtle(string,int, int, int , int, int ,int, int); //constructor
+		Squirtle(string,int, int, int , int, int ,int, int, int); //constructor
 		 virtual void move(); //move function
 		virtual void show(SDL_Surface*,int);
 		virtual void setClips();

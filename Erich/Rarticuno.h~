@@ -15,7 +15,7 @@ class Rarticuno: public Enemy
 
 
 	private:
-		SDL_Rect clips[6]; //the number of clips in the Rarticuno sprite sheet
+		SDL_Rect clips[3]; //the number of clips in the Rarticuno sprite sheet
 
 };
 #endif
