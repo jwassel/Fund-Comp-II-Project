@@ -10,11 +10,12 @@ setClips();
 void Gatling::fire(){
 }
 
+
 //shows the Weapon on the screen
-void Gatling::show(SDL_Surface *screen)
+void Gatling::showInStore(SDL_Surface *screen)
 {
-	//Weapon or sprite?? Pistol uses sprite
-	apply_surface(xpos, ypos, sprite, screen, &clips);
+
+	apply_surface(xInStore, yInStore, sprite, screen, &clips);
 }
 
 void Gatling::showDuringGamePlay(int x,int y, SDL_Surface * screen){
@@ -36,9 +37,10 @@ int Gatling::getWidth() {
 int Gatling::getHeight() {
 	return clips.h;
 }
-
-int Gatling::isClicked(int x, int y) {
-	if(x>=xpos && x<=xpos+getWidth() && y>=ypos && y<=ypos+getHeight())
+int Gatling::isClicked(int x, int y)
+{
+	if(x>=xInStore && x<=xInStore+getWidth() && y>=yInStore && y<=yInStore+getHeight())
 		return 1;
+
 	return 0;
 }

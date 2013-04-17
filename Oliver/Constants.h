@@ -22,7 +22,7 @@ const int BOUNCE=20;
 
 //what the health will appear as on teh screen
 const int HEALTH_DIVISION_FACTOR = 100;
-const int INITIAL_MONEY = 100;
+const int INITIAL_MONEY = 1500000;
 
 //Pistol information
 const int PISTOL_PRICE = 100;
@@ -40,6 +40,8 @@ const int PLASMA_CANNON_AMMO_PRICE = 100;
 const int PLASMA_CANNON_DAMAGE = 100;
 const int PLASMA_CANNON_X = 100;
 const int PLASMA_CANNON_Y = 450;
+
+
 const int PLASMA_CANNON_EXP_SIZE = 40;
 const int PLASMA_CANNON_MAX_AMMO = 100;
 const int PLASMA_CANNON_MAX_CLIP_AMMO= 10;
@@ -77,12 +79,21 @@ const int LMG_MAX_CLIP_AMMO= 50;
 //The frame rate
 const int FRAMES_PER_SECOND = 20;
 
+
+const int RELOAD_TIME=30;
+
+
 //Bomb info
 const int BOMB_VELOCITY = 7;
 const int VOLTORB_RANGE = 50;
-const int VOLTORB_PRICE = 100;
-const int VOLTORB_DAMAGE = 100;
-const int VOLTORB_X = 500; // need to be determined
-const int VOLTORB_Y = 100; //need to be determined
+const int ELECTRODE_X = 200;
+const int ELECTRODE_Y = 60;
+const int VOLTORB_X = 600;
+const int VOLTORB_Y = 150;
+const int VOLTORB_PRICE = 50;
+const int VOLTORB_DAMAGE = 50;
+const int ELECTRODE_PRICE = 100;
+const int ELECTRODE_DAMAGE = 100;
+const int ELECTRODE_RANGE = 100;
 
 #endif

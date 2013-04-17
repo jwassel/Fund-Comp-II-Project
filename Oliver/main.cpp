@@ -27,11 +27,12 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Crosshairs.h"
 #include "Voltorb.h"
 #include "Bomb.h"
+#include "Electrode.h"
+#include "Item.h"
 #include <boost/lexical_cast.hpp>
 #include <string>
 #include <vector>
 #include <iostream>
-//Screen size at bits per pixel
 
 
 using namespace std;
@@ -57,14 +58,9 @@ SDL_Surface *message = NULL;
 
 //vector that stores the user's current weapons
 vector < Weapon * >weapons;
-//stores all the weapons the user can buy (NOTE need to change to be of some base class cause the store must also show 
-vector < Weapon * >store;
 
-//stores all the bombs that you buy
+vector < Item * >store;
 vector < Bomb * > bombs;
-
-//stores the different bombs that can be bought
-vector < Bomb * > bombStore;
 
 //all the possible weapons
 Pistol *pistol;
@@ -163,6 +159,8 @@ void load_enemies ()
     enemies.push_back (squirtle);
   	enemies.push_back (poliwhirl);
   	enemies.push_back (rpidgey);
+
+
 	
   }
 }
@@ -172,7 +170,9 @@ void load_enemies ()
 
 //loads all the items to the store
 void load_store()
-{    // Filename, explosionname, Price, AmmoPrice, Damage, FireRate, x on screen, y on screen, explosion size,maxAmmo, currentAmmo,maxClipAmmo, currentclipAmmo)
+{    
+
+
 
     plasmaCannon = new PlasmaCannon("weapons.png", "explosionplasma.PNG",PLASMA_CANNON_PRICE,PLASMA_CANNON_AMMO_PRICE,PLASMA_CANNON_DAMAGE,5,PLASMA_CANNON_X,PLASMA_CANNON_Y,PLASMA_CANNON_EXP_SIZE,PLASMA_CANNON_MAX_AMMO,PLASMA_CANNON_MAX_AMMO,PLASMA_CANNON_MAX_CLIP_AMMO,PLASMA_CANNON_MAX_CLIP_AMMO);
     store.push_back(plasmaCannon);
@@ -184,14 +184,11 @@ void load_store()
     store.push_back(smg);
     lmg = new Lmg("weapons.png", "explosionlmg.PNG",LMG_PRICE,LMG_AMMO_PRICE,LMG_DAMAGE,5,LMG_X,LMG_Y,LMG_EXP_SIZE,LMG_MAX_AMMO,LMG_MAX_AMMO,LMG_MAX_CLIP_AMMO,LMG_MAX_CLIP_AMMO);
     store.push_back(lmg);
-    
 
-}
+    voltorb = new Voltorb ("bombs.png", VOLTORB_PRICE, VOLTORB_DAMAGE, VOLTORB_X, VOLTORB_Y);
+    store.push_back(voltorb);
 
-void load_bombStore()
-{
-	voltorb = new Voltorb("bombs.png", VOLTORB_PRICE,VOLTORB_DAMAGE,VOLTORB_X,VOLTORB_Y);
-	bombStore.push_back(voltorb);
+
 }
 
 void goToInstructions(Text &backButton)
@@ -266,6 +263,16 @@ bool purchaseFromStore(int x, int y, Text &continueToGame, Text&messageToUser,Te
 		return true;
 	}
 	
+	if(voltorb->isClicked(x,y))
+	{
+		if(money>=voltorb->getPrice())
+		{
+			money-=voltorb->getPrice();
+			actualMoneyText.setText(boost::lexical_cast<string>(money));
+			messageToUser.setText("Succesfully Added Voltorb");
+			bombs.push_back(voltorb);
+		}
+	}
 	if(pistol->isClicked(x,y))
 	{
 		if(money>=pistol->getPrice())
@@ -335,23 +342,11 @@ bool purchaseFromStore(int x, int y, Text &continueToGame, Text&messageToUser,Te
 		else
 			messageToUser.setText("Not enough Money!");
 	}
-	if(voltorb->isClicked(x,y))
-	{
-		if(money>=VOLTORB_PRICE)
-		{
-			money-=VOLTORB_PRICE;
-			actualMoneyText.setText(boost::lexical_cast<string>(money));
-			messageToUser.setText("Succesfully Added Voltorb");
-			bombs.push_back (voltorb);
-		}
-		else
-			messageToUser.setText("Not enough Money!");
-	}
 	return false;	
 }
 
 //goes to the store screen and displays it
-int goToStore(Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &storeHeader, Text &moneyText, Text &actualMoneyText,Text &pistolPriceText,Text &plasmaCannonPriceText,Text &gatlingPriceText,Text &smgPriceText,Text &lmgPriceText)
+int goToStore(Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &storeHeader, Text &moneyText, Text &actualMoneyText,Text &pistolPriceText,Text &plasmaCannonPriceText,Text &gatlingPriceText,Text &smgPriceText,Text &lmgPriceText, Text &bombsMessage, Text &voltorbPriceText)
 {  
 	//set money text since money could change each time you come to the store
 	actualMoneyText.setText(boost::lexical_cast<string>(money));
@@ -360,19 +355,11 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &
   	SDL_ShowCursor(1);
 	SDL_FillRect (screen, &screen->clip_rect,
 			SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
-	//store screen
-	for(int j=0;j<store.size();j++)
-	{
-		store[j]->show(screen); //x, y, surface
-	}
-	//bomb store
-	for(int k=0; k < bombStore.size(); k++)
-	{
-		bombStore[k]->showInStore(screen);
-	}
+
 	
 	continueToGame.show(screen);
 	gunsMessage.show(screen);
+	bombsMessage.show(screen);
 	priceHeader.show(screen);
 	storeHeader.show(screen);
 	moneyText.show(screen);
@@ -382,6 +369,17 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &
 	gatlingPriceText.show(screen);
 	smgPriceText.show(screen);
 	lmgPriceText.show(screen);
+	voltorbPriceText.show(screen);
+	//store screen
+	for(int j=0;j<store.size();j++)
+	{	
+		store[j]->showInStore(screen); //x, y, surface
+	}
+	/*
+	for(int j=0;j<storeBombs.size();j++)
+	{	
+		storeBombs[j]->showInStore(screen); //x, y, surface
+	}*/
 	SDL_Flip(screen);
 
      Text messageToUser("",continueToGame.getTextXpos()+continueToGame.getWidth()+50,continueToGame.getTextYpos(),colorWhite,20);
@@ -405,13 +403,12 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &
 					//store screen
 					for(int j=0;j<store.size();j++)
 					{
-						store[j]->show(screen); //x, y, surface
-					}
-					//bombStore
-					for(int k=0; k<bombStore.size();k++)
-					{
-						bombStore[k]->showInStore(screen);
-					}
+						store[j]->showInStore(screen); //x, y, surface
+					}/*
+					for(int j=0;j<storeBombs.size();j++)
+					{	
+						storeBombs[j]->showInStore(screen); //x, y, surface
+					}*/
 				continueButton = purchaseFromStore(x,y,continueToGame,messageToUser,actualMoneyText);
 				if(continueButton&&weapons.size()==0)
 				{
@@ -421,6 +418,7 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &
 				
 					continueToGame.show(screen);
 					gunsMessage.show(screen);
+					bombsMessage.show(screen);
 					priceHeader.show(screen);
 					storeHeader.show(screen);
 					messageToUser.show(screen);
@@ -431,6 +429,7 @@ int goToStore(Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &
 					gatlingPriceText.show(screen);
 					smgPriceText.show(screen);
 					lmgPriceText.show(screen);
+					voltorbPriceText.show(screen);
 					SDL_Flip(screen);
 
 				
@@ -482,8 +481,7 @@ if( music == NULL )
 Mix_PlayMusic( music, -1 );
 
 
-//    voltorb = new Voltorb("bombs.png", 100,100,200,40);
-//    bombs.push_back(voltorb);
+
 
 /*HOME SCREEN*/
   Background background ("background.bmp");
@@ -545,7 +543,6 @@ Mix_PlayMusic( music, -1 );
 
 
   load_store();
-  load_bombStore();
   Text continueToGame ("Continue to Game", 2 * SCREEN_WIDTH / 5, 8 * SCREEN_HEIGHT / 9, colorWhite, 30);
    Text gunsMessage("Guns",100,10,colorWhite,20);
 	Text priceHeader("Price ($)",gunsMessage.getTextXpos()+gunsMessage.getWidth()+30,10,colorWhite,20);
@@ -555,7 +552,8 @@ Mix_PlayMusic( music, -1 );
 	Text gatlingPriceText(boost::lexical_cast<string>( GATLING_PRICE ),GATLING_X+gatling->getWidth()+20,GATLING_Y,colorWhite,20);
 	Text smgPriceText(boost::lexical_cast<string>( SMG_PRICE ),SMG_X+smg->getWidth()+20,SMG_Y,colorWhite,20);
 	Text lmgPriceText(boost::lexical_cast<string>( LMG_PRICE ),LMG_X+lmg->getWidth()+20,LMG_Y,colorWhite,20);
-
+	Text bombsMessage("Bombs",VOLTORB_X,storeHeader.getTextYpos()+100,colorWhite,20);
+	Text voltorbPriceText(boost::lexical_cast<string>(VOLTORB_PRICE),VOLTORB_X+voltorb->getWidth()+20,VOLTORB_Y,colorWhite,20);
      Dome dome ("dome.png", DOME_BASE_X_BEG, SCREEN_HEIGHT-DOME_HEIGHT, DOME_BASE_W, DOME_HEIGHT, 10000, 10000);
 bool gameIsOver= false;
 
@@ -576,7 +574,7 @@ while(gameIsOver==false)
 {
 
   /*ITEM SELECTION*/
-   int continued = goToStore(continueToGame,gunsMessage,priceHeader,storeHeader,moneyText,actualMoneyText,pistolPriceText,plasmaCannonPriceText,gatlingPriceText,smgPriceText,lmgPriceText);
+   int continued = goToStore(continueToGame,gunsMessage,priceHeader,storeHeader,moneyText,actualMoneyText,pistolPriceText,plasmaCannonPriceText,gatlingPriceText,smgPriceText,lmgPriceText,bombsMessage,voltorbPriceText);
 	//continue will be 0 if they hit the X on the window while at the store
    if(!continued)
 	{
@@ -632,7 +630,7 @@ total.setText(boost::lexical_cast<string>( weapons[currentWeaponIndex]->getCurre
 	cliptotal.show(screen);
 	totaltext.show(screen);
 weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
-if(weapons[currentWeaponIndex]->getCurrentClipAmmo()==0&&count%6>2)
+if(weapons[currentWeaponIndex]->getCurrentClipAmmo()==0 && count%6>2) //so that the reload flashes
 reload.show(screen);
 
 if (dropbomb){
@@ -688,11 +686,11 @@ if (dropbomb){
 	       if(event.type == SDL_KEYDOWN)
 		{
 			if(event.key.keysym.sym == SDLK_SPACE){
-		dropbomb++;
-		int xmouse, ymouse;
-		SDL_GetMouseState(&xmouse, &ymouse);
-		voltorb->setPos(xmouse, ymouse);
-		}
+			dropbomb++;
+			int xmouse, ymouse;
+			SDL_GetMouseState(&xmouse, &ymouse);
+			voltorb->setPos(xmouse, ymouse);
+			}
 
 			if(event.key.keysym.sym == SDLK_LEFT)
 			{
@@ -705,6 +703,7 @@ if (dropbomb){
 				else currentWeaponIndex++;
 			}
 		}
+		
 	      weapons[currentWeaponIndex]->handle_events (event, enemies, screen,score,money);
 	      
 	  //If the user has Xed out the window
@@ -739,7 +738,7 @@ if (dropbomb){
 			     2 * SCREEN_HEIGHT / 5, colorWhite, 40);
 	  levelSuccess.show (screen);
 	  SDL_Flip (screen);
-	  SDL_Delay (2000);
+	  SDL_Delay (5000);
 	  quit = true;
 	  currentLevel++;
 		//if there are no more levels, show they have beat the game and exit
