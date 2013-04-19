@@ -96,11 +96,11 @@ const int ELECTRODE_DAMAGE = 100;
 const int ELECTRODE_RANGE = 100;
 
 //Health info
-const int STARTING_HEALTH = 10000;
+const int STARTING_HEALTH = 5000;
 const int HEALTH_X = 1000;
 const int HEALTH_Y = 240;
 const int HEALTH_PRICE = 100;
-const int HEALTH_ADDED = 1000;
+const int HEALTH_ADDED = 250;
 
 //text info
 const int OTHER_TEXT_X = 1000;
