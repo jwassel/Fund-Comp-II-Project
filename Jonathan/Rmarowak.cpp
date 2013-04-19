@@ -4,7 +4,7 @@
 #include "Enemy.h"
 #include "SDL/SDL.h"
 #include <string>
-Rmarowak::Rmarowak(string filename, int x, int y, int w, int h, int xV, int yV, int hea):Enemy(filename,x,y,w,h,xV,yV,hea)
+Rmarowak::Rmarowak(string filename, int x, int y, int w, int h, int xV, int yV, int p, int hea):Enemy(filename,x,y,w,h,xV,yV,p,hea)
 {
 	setClips();
 }
@@ -16,12 +16,16 @@ void Rmarowak::move()
 else
 	xpos+=xVel;
 
+if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
 }
 
 //shows the enemy on the screen
 void Rmarowak::show(SDL_Surface * screen, int count)
-{
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
+{	if(!isDead())
+	apply_surface(xpos,ypos,sprite,screen,&clips[count%3]);
 }
 
 void Rmarowak::setClips()

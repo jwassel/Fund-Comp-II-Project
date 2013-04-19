@@ -14,6 +14,12 @@ Enemy::Enemy(string filename, int x,int y, int w, int h, int xv, int yv, int p, 
 	health = hea;
 	dead = 0;
 	hasEntered=0;
+	int i= rand()%10 + 1;
+	if(i<=5)
+		isBouncer = true;
+	else
+		isBouncer = false;
+
 }
 
 int Enemy::getX()

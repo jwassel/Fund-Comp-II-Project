@@ -4,23 +4,34 @@
 #include "Enemy.h"
 #include "SDL/SDL.h"
 #include <string>
-Machamp::Machamp(string filename, int x, int y, int w, int h, int xV, int yV, int hea):Enemy(filename,x,y,w,h,xV,yV,hea)
+Machamp::Machamp(string filename, int x, int y, int w, int h, int xV, int yV, int p,int hea):Enemy(filename,x,y,w,h,xV,yV,p,hea)
 {
 	setClips();
 }
 
 void Machamp::move()
 {
- if(ypos<550)
+ if(ypos+height<GROUND)
 	ypos+=yVel;
 else
 	xpos+=xVel;
+		
+		if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
+
+
+	if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
 
 }
 
 //shows the enemy on the screen
 void Machamp::show(SDL_Surface * screen, int count)
-{
+{	if(!isDead())
 	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
 }
 

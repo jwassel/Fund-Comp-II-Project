@@ -44,7 +44,7 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include <string>
 #include <vector>
 #include <iostream>
-
+#include <time.h>
 
 using namespace std;
 
@@ -565,7 +565,7 @@ int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHea
 //the main function
 int main (int argc, char *args[])
 {
-
+srand(time(NULL));
 //user's score for the game,
 int score=0;
   //Quit flag
