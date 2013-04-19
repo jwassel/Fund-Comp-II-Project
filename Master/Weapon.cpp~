@@ -6,10 +6,11 @@
 #include "Weapon.h"
 #include "Enemy.h"
 #include <iostream>
+#include <string>
 using namespace std;
-Weapon::Weapon(string filename,string explosionName, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y,int expsize, int max, int current, int maxclip, int currentclip):Item(x,y,Price,filename){
+Weapon::Weapon(string filename,string explosionName, string Name,int Price, int AmmoPrice, int Damage, int FireRate, int x, int y,int expsize, int max, int current, int maxclip, int currentclip):Item(x,y,Price,filename){
 
-
+name=Name;
 ammoPrice = AmmoPrice;
 damage = Damage;
 fireRate = fireRate;
@@ -24,6 +25,10 @@ reloadTime=RELOAD_TIME;
 sprite = load_image(filename.c_str());
 explosionImage = load_image(explosionName.c_str());
 
+}
+
+string Weapon::getName(){
+return name;
 }
 
 bool Weapon::addToCurrentAmmo(int m)
@@ -48,6 +53,17 @@ return currentClipAmmo;
 
 int Weapon::getCurrentAmmo(){
 return currentAmmo;
+
+}
+
+int Weapon::getMaxClipAmmo(){
+return maxClipAmmo;
+
+}
+
+
+int Weapon::getMaxAmmo(){
+return maxAmmo;
 
 }
 
@@ -114,7 +130,7 @@ reloadTime--;
 			currentClipAmmo=maxClipAmmo;
 			currentAmmo=currentAmmo-maxClipAmmo;
 		}
-		else if (current>0)
+		else if (currentAmmo>0)
 		{
 			currentClipAmmo = currentAmmo;
 			currentAmmo = 0;

@@ -27,7 +27,6 @@ public:
 	bool addToCurrentAmmo(int);
 	int getCurrentAmmo();
 	string getName();
-	int getMaxAmmo();
 	virtual void showDuringGamePlay(int, int, SDL_Surface*)=0;
 
 protected:

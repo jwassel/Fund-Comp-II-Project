@@ -116,7 +116,7 @@ int currentWeaponIndex = 0;
 
 //the current level and the maximum # of levels programmed by us
 int currentLevel = 1;
-int maxLevel = 10;
+//int maxLevel = 10;
 int money = INITIAL_MONEY;
 
 //SDL initializing material
@@ -264,15 +264,15 @@ void load_store()
 
 
 
-    plasmaCannon = new PlasmaCannon("weapons.png", "explosionplasma.PNG",PLASMA_CANNON_PRICE,PLASMA_CANNON_AMMO_PRICE,PLASMA_CANNON_DAMAGE,5,PLASMA_CANNON_X,PLASMA_CANNON_Y,PLASMA_CANNON_EXP_SIZE,PLASMA_CANNON_MAX_AMMO,PLASMA_CANNON_MAX_AMMO,PLASMA_CANNON_MAX_CLIP_AMMO,PLASMA_CANNON_MAX_CLIP_AMMO);
+    plasmaCannon = new PlasmaCannon("weapons.png", "explosionplasma.PNG","Plasma Cannon",PLASMA_CANNON_PRICE,PLASMA_CANNON_AMMO_PRICE,PLASMA_CANNON_DAMAGE,5,PLASMA_CANNON_X,PLASMA_CANNON_Y,PLASMA_CANNON_EXP_SIZE,PLASMA_CANNON_MAX_AMMO,PLASMA_CANNON_MAX_AMMO,PLASMA_CANNON_MAX_CLIP_AMMO,PLASMA_CANNON_MAX_CLIP_AMMO);
     store.push_back(plasmaCannon);
-    pistol = new Pistol("weapons.png", "explosionpistol.png", PISTOL_PRICE,PISTOL_AMMO_PRICE,PISTOL_DAMAGE,5,PISTOL_X,PISTOL_Y,PISTOL_EXP_SIZE,PISTOL_MAX_AMMO,PISTOL_MAX_AMMO,PISTOL_MAX_CLIP_AMMO,PISTOL_MAX_CLIP_AMMO);
+    pistol = new Pistol("weapons.png", "explosionpistol.png","Pistol", PISTOL_PRICE,PISTOL_AMMO_PRICE,PISTOL_DAMAGE,5,PISTOL_X,PISTOL_Y,PISTOL_EXP_SIZE,PISTOL_MAX_AMMO,PISTOL_MAX_AMMO,PISTOL_MAX_CLIP_AMMO,PISTOL_MAX_CLIP_AMMO);
     store.push_back(pistol);
-    gatling = new Gatling("weapons.png", "explosiongatling.png",  GATLING_PRICE,GATLING_AMMO_PRICE,GATLING_DAMAGE,5,GATLING_X,GATLING_Y,GATLING_EXP_SIZE,GATLING_MAX_AMMO,GATLING_MAX_AMMO,GATLING_MAX_CLIP_AMMO,GATLING_MAX_CLIP_AMMO);
+    gatling = new Gatling("weapons.png", "explosiongatling.png", "Gatling", GATLING_PRICE,GATLING_AMMO_PRICE,GATLING_DAMAGE,5,GATLING_X,GATLING_Y,GATLING_EXP_SIZE,GATLING_MAX_AMMO,GATLING_MAX_AMMO,GATLING_MAX_CLIP_AMMO,GATLING_MAX_CLIP_AMMO);
     store.push_back(gatling);
-    smg = new Smg("weapons.png", "explosionsmg.PNG",SMG_PRICE,SMG_AMMO_PRICE,SMG_DAMAGE,5,SMG_X,SMG_Y,SMG_EXP_SIZE,SMG_MAX_AMMO,SMG_MAX_AMMO,SMG_MAX_CLIP_AMMO,SMG_MAX_CLIP_AMMO);
+    smg = new Smg("weapons.png", "explosionsmg.PNG","SMG",SMG_PRICE,SMG_AMMO_PRICE,SMG_DAMAGE,5,SMG_X,SMG_Y,SMG_EXP_SIZE,SMG_MAX_AMMO,SMG_MAX_AMMO,SMG_MAX_CLIP_AMMO,SMG_MAX_CLIP_AMMO);
     store.push_back(smg);
-    lmg = new Lmg("weapons.png", "explosionlmg.PNG",LMG_PRICE,LMG_AMMO_PRICE,LMG_DAMAGE,5,LMG_X,LMG_Y,LMG_EXP_SIZE,LMG_MAX_AMMO,LMG_MAX_AMMO,LMG_MAX_CLIP_AMMO,LMG_MAX_CLIP_AMMO);
+    lmg = new Lmg("weapons.png", "explosionlmg.PNG","LMG",LMG_PRICE,LMG_AMMO_PRICE,LMG_DAMAGE,5,LMG_X,LMG_Y,LMG_EXP_SIZE,LMG_MAX_AMMO,LMG_MAX_AMMO,LMG_MAX_CLIP_AMMO,LMG_MAX_CLIP_AMMO);
     store.push_back(lmg);
 
     voltorb = new Voltorb ("bombs.png", VOLTORB_PRICE, VOLTORB_DAMAGE, VOLTORB_X, VOLTORB_Y);
@@ -614,8 +614,12 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 }
 
 //goes to the store screen and displays it
-int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &storeHeader, Text &moneyText, Text &actualMoneyText,Text &pistolPriceText,Text &plasmaCannonPriceText,Text &gatlingPriceText,Text &smgPriceText,Text &lmgPriceText, Text &voltorbPriceText, Text &specialsText, Text &healthPriceText, Text &domeText, Text&actualDomeHealthText,Text &pistolAmmoPriceText,Text &plasmaCannonAmmoPriceText,Text &gatlingAmmoPriceText,Text &smgAmmoPriceText,Text &lmgAmmoPriceText)
+int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &ammoHeader,Text &storeHeader, Text &moneyText, Text &actualMoneyText,Text &pistolPriceText,Text &plasmaCannonPriceText,Text &gatlingPriceText,Text &smgPriceText,Text &lmgPriceText, Text &voltorbPriceText, Text &specialsText, Text &healthPriceText, Text &domeText, Text&actualDomeHealthText,Text &pistolAmmoPriceText,Text &plasmaCannonAmmoPriceText,Text &gatlingAmmoPriceText,Text &smgAmmoPriceText,Text &currentWeaponAmmoText, Text &currentWeaponMaxAmmoText,Text &lmgAmmoPriceText,Text &pistolText,Text &plasmaCannonText,Text &gatlingText, Text &smgText,Text &lmgText)
 {  
+
+
+//covers up the ammo if the mouse is not over anything
+Background cover("Coverup.png");
 	//set money text and dome health since money and health could change each time you come to the store
 	actualMoneyText.setText(boost::lexical_cast<string>(money));
 	actualDomeHealthText.setText(boost::lexical_cast<string>(dome.getCurrentHealth()/HEALTH_DIVISION_FACTOR));
@@ -628,8 +632,15 @@ int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHea
 	continueToGame.show(screen);
 	gunsMessage.show(screen);
 	priceHeader.show(screen);
+	ammoHeader.show(screen);
 	storeHeader.show(screen);
 	moneyText.show(screen);
+	pistolText.show(screen);
+	plasmaCannonText.show(screen);
+	gatlingText.show(screen);
+	smgText.show(screen);
+	lmgText.show(screen);
+	
 	actualMoneyText.show(screen);
 	pistolPriceText.show(screen);
 	plasmaCannonPriceText.show(screen);
@@ -640,6 +651,8 @@ int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHea
 	plasmaCannonAmmoPriceText.show(screen);
 	gatlingAmmoPriceText.show(screen);
 	smgAmmoPriceText.show(screen);
+	currentWeaponMaxAmmoText.show(screen);
+	currentWeaponAmmoText.show(screen);
 	lmgAmmoPriceText.show(screen);
 	voltorbPriceText.show(screen);
 	specialsText.show(screen);
@@ -663,6 +676,8 @@ int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHea
 
 	while (SDL_PollEvent (&event)) {
 		//If a mouse button was pressed
+		
+
 		if (event.type == SDL_MOUSEBUTTONDOWN)
 		{
 			//If the left mouse button was pressed
@@ -692,9 +707,15 @@ int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHea
 					continueToGame.show(screen);
 					gunsMessage.show(screen);
 					priceHeader.show(screen);
+					ammoHeader.show(screen);
 					storeHeader.show(screen);
 					messageToUser.show(screen);
 					moneyText.show(screen);
+					pistolText.show(screen);
+					plasmaCannonText.show(screen);
+					gatlingText.show(screen);
+					smgText.show(screen);
+					lmgText.show(screen);
 					actualMoneyText.show(screen);
 					pistolPriceText.show(screen);
 					plasmaCannonPriceText.show(screen);
@@ -705,17 +726,58 @@ int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHea
 					plasmaCannonAmmoPriceText.show(screen);
 					gatlingAmmoPriceText.show(screen);
 					smgAmmoPriceText.show(screen);
+					currentWeaponMaxAmmoText.show(screen);
+					currentWeaponAmmoText.show(screen);
 					lmgAmmoPriceText.show(screen);
 					voltorbPriceText.show(screen);
 					specialsText.show(screen);
 					healthPriceText.show(screen);
 					domeText.show(screen);
 					actualDomeHealthText.show(screen);
-					SDL_Flip(screen);
+					
 
 				
 			}
 		}
+
+		if(event.type ==SDL_MOUSEMOTION){
+			int x = event.button.x;
+	  		int y = event.button.y;
+			if(pistolAmmo->isClicked(x,y))
+				{      cover.show(screen);
+					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(pistol->getMaxAmmo()));
+					currentWeaponAmmoText.setText(boost::lexical_cast<string>(pistol->getCurrentAmmo()));
+				}
+			else if(plasmaCannonAmmo->isClicked(x,y)||plasmaCannon->isClicked(x,y))
+				{cover.show(screen);
+					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(plasmaCannon->getMaxAmmo()));
+					currentWeaponAmmoText.setText(boost::lexical_cast<string>(plasmaCannon->getCurrentAmmo()));
+				}
+			else if(gatlingAmmo->isClicked(x,y)||gatling->isClicked(x,y))
+				{cover.show(screen);
+					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(gatling->getMaxAmmo()));
+					currentWeaponAmmoText.setText(boost::lexical_cast<string>(gatling->getCurrentAmmo()));
+				}
+			else if(smgAmmo->isClicked(x,y)||smg->isClicked(x,y))
+					{cover.show(screen);
+					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(smg->getMaxAmmo()));
+					currentWeaponAmmoText.setText(boost::lexical_cast<string>(smg->getCurrentAmmo()));
+					}
+			else if(lmgAmmo->isClicked(x,y)||lmg->isClicked(x,y))
+				{	cover.show(screen);
+					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(lmg->getMaxAmmo()));
+					currentWeaponAmmoText.setText(boost::lexical_cast<string>(lmg->getCurrentAmmo()));
+					
+				}
+			else {
+					currentWeaponMaxAmmoText.setText("     ");
+					currentWeaponAmmoText.setText("     ");
+					
+				}
+					currentWeaponMaxAmmoText.show(screen);
+					currentWeaponAmmoText.show(screen);
+		}
+			SDL_Flip(screen);
 
 		//If the user has Xed out the window
 		  if (event.type == SDL_QUIT)
@@ -767,13 +829,15 @@ Mix_PlayMusic( music, -1 );
 /*HOME SCREEN*/
   Background background ("background.bmp");
   Background statsborder("border.png");
+	Background statttt("Coverup.png");
+
   background.show(screen);
-  
+  statttt.show(screen);
   Text pokeDome("POKEDOME",2*SCREEN_WIDTH/5, SCREEN_HEIGHT/5,colorBlack,50);
   pokeDome.show(screen);
   Text playButton("Play",SCREEN_WIDTH/2,3*SCREEN_HEIGHT/5,colorBlack,30);
   playButton.show(screen);
-	Text instructions("Instructions",playButton.getTextXpos(),playButton.getTextYpos()+50,colorBlack,30);
+	Text instructions("Instructions",playButton.getTextXpos()-50,playButton.getTextYpos()+50,colorBlack,30);
 	instructions.show(screen);
 	Text backButton("Back",SCREEN_WIDTH/2,SCREEN_HEIGHT-50,colorWhite,30);
   SDL_Flip(screen);
@@ -826,13 +890,21 @@ Mix_PlayMusic( music, -1 );
   load_store();
   Text continueToGame ("Continue to Game", 2 * SCREEN_WIDTH / 5, 8 * SCREEN_HEIGHT / 9, colorWhite, BIGGER_HEADER_TEXT_SIZE);
    Text gunsMessage("Guns",GUNS_TEXT_X,GUNS_TEXT_Y,colorWhite,HEADER_TEXT_SIZE);
-	Text priceHeader("Price ($)",gunsMessage.getTextXpos()+gunsMessage.getWidth()+30,10,colorWhite,HEADER_TEXT_SIZE);
+Text priceHeader("Price ($)",PLASMA_CANNON_X+plasmaCannon->getWidth()-20,10,colorWhite,HEADER_TEXT_SIZE);
+	Text ammoHeader("Ammo ($)",priceHeader.getTextXpos()+priceHeader.getWidth()+10,GUNS_TEXT_Y,colorWhite,HEADER_TEXT_SIZE);
+	
 	Text storeHeader("Select your items", 2*SCREEN_WIDTH/5, 0,colorWhite,STORE_HEADER_TEXT_SIZE);
-	Text pistolPriceText(boost::lexical_cast<string>( PISTOL_PRICE ),PISTOL_X+pistol->getWidth()+20,PISTOL_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text pistolText("Pistol",PISTOL_X,PISTOL_Y+pistol->getHeight()+5,colorWhite,PRICE_TEXT_SIZE);
+Text plasmaCannonText("Plasma Cannon",PLASMA_CANNON_X,PLASMA_CANNON_Y+plasmaCannon->getHeight()+5,colorWhite,PRICE_TEXT_SIZE);
+Text gatlingText("Gatling",GATLING_X,GATLING_Y+gatling->getHeight()+5,colorWhite,PRICE_TEXT_SIZE);
+Text smgText("SMG",SMG_X,SMG_Y+smg->getHeight()+5,colorWhite,PRICE_TEXT_SIZE);
+Text lmgText("LMG",LMG_X,LMG_Y+lmg->getHeight()+5,colorWhite,PRICE_TEXT_SIZE);
+
+	Text pistolPriceText(boost::lexical_cast<string>( PISTOL_PRICE ),PLASMA_CANNON_X+plasmaCannon->getWidth()+20,PISTOL_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text plasmaCannonPriceText(boost::lexical_cast<string>( PLASMA_CANNON_PRICE ),PLASMA_CANNON_X+plasmaCannon->getWidth()+20,PLASMA_CANNON_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text gatlingPriceText(boost::lexical_cast<string>( GATLING_PRICE ),GATLING_X+gatling->getWidth()+20,GATLING_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text smgPriceText(boost::lexical_cast<string>( SMG_PRICE ),SMG_X+smg->getWidth()+20,SMG_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text lmgPriceText(boost::lexical_cast<string>( LMG_PRICE ),LMG_X+lmg->getWidth()+20,LMG_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text gatlingPriceText(boost::lexical_cast<string>( GATLING_PRICE ),PLASMA_CANNON_X+plasmaCannon->getWidth()+20,GATLING_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text smgPriceText(boost::lexical_cast<string>( SMG_PRICE ),PLASMA_CANNON_X+plasmaCannon->getWidth()+20,SMG_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text lmgPriceText(boost::lexical_cast<string>( LMG_PRICE ),PLASMA_CANNON_X+plasmaCannon->getWidth()+20,LMG_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text voltorbPriceText(boost::lexical_cast<string>(VOLTORB_PRICE),VOLTORB_X+voltorb->getWidth()+20,VOLTORB_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text specialsText("Specials", OTHER_TEXT_X, OTHER_TEXT_Y, colorWhite, HEADER_TEXT_SIZE);
 	Text healthPriceText(boost::lexical_cast<string>(HEALTH_PRICE), HEALTH_X + health->getWidth() + 20, HEALTH_Y, colorWhite, PRICE_TEXT_SIZE);
@@ -847,12 +919,14 @@ Text pistolAmmoPriceText(boost::lexical_cast<string>( PISTOL_AMMO_PRICE ),PISTOL
 	Text smgAmmoPriceText(boost::lexical_cast<string>( SMG_AMMO_PRICE ),SMG_AMMO_X+smgAmmo->getWidth()+20,SMG_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text lmgAmmoPriceText(boost::lexical_cast<string>( LMG_AMMO_PRICE ),LMG_AMMO_X+lmgAmmo->getWidth()+20,LMG_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
 
+	Text currentWeaponAmmoText("",500,300,colorWhite,PRICE_TEXT_SIZE);
+	Text currentWeaponMaxAmmoText("",600,300,colorWhite,PRICE_TEXT_SIZE);
+
+
+
+
+
 bool gameIsOver= false;
-
-
-
-
-
 
 
 
@@ -865,9 +939,9 @@ while(gameIsOver==false)
 {
 
   /*ITEM SELECTION*/
-   int continued = goToStore(dome,continueToGame,gunsMessage,priceHeader,storeHeader,moneyText,actualMoneyText,pistolPriceText,plasmaCannonPriceText,gatlingPriceText,smgPriceText,
-lmgPriceText,voltorbPriceText, specialsText, healthPriceText,domeText,actualDomeHealthText,pistolAmmoPriceText,plasmaCannonAmmoPriceText,gatlingAmmoPriceText,smgAmmoPriceText,
-lmgAmmoPriceText);
+   int continued = goToStore(dome,continueToGame,gunsMessage,priceHeader,ammoHeader,storeHeader,moneyText,actualMoneyText,pistolPriceText,plasmaCannonPriceText,gatlingPriceText,smgPriceText,
+lmgPriceText,voltorbPriceText, specialsText, healthPriceText,domeText,actualDomeHealthText,pistolAmmoPriceText,plasmaCannonAmmoPriceText,gatlingAmmoPriceText,smgAmmoPriceText,currentWeaponAmmoText, currentWeaponMaxAmmoText,
+lmgAmmoPriceText,pistolText,plasmaCannonText,gatlingText,smgText,lmgText);
 	//continue will be 0 if they hit the X on the window while at the store
    if(!continued)
 	{
@@ -877,7 +951,7 @@ lmgAmmoPriceText);
 Text reload("RELOAD!" ,400,300,colorRed, 100);
 Text scoretext("Score: ",20,10,colorWhite,30);
 Text actualscoretext( boost::lexical_cast<string>( score ),110,10,colorWhite,30);
-Text weaponname("Weapon: " ,350,20,colorWhite,30);
+Text weaponname("Weapon: " ,350,10,colorWhite,30);
 Text cliptext("Clip: ", 750,10,colorWhite,30);
 Text cliptotal(boost::lexical_cast<string>( weapons[0]->getCurrentClipAmmo() ),850,10,colorWhite,30);
 Text totaltext("Total: ", 750,40,colorWhite,30);
@@ -886,6 +960,7 @@ Text domename ("Dome Health: ",1000,10,colorWhite,20);
 Text domehealth(boost::lexical_cast<string>(dome.getCurrentHealth()),1050,30,colorWhite,30);
 Text leveltext("Level: ",20,40,colorWhite,30); 
 Text levelnumber(boost::lexical_cast<string>(currentLevel),110,40,colorWhite,30);
+Text weapontitle(weapons[currentWeaponIndex]->getName(),350,40,colorWhite,30);
 /* START GAMEPLAY */
 
   /*LOAD  ENEMIES*/
@@ -904,7 +979,7 @@ int dropbomb=0;
       //show the background and dome
 	//divide health by 100 so it is easier for the user to read
 	domehealth.setText(boost::lexical_cast<string>(dome.getCurrentHealth()/HEALTH_DIVISION_FACTOR));
-
+weapontitle.setText(weapons[currentWeaponIndex]->getName());
 cliptotal.setText(boost::lexical_cast<string>( weapons[currentWeaponIndex]->getCurrentClipAmmo()));
 actualscoretext.setText(boost::lexical_cast<string>(score));
 total.setText(boost::lexical_cast<string>( weapons[currentWeaponIndex]->getCurrentAmmo()) );
@@ -925,8 +1000,10 @@ total.setText(boost::lexical_cast<string>( weapons[currentWeaponIndex]->getCurre
 	totaltext.show(screen);
 	leveltext.show(screen);
 	levelnumber.show(screen);
+	weapontitle.show(screen);
 
-weapons[currentWeaponIndex]->showDuringGamePlay(500,20,screen);
+
+weapons[currentWeaponIndex]->showDuringGamePlay(575,25,screen);
 if(weapons[currentWeaponIndex]->getCurrentClipAmmo()==0 && count%6>2) //so that the reload flashes
 reload.show(screen);
 
@@ -1041,8 +1118,8 @@ if (dropbomb){
 	  	quit = true;
 	  	currentLevel++;
 		//if there are no more levels, show they have beat the game and exit
-		  if(currentLevel>maxLevel)
-		  {
+		 /*   if(currentLevel>maxLevel)
+		{
 			gameIsOver = true;
 	 		SDL_FillRect (screen, &screen->clip_rect,
 				SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
@@ -1052,7 +1129,7 @@ if (dropbomb){
 			SDL_Delay(2000);
 			break;
 			
-		  }
+		  }*/
 	}
 
 crosshairs.show(screen);

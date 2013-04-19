@@ -7,7 +7,7 @@
 class Lmg: public Weapon
 {
 	public:
-		Lmg(string, string, int, int, int,  int, int,int, int,int,int,int,int); //constructor
+		Lmg(string, string,string, int, int, int, int, int,int, int,int,int,int,int); //constructor
 		virtual void fire(); //moves the enemy; diff for every enemy so virtual
 		virtual void setClips();
 		virtual void showInStore(SDL_Surface *); //shows the enemy on the screen

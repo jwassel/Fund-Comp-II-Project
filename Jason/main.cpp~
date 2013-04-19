@@ -246,9 +246,12 @@ pokemonkey=rand()%(3+currentLevel)+1;
 while(pokemonkey>13){
 pokemonkey=rand()%(3+currentLevel)+1;
 }
+
 //pushes back the proper enemy
 addpokemon(pokemonkey);
 }
+	rmachamp =new Rmachamp ("Rmachamp.png", -rand()%2400, 0, MACHAMP_HEIGHT, MACHAMP_WIDTH, (rand()%8+5), Y_VELOCITY_DESCENT,MACHAMP_POWER, MACHAMP_HEALTH);
+		enemies.push_back(rmachamp);
 
 }
 
@@ -839,7 +842,7 @@ Mix_PlayMusic( music, -1 );
 	Text actualDomeHealthText(boost::lexical_cast<string>(dome.getCurrentHealth()/HEALTH_DIVISION_FACTOR),domeText.getTextXpos()+domeText.getWidth()+10,DOME_HEALTH_TEXT_Y,colorWhite,BIGGER_HEADER_TEXT_SIZE);
 
 Text pistolAmmoPriceText(boost::lexical_cast<string>( PISTOL_AMMO_PRICE ),PISTOL_AMMO_X+pistolAmmo->getWidth()+20,PISTOL_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text plasmaAmmoCannonPriceText(boost::lexical_cast<string>( PLASMA_CANNON_AMMO_PRICE ),PLASMA_CANNON_AMMO_X+plasmaCannonAmmo->getWidth()+20,PLASMA_CANNON_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text plasmaCannonAmmoPriceText(boost::lexical_cast<string>( PLASMA_CANNON_AMMO_PRICE ),PLASMA_CANNON_AMMO_X+plasmaCannonAmmo->getWidth()+20,PLASMA_CANNON_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text gatlingAmmoPriceText(boost::lexical_cast<string>( GATLING_AMMO_PRICE ),GATLING_AMMO_X+gatlingAmmo->getWidth()+20,GATLING_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text smgAmmoPriceText(boost::lexical_cast<string>( SMG_AMMO_PRICE ),SMG_AMMO_X+smgAmmo->getWidth()+20,SMG_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text lmgAmmoPriceText(boost::lexical_cast<string>( LMG_AMMO_PRICE ),LMG_AMMO_X+lmgAmmo->getWidth()+20,LMG_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
@@ -1039,7 +1042,7 @@ if (dropbomb){
 	  	currentLevel++;
 		//if there are no more levels, show they have beat the game and exit
 		  if(currentLevel>maxLevel)
-		  {
+		/*  {
 			gameIsOver = true;
 	 		SDL_FillRect (screen, &screen->clip_rect,
 				SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
@@ -1049,7 +1052,7 @@ if (dropbomb){
 			SDL_Delay(2000);
 			break;
 			
-		  }
+		  }*/
 	}
 
 crosshairs.show(screen);

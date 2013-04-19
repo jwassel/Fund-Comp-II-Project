@@ -116,7 +116,7 @@ int currentWeaponIndex = 0;
 
 //the current level and the maximum # of levels programmed by us
 int currentLevel = 1;
-int maxLevel = 10;
+//int maxLevel = 10;
 int money = INITIAL_MONEY;
 
 //SDL initializing material
@@ -246,9 +246,12 @@ pokemonkey=rand()%(3+currentLevel)+1;
 while(pokemonkey>13){
 pokemonkey=rand()%(3+currentLevel)+1;
 }
+
 //pushes back the proper enemy
 addpokemon(pokemonkey);
 }
+	rmachamp =new Rmachamp ("Rmachamp.png", -rand()%2400, 0, MACHAMP_HEIGHT, MACHAMP_WIDTH, (rand()%8+5), Y_VELOCITY_DESCENT,MACHAMP_POWER, MACHAMP_HEALTH);
+		enemies.push_back(rmachamp);
 
 }
 
@@ -1038,8 +1041,8 @@ if (dropbomb){
 	  	quit = true;
 	  	currentLevel++;
 		//if there are no more levels, show they have beat the game and exit
-		  if(currentLevel>maxLevel)
-		  {
+		 /*   if(currentLevel>maxLevel)
+		{
 			gameIsOver = true;
 	 		SDL_FillRect (screen, &screen->clip_rect,
 				SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
@@ -1049,7 +1052,7 @@ if (dropbomb){
 			SDL_Delay(2000);
 			break;
 			
-		  }
+		  }*/
 	}
 
 crosshairs.show(screen);
