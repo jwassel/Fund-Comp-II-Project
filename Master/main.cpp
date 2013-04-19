@@ -829,10 +829,8 @@ Mix_PlayMusic( music, -1 );
 /*HOME SCREEN*/
   Background background ("background.bmp");
   Background statsborder("border.png");
-	Background statttt("Coverup.png");
 
   background.show(screen);
-  statttt.show(screen);
   Text pokeDome("POKEDOME",2*SCREEN_WIDTH/5, SCREEN_HEIGHT/5,colorBlack,50);
   pokeDome.show(screen);
   Text playButton("Play",SCREEN_WIDTH/2,3*SCREEN_HEIGHT/5,colorBlack,30);
