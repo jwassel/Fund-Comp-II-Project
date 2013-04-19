@@ -29,6 +29,8 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Electrode.h"
 #include "Bomb.h"
 #include "Articuno.h"
+#include "Charmander.h"
+#include "Rcharmander.h"
 //#include "Rzapdos.h"
 #include <boost/lexical_cast.hpp>
 #include <string>
@@ -58,6 +60,8 @@ Voltorb *voltorb;
 //Rzapdos *rzapdos;
 Articuno *articuno;
 Electrode *electrode;
+Rcharmander *rcharmander;
+Charmander *charmander;
 
 SDL_Surface *message = NULL;
 
@@ -135,7 +139,7 @@ clean_up ()
 void load_enemies ()
 {
    enemies.clear();
-  if(currentLevel==1)
+  if(currentLevel==3)
   {
     voltorb = new Voltorb ("bombs.png", 100, 100, 100);
     electrode = new Electrode ("bombs.png", 100, 100, 100);
@@ -168,10 +172,10 @@ void load_enemies ()
   	enemies.push_back (rpidgey);
 	
   }
-  else if(currentLevel==3)
+  else if(currentLevel==1)
   {  //rzapdos = new Rzapdos ("Rzapdos.png", 1000, 0, 38, 36, -10, 20, 20, 50);
       poliwhirl = new Poliwhirl ("poliwhirl.png", 1100, 0, 75, 80, -14, 24, 30, 100);  
-      articuno = new Articuno ("articuno.png", 1100, 200, 140, 70, -10, 0, 50, 300);
+      articuno = new Articuno ("articuno.png", 1100, 200, 140, 70, -10, 0, 50, 200);
      //   enemies.push_back (rzapdos);
   	enemies.push_back (poliwhirl);
   	enemies.push_back (articuno);
@@ -180,6 +184,11 @@ void load_enemies ()
     enemies.push_back (squirtle);
   	enemies.push_back (poliwhirl);
   	enemies.push_back (rpidgey);
+
+ charmander = new Charmander ("charmander.png", 1000, -100, 38, 36, -10, 20, 20, 50);
+      rcharmander = new Rcharmander ("rcharmander.png", 2, 300, 37, 30, 10, 20, 5, 10);
+    enemies.push_back (charmander);
+  	enemies.push_back (rcharmander);
 
   }
 }

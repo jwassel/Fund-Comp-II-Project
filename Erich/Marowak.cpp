@@ -11,16 +11,28 @@ Marowak::Marowak(string filename, int x, int y, int w, int h, int xV, int yV,int
 
 void Marowak::move()
 {
- if(ypos<550)
+ if(ypos+height<GROUND)
 	ypos+=yVel;
 else
 	xpos+=xVel;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6dbdf64e70989ff50dc8b4a2ad87aadeec74bccd
+	if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6dbdf64e70989ff50dc8b4a2ad87aadeec74bccd
 }
 
 //shows the enemy on the screen
 void Marowak::show(SDL_Surface * screen, int count)
-{
+{	if(!isDead())
 	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
 }
 

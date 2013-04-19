@@ -1,6 +1,6 @@
 
-#ifndef Rmarowak_H
-#define Rmarowak_H
+#ifndef RMAROWAK_H
+#define RMAROWAK_H
 #include "Enemy.h"
 #include "Sprite.h"
 #include <string>
@@ -15,7 +15,7 @@ class Rmarowak: public Enemy
 
 
 	private:
-		SDL_Rect clips[6]; //the number of clips in the Rmarowak sprite sheet
+		SDL_Rect clips[3]; //the number of clips in the Rmarowak sprite sheet
 
 };
 #endif
