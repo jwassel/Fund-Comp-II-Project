@@ -1,6 +1,6 @@
 
-#ifndef Charmander_H
-#define Charmander_H
+#ifndef CHARMANDER_H
+#define CHARMANDER_H
 #include "Enemy.h"
 #include "Sprite.h"
 #include <string>
@@ -8,7 +8,7 @@
 class Charmander: public Enemy
 {
 	public:
-		Charmander(string,int, int, int , int, int ,int, int); //constructor
+		Charmander(string,int, int, int , int, int ,int, int,int); //constructor
 		 virtual void move(); //move function
 		virtual void show(SDL_Surface*,int);
 		virtual void setClips();

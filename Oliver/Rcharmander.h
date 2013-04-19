@@ -1,6 +1,6 @@
 
-#ifndef Rcharmander_H
-#define Rcharmander_H
+#ifndef RCHARMANDER_H
+#define RCHARMANDER_H
 #include "Enemy.h"
 #include "Sprite.h"
 #include <string>
@@ -8,7 +8,7 @@
 class Rcharmander: public Enemy
 {
 	public:
-		Rcharmander(string,int, int, int , int, int ,int, int); //constructor
+		Rcharmander(string,int, int, int , int, int ,int, int, int); //constructor
 		 virtual void move(); //move function
 		virtual void show(SDL_Surface*,int);
 		virtual void setClips();

@@ -17,6 +17,7 @@ const int DOME_HEAD_X_BEG = DOME_BASE_X_BEG + 60;
 const int DOME_HEAD_W=115;
 const int DOME_HEAD_X_END = DOME_HEAD_X_BEG + DOME_HEAD_W;
 const int DOME_HEIGHT=455;
+const int DOME_TOP=SCREEN_HEIGHT - DOME_HEIGHT;
 //how far back the enemies will bounce if they hit the dome
 const int BOUNCE=20;
 
@@ -33,6 +34,9 @@ const int PISTOL_Y = 60;
 const int PISTOL_EXP_SIZE = 8;
 const int PISTOL_MAX_AMMO = 150;
 const int PISTOL_MAX_CLIP_AMMO= 20;
+const int PISTOL_AMMO_PER_PURCHASE = 20;
+const int PISTOL_AMMO_X = 300;
+const int PISTOL_AMMO_Y = 60;
 
 //Plasma Cannon information
 const int PLASMA_CANNON_PRICE = 60;
@@ -40,6 +44,9 @@ const int PLASMA_CANNON_AMMO_PRICE = 7;
 const int PLASMA_CANNON_DAMAGE = 100;
 const int PLASMA_CANNON_X = 100;
 const int PLASMA_CANNON_Y = 450;
+const int PLASMA_CANNON_AMMO_X = 300;
+const int PLASMA_CANNON_AMMO_Y = 450;
+const int PLASMA_CANNON_AMMO_PER_PURCHASE = 100;
 
 
 const int PLASMA_CANNON_EXP_SIZE = 40;
@@ -55,6 +62,9 @@ const int GATLING_Y = 350;
 const int GATLING_EXP_SIZE = 30;
 const int GATLING_MAX_AMMO = 300;
 const int GATLING_MAX_CLIP_AMMO= 100;
+const int GATLING_AMMO_X = 300;
+const int GATLING_AMMO_Y = 350;
+const int GATLING_AMMO_PER_PURCHASE = 80;
 
 //SMG information
 const int SMG_PRICE = 10;
@@ -65,6 +75,9 @@ const int SMG_Y = 150;
 const int SMG_EXP_SIZE = 20;
 const int SMG_MAX_AMMO = 200;
 const int SMG_MAX_CLIP_AMMO= 40;
+const int SMG_AMMO_X = 300;
+const int SMG_AMMO_Y = 150;
+const int SMG_AMMO_PER_PURCHASE = 40;
 
 //lMG information
 const int LMG_PRICE = 20;
@@ -75,6 +88,9 @@ const int LMG_Y = 250;
 const int LMG_EXP_SIZE = 26;
 const int LMG_MAX_AMMO = 400;
 const int LMG_MAX_CLIP_AMMO= 50;
+const int LMG_AMMO_X = 300;
+const int LMG_AMMO_Y = 250;
+const int LMG_AMMO_PER_PURCHASE = 60;
 
 //The frame rate
 const int FRAMES_PER_SECOND = 20;

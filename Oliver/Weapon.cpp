@@ -26,6 +26,20 @@ explosionImage = load_image(explosionName.c_str());
 
 }
 
+bool Weapon::addToCurrentAmmo(int m)
+{
+	if(currentAmmo==maxAmmo)
+	{
+		return false;
+	}
+	if(currentAmmo+m>maxAmmo)
+	{
+		currentAmmo = maxAmmo;
+	}
+	else
+		currentAmmo += m;
+	return true;
+}
 int Weapon::getCurrentClipAmmo(){
 return currentClipAmmo;
 

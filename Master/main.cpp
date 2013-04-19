@@ -40,6 +40,7 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Rzapdos.h"
 #include "Item.h"
 #include "Health.h"
+#include "Ammo.h"
 #include <boost/lexical_cast.hpp>
 #include <string>
 #include <vector>
@@ -91,6 +92,12 @@ PlasmaCannon* plasmaCannon;
 Gatling* gatling;
 Smg* smg;
 Lmg* lmg;
+
+Ammo *pistolAmmo;
+Ammo *smgAmmo;
+Ammo *lmgAmmo;
+Ammo *gatlingAmmo;
+Ammo *plasmaCannonAmmo;
 
 //health declared
 Health* health;
@@ -242,6 +249,22 @@ void load_store()
 
     health = new Health ("redCross.png", HEALTH_PRICE, HEALTH_X, HEALTH_Y);
     store.push_back(health);
+
+    pistolAmmo = new Ammo("ammoScreenshot.png", PISTOL_AMMO_PRICE, PISTOL_AMMO_X, PISTOL_AMMO_Y, 0);
+    store.push_back(pistolAmmo);
+
+    smgAmmo = new Ammo("ammoScreenshot.png", SMG_AMMO_PRICE, SMG_AMMO_X, SMG_AMMO_Y, 1);
+    store.push_back(smgAmmo);
+
+    lmgAmmo = new Ammo("ammoScreenshot.png", LMG_AMMO_PRICE, LMG_AMMO_X, LMG_AMMO_Y, 2);
+    store.push_back(lmgAmmo);
+
+    gatlingAmmo = new Ammo("ammoScreenshot.png", GATLING_AMMO_PRICE, GATLING_AMMO_X, GATLING_AMMO_Y, 3);
+    store.push_back(gatlingAmmo);
+
+    plasmaCannonAmmo = new Ammo("ammoScreenshot.png", PLASMA_CANNON_AMMO_PRICE, PLASMA_CANNON_AMMO_X, PLASMA_CANNON_AMMO_Y, 4);
+    store.push_back(plasmaCannonAmmo);
+
 
 }
 
@@ -446,6 +469,116 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 		else
 			messageToUser.setText("Not enough Money!");
 	}
+	if(pistolAmmo->isClicked(x,y))
+	{
+		if(addedPistol)
+		{
+			if(money>=pistolAmmo->getPrice())
+			{
+			
+				bool addedAmmo = pistol->addToCurrentAmmo(PISTOL_AMMO_PER_PURCHASE);
+				if (addedAmmo)
+				{
+					money-=pistolAmmo->getPrice();
+					actualMoneyText.setText(boost::lexical_cast<string>(money));
+					messageToUser.setText("Succesfully Added Pistol Ammo");
+				}
+				else messageToUser.setText("Pistol has full ammo!");
+			}
+			else
+				messageToUser.setText("Not enough Money!");
+		}
+		else
+			messageToUser.setText("You don't own a pistol!");
+	}
+	if(smgAmmo->isClicked(x,y))
+	{
+		if(addedSmg)
+		{
+			if(money>=smgAmmo->getPrice())
+			{
+			
+				bool addedAmmo = smg->addToCurrentAmmo(SMG_AMMO_PER_PURCHASE);
+				if (addedAmmo)
+				{
+					money-=smgAmmo->getPrice();
+					actualMoneyText.setText(boost::lexical_cast<string>(money));
+					messageToUser.setText("Succesfully Added Smg Ammo");
+				}
+				else messageToUser.setText("Smg has full ammo!");
+			}
+			else
+				messageToUser.setText("Not enough Money!");
+		}
+		else
+			messageToUser.setText("You don't own a Smg!");
+	}
+	if(lmgAmmo->isClicked(x,y))
+	{
+		if(addedLmg)
+		{
+			if(money>=lmgAmmo->getPrice())
+			{
+			
+				bool addedAmmo = lmg->addToCurrentAmmo(LMG_AMMO_PER_PURCHASE);
+				if (addedAmmo)
+				{
+					money-=lmgAmmo->getPrice();
+					actualMoneyText.setText(boost::lexical_cast<string>(money));
+					messageToUser.setText("Succesfully Added Lmg Ammo");
+				}
+				else messageToUser.setText("Lmg has full ammo!");
+			}
+			else
+				messageToUser.setText("Not enough Money!");
+		}
+		else
+			messageToUser.setText("You don't own a Lmg!");
+	}
+	if(gatlingAmmo->isClicked(x,y))
+	{
+		if(addedGatling)
+		{
+			if(money>=gatlingAmmo->getPrice())
+			{
+			
+				bool addedAmmo = gatling->addToCurrentAmmo(GATLING_AMMO_PER_PURCHASE);
+				if (addedAmmo)
+				{
+					money-=gatlingAmmo->getPrice();
+					actualMoneyText.setText(boost::lexical_cast<string>(money));
+					messageToUser.setText("Succesfully Added Gatling Ammo");
+				}
+				else messageToUser.setText("Gatling has full ammo!");
+			}
+			else
+				messageToUser.setText("Not enough Money!");
+		}
+		else
+			messageToUser.setText("You don't own a Gatling!");
+	}
+	if(plasmaCannonAmmo->isClicked(x,y))
+	{
+		if(addedPlasma)
+		{
+			if(money>=plasmaCannonAmmo->getPrice())
+			{
+			
+				bool addedAmmo = plasmaCannon->addToCurrentAmmo(PLASMA_CANNON_AMMO_PER_PURCHASE);
+				if (addedAmmo)
+				{
+					money-=gatlingAmmo->getPrice();
+					actualMoneyText.setText(boost::lexical_cast<string>(money));
+					messageToUser.setText("Succesfully Added Plasma Cannon Ammo");
+				}
+				else messageToUser.setText("Plasma Cannon has full ammo!");
+			}
+			else
+				messageToUser.setText("Not enough Money!");
+		}
+		else
+			messageToUser.setText("You don't own a Plasma Cannon!");
+	}
 	return false;	
 }
 
@@ -483,11 +616,7 @@ int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHea
 	{	
 		store[j]->showInStore(screen); //x, y, surface
 	}
-	/*
-	for(int j=0;j<storeBombs.size();j++)
-	{	
-		storeBombs[j]->showInStore(screen); //x, y, surface
-	}*/
+
 	SDL_Flip(screen);
 
      Text messageToUser("",continueToGame.getTextXpos()+continueToGame.getWidth()+50,continueToGame.getTextYpos(),colorWhite,20);

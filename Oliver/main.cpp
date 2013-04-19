@@ -28,13 +28,24 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Voltorb.h"
 #include "Bomb.h"
 #include "Electrode.h"
+#include "Articuno.h"
+#include "Rarticuno.h"
+#include "Charmander.h"
+#include "Rcharmander.h"
+#include "Machamp.h"
+#include "Rmarowak.h"
+#include "Marowak.h"
+#include "Pidgey.h"
+#include "Zapdos.h"
+#include "Rzapdos.h"
 #include "Item.h"
 #include "Health.h"
+#include "Ammo.h"
 #include <boost/lexical_cast.hpp>
 #include <string>
 #include <vector>
 #include <iostream>
-
+#include <time.h>
 
 using namespace std;
 
@@ -54,6 +65,18 @@ Squirtle *squirtle;
 Poliwhirl *poliwhirl;
 Rpidgey *rpidgey;
 Voltorb *voltorb;
+Electrode *electrode;
+Articuno *articuno;
+Rarticuno *rarticuno;
+Rcharmander *rcharmander;
+Charmander *charmander;
+Marowak *marowak;
+Rmarowak *rmarowak;
+Machamp *machamp;
+Pidgey *pidgey;
+Zapdos *zapdos;
+Rzapdos *rzapdos;
+
 
 SDL_Surface *message = NULL;
 
@@ -70,6 +93,12 @@ Gatling* gatling;
 Smg* smg;
 Lmg* lmg;
 
+Ammo *pistolAmmo;
+Ammo *smgAmmo;
+Ammo *lmgAmmo;
+Ammo *gatlingAmmo;
+Ammo *plasmaCannonAmmo;
+
 //health declared
 Health* health;
 
@@ -84,7 +113,7 @@ int currentWeaponIndex = 0;
 
 //the current level and the maximum # of levels programmed by us
 int currentLevel = 1;
-int maxLevel = 2;
+int maxLevel = 3;
 int money = INITIAL_MONEY;
 
 //SDL initializing material
@@ -138,7 +167,7 @@ void load_enemies ()
    enemies.clear();
   if(currentLevel==1)
   {
-   squirtle = new Squirtle ("squirtlej.png", 1300, 0, 38, 36, -5, 10, 20, 50);
+   squirtle = new Squirtle ("squirtlej.png", 1280, 0, 38, 36, -5, 10, 20, 50);
    rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
   enemies.push_back (squirtle);
   enemies.push_back (rpidgey);
@@ -150,6 +179,7 @@ void load_enemies ()
 	enemies.push_back(rpidgey);
 	   rpidgey = new Rpidgey ("Rpidgey.png", -75, 220, 37, 30, 5, 0, 5, 10);
 	enemies.push_back(rpidgey);
+
   }
   else if(currentLevel==2)
   {
@@ -165,9 +195,32 @@ void load_enemies ()
     enemies.push_back (squirtle);
   	enemies.push_back (poliwhirl);
   	enemies.push_back (rpidgey);
-
-
 	
+  }
+
+else if(currentLevel==3)
+  {  //rzapdos = new Rzapdos ("Rzapdos.png", 1000, 0, 38, 36, -10, 20, 20, 50);
+      poliwhirl = new Poliwhirl ("poliwhirl.png", 1100, 0, 75, 80, -14, 24, 30, 100);  
+      articuno = new Articuno ("articuno.png", 1100, 200, 140, 70, -10, 0, 50, 100);
+     //   enemies.push_back (rzapdos);
+  	//enemies.push_back (poliwhirl);
+  	enemies.push_back (articuno);
+       squirtle = new Squirtle ("squirtlej.png", 1000, -100, 38, 36, -10, 20, 20, 50);
+      rpidgey = new Rpidgey ("Rpidgey.png", 0, 300, 37, 30, 10, 0, 5, 10);
+   // enemies.push_back (squirtle);
+  	//enemies.push_back (poliwhirl);
+  //	enemies.push_back (rpidgey);
+
+ charmander = new Charmander ("charmander.png", 1000, -100, 38, 36, -10, 20, 20, 50);
+      rcharmander = new Rcharmander ("Rcharmander.png", 2, 100, 37, 30, 10, 20, 5, 10);
+   // enemies.push_back (charmander);
+  	enemies.push_back (rcharmander);
+
+zapdos = new Zapdos ("zapdos.png", 1000, 200, 38, 36, -10, 0, 20, 10);
+      rzapdos = new Rzapdos ("Rzapdos.png", 2, 200, 37, 30, 10, 0, 5, 10);
+    enemies.push_back (zapdos);
+  	enemies.push_back (rzapdos);
+
   }
 }
 
@@ -196,6 +249,22 @@ void load_store()
 
     health = new Health ("redCross.png", HEALTH_PRICE, HEALTH_X, HEALTH_Y);
     store.push_back(health);
+
+    pistolAmmo = new Ammo("ammoScreenshot.png", PISTOL_AMMO_PRICE, PISTOL_AMMO_X, PISTOL_AMMO_Y, 0);
+    store.push_back(pistolAmmo);
+
+    smgAmmo = new Ammo("ammoScreenshot.png", SMG_AMMO_PRICE, SMG_AMMO_X, SMG_AMMO_Y, 1);
+    store.push_back(smgAmmo);
+
+    lmgAmmo = new Ammo("ammoScreenshot.png", LMG_AMMO_PRICE, LMG_AMMO_X, LMG_AMMO_Y, 2);
+    store.push_back(lmgAmmo);
+
+    gatlingAmmo = new Ammo("ammoScreenshot.png", GATLING_AMMO_PRICE, GATLING_AMMO_X, GATLING_AMMO_Y, 3);
+    store.push_back(gatlingAmmo);
+
+    plasmaCannonAmmo = new Ammo("ammoScreenshot.png", PLASMA_CANNON_AMMO_PRICE, PLASMA_CANNON_AMMO_X, PLASMA_CANNON_AMMO_Y, 4);
+    store.push_back(plasmaCannonAmmo);
+
 
 }
 
@@ -400,6 +469,116 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 		else
 			messageToUser.setText("Not enough Money!");
 	}
+	if(pistolAmmo->isClicked(x,y))
+	{
+		if(addedPistol)
+		{
+			if(money>=pistolAmmo->getPrice())
+			{
+			
+				bool addedAmmo = pistol->addToCurrentAmmo(PISTOL_AMMO_PER_PURCHASE);
+				if (addedAmmo)
+				{
+					money-=pistolAmmo->getPrice();
+					actualMoneyText.setText(boost::lexical_cast<string>(money));
+					messageToUser.setText("Succesfully Added Pistol Ammo");
+				}
+				else messageToUser.setText("Pistol has full ammo!");
+			}
+			else
+				messageToUser.setText("Not enough Money!");
+		}
+		else
+			messageToUser.setText("You don't own a pistol!");
+	}
+	if(smgAmmo->isClicked(x,y))
+	{
+		if(addedSmg)
+		{
+			if(money>=smgAmmo->getPrice())
+			{
+			
+				bool addedAmmo = smg->addToCurrentAmmo(SMG_AMMO_PER_PURCHASE);
+				if (addedAmmo)
+				{
+					money-=smgAmmo->getPrice();
+					actualMoneyText.setText(boost::lexical_cast<string>(money));
+					messageToUser.setText("Succesfully Added Smg Ammo");
+				}
+				else messageToUser.setText("Smg has full ammo!");
+			}
+			else
+				messageToUser.setText("Not enough Money!");
+		}
+		else
+			messageToUser.setText("You don't own a Smg!");
+	}
+	if(lmgAmmo->isClicked(x,y))
+	{
+		if(addedLmg)
+		{
+			if(money>=lmgAmmo->getPrice())
+			{
+			
+				bool addedAmmo = lmg->addToCurrentAmmo(LMG_AMMO_PER_PURCHASE);
+				if (addedAmmo)
+				{
+					money-=lmgAmmo->getPrice();
+					actualMoneyText.setText(boost::lexical_cast<string>(money));
+					messageToUser.setText("Succesfully Added Lmg Ammo");
+				}
+				else messageToUser.setText("Lmg has full ammo!");
+			}
+			else
+				messageToUser.setText("Not enough Money!");
+		}
+		else
+			messageToUser.setText("You don't own a Lmg!");
+	}
+	if(gatlingAmmo->isClicked(x,y))
+	{
+		if(addedGatling)
+		{
+			if(money>=gatlingAmmo->getPrice())
+			{
+			
+				bool addedAmmo = gatling->addToCurrentAmmo(GATLING_AMMO_PER_PURCHASE);
+				if (addedAmmo)
+				{
+					money-=gatlingAmmo->getPrice();
+					actualMoneyText.setText(boost::lexical_cast<string>(money));
+					messageToUser.setText("Succesfully Added Gatling Ammo");
+				}
+				else messageToUser.setText("Gatling has full ammo!");
+			}
+			else
+				messageToUser.setText("Not enough Money!");
+		}
+		else
+			messageToUser.setText("You don't own a Gatling!");
+	}
+	if(plasmaCannonAmmo->isClicked(x,y))
+	{
+		if(addedPlasma)
+		{
+			if(money>=plasmaCannonAmmo->getPrice())
+			{
+			
+				bool addedAmmo = plasmaCannon->addToCurrentAmmo(PLASMA_CANNON_AMMO_PER_PURCHASE);
+				if (addedAmmo)
+				{
+					money-=gatlingAmmo->getPrice();
+					actualMoneyText.setText(boost::lexical_cast<string>(money));
+					messageToUser.setText("Succesfully Added Plasma Cannon Ammo");
+				}
+				else messageToUser.setText("Plasma Cannon has full ammo!");
+			}
+			else
+				messageToUser.setText("Not enough Money!");
+		}
+		else
+			messageToUser.setText("You don't own a Plasma Cannon!");
+	}
 	return false;	
 }
 
@@ -437,11 +616,7 @@ int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHea
 	{	
 		store[j]->showInStore(screen); //x, y, surface
 	}
-	/*
-	for(int j=0;j<storeBombs.size();j++)
-	{	
-		storeBombs[j]->showInStore(screen); //x, y, surface
-	}*/
+
 	SDL_Flip(screen);
 
      Text messageToUser("",continueToGame.getTextXpos()+continueToGame.getWidth()+50,continueToGame.getTextYpos(),colorWhite,20);
@@ -520,7 +695,7 @@ int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHea
 //the main function
 int main (int argc, char *args[])
 {
-
+srand(time(NULL));
 //user's score for the game,
 int score=0;
   //Quit flag

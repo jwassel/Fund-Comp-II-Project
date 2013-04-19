@@ -24,6 +24,7 @@ public:
 	int getSize();
 	//int getPrice();
 	int getCurrentClipAmmo();
+	bool addToCurrentAmmo(int);
 	int getCurrentAmmo();
 	virtual void showDuringGamePlay(int, int, SDL_Surface*)=0;
 
