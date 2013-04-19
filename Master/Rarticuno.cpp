@@ -32,7 +32,7 @@ else
 //shows the enemy on the screen
 void Rarticuno::show(SDL_Surface * screen, int count)
 {	if(!isDead())
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
+	apply_surface(xpos,ypos,sprite,screen,&clips[count%3]);
 }
 
 void Rarticuno::setClips()

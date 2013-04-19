@@ -32,7 +32,7 @@ else
 //shows the enemy on the screen
 void Pidgey::show(SDL_Surface * screen, int count)
 {	if(!isDead())
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
+	apply_surface(xpos,ypos,sprite,screen,&clips[count%4]);
 }
 
 void Pidgey::setClips()

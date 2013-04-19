@@ -72,7 +72,7 @@ int enemyX = 0;
 int enemyY = 0;
 int enemyWidth = 0;
 int enemyHeight = 0;
-if(currentClipAmmo>0)
+if(currentClipAmmo>0 && maxAmmo>0)
   {
   //If a mouse button was pressed
   if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -108,10 +108,19 @@ if(currentClipAmmo>0)
   }
 else{
 reloadTime--;
-if(reloadTime<=0){
-currentClipAmmo=maxClipAmmo;
-currentAmmo=currentAmmo-maxClipAmmo;
-reloadTime=20;}
+	if(reloadTime<=0){
+		if(currentAmmo>=maxClipAmmo)
+		{
+			currentClipAmmo=maxClipAmmo;
+			currentAmmo=currentAmmo-maxClipAmmo;
+		}
+		else if (currentAmmo>0)
+		{
+			currentClipAmmo = currentAmmo;
+			currentAmmo = 0;
+		}
+		reloadTime=RELOAD_TIME;
+	}
 }
 }
 /*

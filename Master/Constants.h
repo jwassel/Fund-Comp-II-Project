@@ -6,7 +6,7 @@ const int SCREEN_WIDTH = 1200;
 const int SCREEN_BPP = 32;
 //points awarded to player's score and money
 const int LEVEL_BONUS = 25;
-const int HIT_BONUS = 5;
+const int HIT_BONUS = 0;
 const int KILL_BONUS = 15;
 //dome coordinates
 const int MIDDLE_DOME = 305; //where on the screen the upper half of the dome is
@@ -95,7 +95,7 @@ const int LMG_AMMO_PER_PURCHASE = 60;
 //The frame rate
 const int FRAMES_PER_SECOND = 20;
 const int DELAY_BETWEEN_LEVELS = 3000;
-const int RELOAD_TIME=30;
+const int RELOAD_TIME=25;
 
 
 //Bomb info
@@ -112,11 +112,11 @@ const int ELECTRODE_DAMAGE = 100;
 const int ELECTRODE_RANGE = 100;
 
 //Health info
-const int STARTING_HEALTH = 5000;
+const int STARTING_HEALTH = 50000;
 const int HEALTH_X = 1000;
 const int HEALTH_Y = 240;
-const int HEALTH_PRICE = 100;
-const int HEALTH_ADDED = 250;
+const int HEALTH_PRICE = 75;
+const int HEALTH_ADDED = 2500;
 
 //text info
 const int OTHER_TEXT_X = 1000;
@@ -165,6 +165,8 @@ const int POLIWHIRL_HEIGHT= 80;
 const int POLIWHIRL_WIDTH= 100;
 const int POLIWHIRL_POWER= 45;
 const int POLIWHIRL_HEALTH= 125;
+
+const int Y_VELOCITY_DESCENT=15;
 
 
 #endif
