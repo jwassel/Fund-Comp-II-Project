@@ -21,11 +21,21 @@ else
 		hasEntered = 1;
 	}
 
+if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
+
+
 }
 
 //shows the enemy on the screen
 void Articuno::show(SDL_Surface * screen, int count)
+<<<<<<< HEAD
 {	if(!isDead())
+=======
+{if(!isDead())
+>>>>>>> 6dbdf64e70989ff50dc8b4a2ad87aadeec74bccd
 	apply_surface(xpos,ypos,sprite,screen,&clips[count%4]);
 }
 

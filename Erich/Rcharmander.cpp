@@ -11,21 +11,30 @@ Rcharmander::Rcharmander(string filename, int x, int y, int w, int h, int xV, in
 
 void Rcharmander::move()
 {
- if(ypos<550)
+ if(ypos+height<GROUND)
 	ypos+=yVel;
-else
+else if (xpos+width<DOME_BASE_X_BEG)
 	xpos+=xVel;
+<<<<<<< HEAD
 	
 	if(xpos>0 && xpos<SCREEN_WIDTH)
 	{
 		hasEntered = 1;
 	}
+=======
+else 
+	xpos+=BOUNCE;
+>>>>>>> 6dbdf64e70989ff50dc8b4a2ad87aadeec74bccd
 
 }
 
 //shows the enemy on the screen
 void Rcharmander::show(SDL_Surface * screen, int count)
+<<<<<<< HEAD
 {	if(!isDead())
+=======
+{if(!isDead())
+>>>>>>> 6dbdf64e70989ff50dc8b4a2ad87aadeec74bccd
 	apply_surface(xpos,ypos,sprite,screen,&clips[count%4]);
 }
 

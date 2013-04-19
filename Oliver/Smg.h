@@ -10,7 +10,7 @@ class Smg: public Weapon
 		Smg(string, string, int, int, int, int, int, int,int,int,int,int,int); //constructor
 		virtual void fire(); //moves the enemy; diff for every enemy so virtual
 		virtual void setClips();
-		virtual void show(SDL_Surface *); //shows the enemy on the screen
+		virtual void showInStore(SDL_Surface *); //shows the enemy on the screen
 		int getWidth();
 		int getHeight();
 		int isClicked(int, int);

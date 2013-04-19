@@ -11,10 +11,18 @@ Charmander::Charmander(string filename, int x, int y, int w, int h, int xV, int 
 
 void Charmander::move()
 {
- if(ypos<550)
+ if(ypos+height<GROUND)
 	ypos+=yVel;
-else
+else if (xpos>=DOME_BASE_X_END)
 	xpos+=xVel;
+else 
+	xpos+=BOUNCE;
+
+
+	if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
 
 }
 

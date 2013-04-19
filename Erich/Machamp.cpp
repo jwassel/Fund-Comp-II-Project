@@ -11,12 +11,18 @@ Machamp::Machamp(string filename, int x, int y, int w, int h, int xV, int yV, in
 
 void Machamp::move()
 {
- if(ypos<550)
+ if(ypos+height<GROUND)
 	ypos+=yVel;
 else
 	xpos+=xVel;
 		
 		if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
+
+
+	if(xpos>0 && xpos<SCREEN_WIDTH)
 	{
 		hasEntered = 1;
 	}
