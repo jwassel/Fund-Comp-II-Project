@@ -1,6 +1,6 @@
 
-#ifndef Pidgey_H
-#define Pidgey_H
+#ifndef PIDGEY_H
+#define PIDGEY_H
 #include "Enemy.h"
 #include "Sprite.h"
 #include <string>
@@ -8,7 +8,7 @@
 class Pidgey: public Enemy
 {
 	public:
-		Pidgey(string,int, int, int , int, int ,int, int); //constructor
+		Pidgey(string,int, int, int , int, int ,int,int, int); //constructor
 		 virtual void move(); //move function
 		virtual void show(SDL_Surface*,int);
 		virtual void setClips();

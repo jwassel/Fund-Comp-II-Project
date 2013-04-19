@@ -19,10 +19,6 @@ else if (xpos>=DOME_BASE_X_END)
 else 
 	xpos+=BOUNCE;
 
-if(xpos>0 && xpos<SCREEN_WIDTH)
-	{
-		hasEntered = 1;
-	}
 }
 
 //shows the enemy on the screen

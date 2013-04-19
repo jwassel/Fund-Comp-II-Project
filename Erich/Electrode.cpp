@@ -3,9 +3,8 @@
 #include "Electrode.h"
 #include <cmath>
 
-Electrode::Electrode(string filename, int Price, int x, int y):Bomb(filename, Price, x, y){
+Electrode::Electrode(string filename, int Price, int Damage, int x, int y):Bomb(filename, Price, Damage, x, y){
 mod = 1;
-damage = ELECTRODE_DAMAGE;
 //because the first three images are Electrode moving, not exploding. mod will be changed to four when it hits the ground in the move function
 setClips();
 }
@@ -21,6 +20,17 @@ int Electrode::move()
 	
 }
 
+int Electrode::isClicked(int x, int y)
+{
+	if(x>=xInStore && x<=xInStore+getWidth() && y>=yInStore && y<=yInStore+getHeight())
+		return 1;
+	return 0;
+}
+
+void Electrode::showInStore( SDL_Surface* screen)
+{
+	apply_surface(xInStore,yInStore,sprite,screen,&clips[0]);
+}
 
 	
 void Electrode::setClips(){
@@ -96,10 +106,3 @@ int Electrode::getHeight() {
 	return clips[0].h;
 }
 
-int Electrode::isClicked(int x, int y)
-{
-	if(x>=xpos && x<=xpos+getWidth() && y>=ypos && y<=ypos+getHeight())
-		return 1;
-
-	return 0;
-}

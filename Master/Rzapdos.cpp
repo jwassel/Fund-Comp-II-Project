@@ -4,24 +4,30 @@
 #include "Enemy.h"
 #include "SDL/SDL.h"
 #include <string>
-Rzapdos::Rzapdos(string filename, int x, int y, int w, int h, int xV, int yV, int hea):Enemy(filename,x,y,w,h,xV,yV,hea)
+Rzapdos::Rzapdos(string filename, int x, int y, int w, int h, int xV, int yV, int p, int hea):Enemy(filename,x,y,w,h,xV,yV,p,hea)
 {
 	setClips();
 }
 
 void Rzapdos::move()
 {
- if(ypos<550)
-	ypos+=yVel;
-else
+  if (xpos+width<=DOME_HEAD_X_BEG)
 	xpos+=xVel;
+else 
+	xpos-=BOUNCE;
+	
+	if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
 
 }
 
 //shows the enemy on the screen
 void Rzapdos::show(SDL_Surface * screen, int count)
-{
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
+{	
+	if(!isDead())
+	apply_surface(xpos,ypos,sprite,screen,&clips[count%3]);
 }
 
 void Rzapdos::setClips()

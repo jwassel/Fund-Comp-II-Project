@@ -11,10 +11,10 @@ Rzapdos::Rzapdos(string filename, int x, int y, int w, int h, int xV, int yV, in
 
 void Rzapdos::move()
 {
- if(ypos<550)
-	ypos+=yVel;
-else
+  if (xpos+width<=DOME_HEAD_X_BEG)
 	xpos+=xVel;
+else 
+	xpos-=BOUNCE;
 	
 	if(xpos>0 && xpos<SCREEN_WIDTH)
 	{
@@ -25,7 +25,8 @@ else
 
 //shows the enemy on the screen
 void Rzapdos::show(SDL_Surface * screen, int count)
-{	if(!isDead())
+{	
+	if(!isDead())
 	apply_surface(xpos,ypos,sprite,screen,&clips[count%3]);
 }
 

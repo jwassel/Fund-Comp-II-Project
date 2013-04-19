@@ -1,6 +1,6 @@
 
-#ifndef Marowak_H
-#define Marowak_H
+#ifndef MAROWAK_H
+#define MAROWAK_H
 #include "Enemy.h"
 #include "Sprite.h"
 #include <string>
@@ -8,7 +8,7 @@
 class Marowak: public Enemy
 {
 	public:
-		Marowak(string,int, int, int , int, int ,int, int); //constructor
+		Marowak(string,int, int, int , int, int, int ,int, int); //constructor
 		 virtual void move(); //move function
 		virtual void show(SDL_Surface*,int);
 		virtual void setClips();

@@ -20,6 +20,7 @@ class Dome
 		int getCurrentHealth();
 		int isDead();
 		int isCollidingWithEnemy(int, int, int, int, int); //returns true if is colliding with the enemy's parameters which are passed in
+		bool addToCurrentHealth(int);
 	private:
 		SDL_Surface* sprite;
 		SDL_Rect clips[3]; //change this when get new clips

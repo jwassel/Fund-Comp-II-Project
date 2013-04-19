@@ -11,21 +11,21 @@ Zapdos::Zapdos(string filename, int x, int y, int w, int h, int xV, int yV, int 
 
 void Zapdos::move()
 {
- if(ypos<550)
-	ypos+=yVel;
-else
+  if (xpos>=DOME_HEAD_X_END)
 	xpos+=xVel;
+else 
+	xpos+=BOUNCE;
 	
-if(xpos>0 && xpos<SCREEN_WIDTH)
-{
-	hasEntered = 1;
-}
-
+	if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
 }
 
 //shows the enemy on the screen
 void Zapdos::show(SDL_Surface * screen, int count)
-{	if(!isDead())
+{	
+	if(!isDead())
 	apply_surface(xpos,ypos,sprite,screen,&clips[count%3]);
 }
 

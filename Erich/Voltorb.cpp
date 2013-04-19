@@ -2,14 +2,20 @@
 #include <string>
 #include "Voltorb.h"
 #include <cmath>
-
-Voltorb::Voltorb(string filename, int Price, int x, int y):Bomb(filename, Price, x, y){
+#include <iostream>
+using namespace std;
+Voltorb::Voltorb(string filename, int Price, int Damage, int x, int y):Bomb(filename, Price, Damage, x, y){
 mod = 1; 
-damage = VOLTORB_DAMAGE;
 //because the first three images are voltorb moving, not exploding. mod will be changed to four when it hits the ground in the move function
 setClips();
 }
 
+int Voltorb::isClicked(int x, int y)
+{
+	if(x>=xInStore && x<=xInStore+getWidth() && y>=yInStore && y<=yInStore+getHeight())
+		return 1;
+	return 0;
+}
 int Voltorb::move()
 {
  if(ypos<GROUND-getHeight()){
@@ -21,7 +27,10 @@ int Voltorb::move()
 	
 }
 
-
+void Voltorb::showInStore(SDL_Surface*screen)
+{
+	apply_surface(xInStore,yInStore,sprite,screen,&clips[1]);
+}
 	
 void Voltorb::setClips(){
 
@@ -71,7 +80,7 @@ int enemyHeight = 0;
 	enemyY = enemies[i]->getY();
 	enemyWidth = enemies[i]->getWidth();
 	enemyHeight = enemies[i]->getHeight();
-	if (abs(xpos - (enemyX+enemyWidth/2)) < VOLTORB_RANGE && abs(ypos - (enemyY+enemyHeight/2)) < VOLTORB_RANGE)
+	if (abs(xpos - (enemyX+enemyWidth/2)) < VOLTORB_RANGE)
 	    {
 		enemies[i]->getAttacked(damage,score,money);
 	    	score+=HIT_BONUS;
@@ -96,10 +105,3 @@ int Voltorb::getHeight() {
 	return clips[0].h;
 }
 
-int Voltorb::isClicked(int x, int y)
-{
-	if(x>=xpos && x<=xpos+getWidth() && y>=ypos && y<=ypos+getHeight())
-		return 1;
-
-	return 0;
-}

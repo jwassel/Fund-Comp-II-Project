@@ -16,18 +16,11 @@ void Marowak::move()
 else
 	xpos+=xVel;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6dbdf64e70989ff50dc8b4a2ad87aadeec74bccd
 	if(xpos>0 && xpos<SCREEN_WIDTH)
 	{
 		hasEntered = 1;
 	}
-<<<<<<< HEAD
-=======
 
->>>>>>> 6dbdf64e70989ff50dc8b4a2ad87aadeec74bccd
 }
 
 //shows the enemy on the screen

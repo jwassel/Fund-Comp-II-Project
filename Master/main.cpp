@@ -28,6 +28,16 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Voltorb.h"
 #include "Bomb.h"
 #include "Electrode.h"
+#include "Articuno.h"
+#include "Rarticuno.h"
+#include "Charmander.h"
+#include "Rcharmander.h"
+#include "Machamp.h"
+#include "Rmarowak.h"
+#include "Marowak.h"
+#include "Pidgey.h"
+#include "Zapdos.h"
+#include "Rzapdos.h"
 #include "Item.h"
 #include "Health.h"
 #include <boost/lexical_cast.hpp>
@@ -54,6 +64,18 @@ Squirtle *squirtle;
 Poliwhirl *poliwhirl;
 Rpidgey *rpidgey;
 Voltorb *voltorb;
+Electrode *electrode;
+Articuno *articuno;
+Rarticuno *rarticuno;
+Rcharmander *rcharmander;
+Charmander *charmander;
+Marowak *marowak;
+Rmarowak *rmarowak;
+Machamp *machamp;
+Pidgey *pidgey;
+Zapdos *zapdos;
+Rzapdos *rzapdos;
+
 
 SDL_Surface *message = NULL;
 
@@ -84,7 +106,7 @@ int currentWeaponIndex = 0;
 
 //the current level and the maximum # of levels programmed by us
 int currentLevel = 1;
-int maxLevel = 2;
+int maxLevel = 3;
 int money = INITIAL_MONEY;
 
 //SDL initializing material
@@ -165,9 +187,32 @@ void load_enemies ()
     enemies.push_back (squirtle);
   	enemies.push_back (poliwhirl);
   	enemies.push_back (rpidgey);
-
-
 	
+  }
+
+else if(currentLevel==3)
+  {  //rzapdos = new Rzapdos ("Rzapdos.png", 1000, 0, 38, 36, -10, 20, 20, 50);
+      poliwhirl = new Poliwhirl ("poliwhirl.png", 1100, 0, 75, 80, -14, 24, 30, 100);  
+      articuno = new Articuno ("articuno.png", 1100, 200, 140, 70, -10, 0, 50, 100);
+     //   enemies.push_back (rzapdos);
+  	//enemies.push_back (poliwhirl);
+  	enemies.push_back (articuno);
+       squirtle = new Squirtle ("squirtlej.png", 1000, -100, 38, 36, -10, 20, 20, 50);
+      rpidgey = new Rpidgey ("Rpidgey.png", 0, 300, 37, 30, 10, 0, 5, 10);
+   // enemies.push_back (squirtle);
+  	//enemies.push_back (poliwhirl);
+  //	enemies.push_back (rpidgey);
+
+ charmander = new Charmander ("charmander.png", 1000, -100, 38, 36, -10, 20, 20, 50);
+      rcharmander = new Rcharmander ("Rcharmander.png", 2, 100, 37, 30, 10, 20, 5, 10);
+   // enemies.push_back (charmander);
+  	enemies.push_back (rcharmander);
+
+zapdos = new Zapdos ("zapdos.png", 1000, 200, 38, 36, -10, 0, 20, 10);
+      rzapdos = new Rzapdos ("Rzapdos.png", 2, 200, 37, 30, 10, 0, 5, 10);
+    enemies.push_back (zapdos);
+  	enemies.push_back (rzapdos);
+
   }
 }
 

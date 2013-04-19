@@ -8,7 +8,7 @@
 class Machamp: public Enemy
 {
 	public:
-		Squirtle(string,int, int, int , int, int ,int, int, int); //constructor
+		Machamp(string,int, int, int , int, int ,int, int, int); //constructor
 		 virtual void move(); //move function
 		virtual void show(SDL_Surface*,int);
 		virtual void setClips();
