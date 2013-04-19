@@ -160,7 +160,7 @@ void load_enemies ()
    enemies.clear();
   if(currentLevel==1)
   {
-   squirtle = new Squirtle ("squirtlej.png", 1300, 0, 38, 36, -5, 10, 20, 50);
+   squirtle = new Squirtle ("squirtlej.png", 1280, 0, 38, 36, -5, 10, 20, 50);
    rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
   enemies.push_back (squirtle);
   enemies.push_back (rpidgey);
@@ -172,18 +172,7 @@ void load_enemies ()
 	enemies.push_back(rpidgey);
 	   rpidgey = new Rpidgey ("Rpidgey.png", -75, 220, 37, 30, 5, 0, 5, 10);
 	enemies.push_back(rpidgey);
-  squirtle = new Squirtle ("squirtlej.png", 1300, 0, 38, 36, -5, 10, 20, 50);
-   rpidgey = new Rpidgey ("Rpidgey.png", 0, 200, 37, 30, 5, 0, 5, 10);
-  enemies.push_back (squirtle);
-  enemies.push_back (rpidgey);
-   squirtle = new Squirtle("squirtlej.png",1200,0,38,36,-5,10,20,50);
-   enemies.push_back(squirtle);
-   squirtle = new Squirtle("squirtlej.png",1400,0,38,36,-5,10,20,50);
-	enemies.push_back(squirtle);
-   rpidgey = new Rpidgey ("Rpidgey.png", -50, 210, 37, 30, 5, 0, 5, 10);
-	enemies.push_back(rpidgey);
-	   rpidgey = new Rpidgey ("Rpidgey.png", -75, 220, 37, 30, 5, 0, 5, 10);
-	enemies.push_back(rpidgey);
+
   }
   else if(currentLevel==2)
   {

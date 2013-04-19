@@ -116,4 +116,39 @@ const int PRICE_TEXT_SIZE = 15;
 const int GUNS_TEXT_X = 100;
 const int GUNS_TEXT_Y = 10;
 
+//Enemy stats
+const int ARTICUNO_HEIGHT= 75;
+const int ARTICUNO_WIDTH= 145;
+const int ARTICUNO_POWER= 50;
+const int ARTICUNO_HEALTH= 200;
+const int CHARMANDER_HEIGHT= 32;
+const int CHARMANDER_WIDTH= 34;
+const int CHARMANDER_POWER= 20;
+const int CHARMANDER_HEALTH= 75;
+const int MAROWAK_HEIGHT= 107;
+const int MAROWAK_WIDTH= 105;
+const int MAROWAK_POWER= 45;
+const int MAROWAK_HEALTH= 125;
+const int PIDGEY_HEIGHT= 30;
+const int PIDGEY_WIDTH= 37;
+const int PIDGEY_POWER= 20;
+const int PIDGEY_HEALTH= 75;
+const int ZAPDOS_HEIGHT= 90;
+const int ZAPDOS_WIDTH= 80;
+const int ZAPDOS_POWER= 50;
+const int ZAPDOS_HEALTH= 200;
+const int SQUIRTLE_HEIGHT= 38;
+const int SQUIRTLE_WIDTH= 39;
+const int SQUIRTLE_POWER= 20;
+const int SQUIRTLE_HEALTH=75;
+const int MACHAMP_HEIGHT= 100;
+const int MACHAMP_WIDTH= 67;
+const int MACHAMP_POWER= 45;
+const int MACHAMP_HEALTH= 125;
+const int POLIWHIRL_HEIGHT= 80;
+const int POLIWHIRL_WIDTH= 100;
+const int POLIWHIRL_POWER= 45;
+const int POLIWHIRL_HEALTH= 125;
+
+
 #endif

@@ -172,6 +172,7 @@ void load_enemies ()
 	enemies.push_back(rpidgey);
 	   rpidgey = new Rpidgey ("Rpidgey.png", -75, 220, 37, 30, 5, 0, 5, 10);
 	enemies.push_back(rpidgey);
+
   }
   else if(currentLevel==2)
   {
