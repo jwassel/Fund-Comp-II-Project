@@ -246,9 +246,12 @@ pokemonkey=rand()%(3+currentLevel)+1;
 while(pokemonkey>13){
 pokemonkey=rand()%(3+currentLevel)+1;
 }
+
 //pushes back the proper enemy
 addpokemon(pokemonkey);
 }
+	rmachamp =new Rmachamp ("Rmachamp.png", -rand()%2400, 0, MACHAMP_HEIGHT, MACHAMP_WIDTH, (rand()%8+5), Y_VELOCITY_DESCENT,MACHAMP_POWER, MACHAMP_HEALTH);
+		enemies.push_back(rmachamp);
 
 }
 
