@@ -13,7 +13,7 @@ void Rcharmander::move()
 {
  if(ypos+height<GROUND)
 	ypos+=yVel;
-else if (isBouncer){
+else if (isbouncer){
 if(xpos+width<=DOME_BASE_X_BEG)
 	xpos+=xVel;
 else 

@@ -13,7 +13,7 @@ void Marowak::move()
 {
  if(ypos+height<GROUND)
 	ypos+=yVel;
-else if (isBouncer){
+else if (isbouncer){
 if(xpos>=DOME_BASE_X_END)
 	xpos+=xVel;
 else 
