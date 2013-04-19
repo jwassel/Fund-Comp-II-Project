@@ -20,9 +20,9 @@ void Pistol::setClips(){
 
 
 
-void Pistol::show(SDL_Surface *screen)
+void Pistol::showInStore(SDL_Surface *screen)
 {
-	apply_surface(xpos,ypos,sprite,screen,&clips);
+	apply_surface(xInStore,yInStore,sprite,screen,&clips);
 }
 
 void Pistol::showDuringGamePlay(int x,int y, SDL_Surface * screen){
@@ -37,10 +37,9 @@ int Pistol::getWidth() {
 int Pistol::getHeight() {
 	return clips.h;
 }
-
 int Pistol::isClicked(int x, int y)
 {
-	if(x>=xpos && x<=xpos+getWidth() && y>=ypos && y<=ypos+getHeight())
+	if(x>=xInStore && x<=xInStore+getWidth() && y>=yInStore && y<=yInStore+getHeight())
 		return 1;
 
 	return 0;

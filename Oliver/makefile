@@ -1,9 +1,9 @@
-OBJECTS = main.o Timer.o Enemy.o Squirtle.o Sprite.o Background.o Poliwhirl.o Rpidgey.o Dome.o Item.o Weapon.o Pistol.o Gatling.o Lmg.o Smg.o PlasmaCannon.o Text.o Crosshairs.o Bomb.o Voltorb.o Electrode.o
+OBJECTS = main.o Timer.o Enemy.o Squirtle.o Sprite.o Background.o Poliwhirl.o Rpidgey.o Dome.o Item.o Health.o Weapon.o Pistol.o Gatling.o Lmg.o Smg.o PlasmaCannon.o Text.o Crosshairs.o Bomb.o Voltorb.o Electrode.o
 OUTPUT = main
 SDLLINKS = -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
 ($OUTPUT): $(OBJECTS)
 	g++ $(OBJECTS) -o $(OUTPUT) $(SDLLINKS)
-main.o: main.cpp Enemy.h Squirtle.h Timer.h Background.h Poliwhirl.h Rpidgey.h Weapon.h Pistol.h Gatling.h Lmg.h Smg.h PlasmaCannon.h Text.h Crosshairs.h Voltorb.h Bomb.h Electrode.h Item.h
+main.o: main.cpp Enemy.h Squirtle.h Timer.h Background.h Poliwhirl.h Rpidgey.h Weapon.h Pistol.h Gatling.h Lmg.h Smg.h PlasmaCannon.h Text.h Crosshairs.h Voltorb.h Bomb.h Electrode.h Item.h Health.h
 	g++ -c main.cpp
 Enemy.o: Enemy.cpp Enemy.h
 	g++ -c Enemy.cpp
@@ -27,6 +27,8 @@ Crosshairs.o: Crosshairs.cpp Crosshairs.h
 	g++ -c Crosshairs.cpp
 Item.o:	Item.cpp Item.h
 	g++ -c Item.cpp
+Health.o: Health.cpp Health.h
+	g++ -c Health.cpp
 Bomb.o: Bomb.cpp Bomb.h
 	g++ -c Bomb.cpp
 Voltorb.o: Voltorb.cpp Voltorb.h

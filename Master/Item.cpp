@@ -1,47 +1,20 @@
 #include "Item.h"
-#include "Health.h"
-#include <string>
-#include <cmath>
-#include <iostream>
-using namespace std;
-Health::Health(string filename, int Price, int x, int y):Item(x,y,Price,filename){
-sprite = load_image(filename.c_str());
-setClips();
-}
-
-int Health::isClicked(int x, int y)
+Item::Item(int x, int y, int p, string imageStr)
 {
-	if(x>=xInStore && x<=xInStore+getWidth() && y>=yInStore && y<=yInStore+getHeight())
-		return 1;
-	return 0;
+	xInStore = x;
+	yInStore = y;
+	price = p;
+	//sprite = load_image(imageStr);
+
 }
 
-
-void Health::showInStore(SDL_Surface*screen)
+int Item::getPrice()
 {
-	apply_surface(xInStore,yInStore,sprite,screen,&clips[0]);
+	return price;
 }
-	
-void Health::setClips(){
-
-  clips[0].x = 0;
-  clips[0].y = 0;
-  clips[0].w = 53;
-  clips[0].h = 42; 
-}
-
-
-int Health::getWidth() {
-	return clips[0].w;
-}
-int Health::getHeight() {
-	return clips[0].h;
-}
-
-void Health::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip){ //applies new surface
-    
-
-//Holds offsets
+/*
+void Item::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip){ //applies new surface
+    //Holds offsets
     SDL_Rect shift;
 
     //Get offsets
@@ -50,10 +23,9 @@ void Health::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* desti
 
     //Blit
     SDL_BlitSurface(source, clip, destination, &shift);
-
 }
 
-SDL_Surface * Health::load_image(string filename)
+SDL_Surface * Item::load_image(string filename)
 {
 	//temporary storage for the image that's loaded
 	SDL_Surface* loadedImage = NULL;
@@ -84,4 +56,4 @@ SDL_Surface * Health::load_image(string filename)
 		}
 	}
 		return optimizedImage;
-}
+}*/

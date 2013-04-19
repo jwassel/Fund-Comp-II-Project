@@ -20,6 +20,22 @@ Dome::Dome(string filename,int x, int y, int w, int h, int max, int curr)
 	maxHealth = max;
 	currentHealth = curr;
 }
+//returns true if the health was added, false otherwise  
+bool Dome::addToCurrentHealth(int health)
+{
+	if(currentHealth==maxHealth)
+	{
+		return false;
+	}
+	if(currentHealth+health>maxHealth)
+	{
+		currentHealth = maxHealth;
+	}
+	else
+		currentHealth += health;
+	return true;
+	
+}
 
 void Dome::getAttacked(int power)
 {
