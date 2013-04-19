@@ -4,7 +4,7 @@
 #include "Enemy.h"
 #include "SDL/SDL.h"
 #include <string>
-Zapdos::Zapdos(string filename, int x, int y, int w, int h, int xV, int yV, int hea):Enemy(filename,x,y,w,h,xV,yV,hea)
+Zapdos::Zapdos(string filename, int x, int y, int w, int h, int xV, int yV, int p, int hea):Enemy(filename,x,y,w,h,xV,yV,p,hea)
 {
 	setClips();
 }
@@ -15,13 +15,18 @@ void Zapdos::move()
 	ypos+=yVel;
 else
 	xpos+=xVel;
+	
+	if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
 
 }
 
 //shows the enemy on the screen
 void Zapdos::show(SDL_Surface * screen, int count)
-{
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
+{	if(!isDead())
+	apply_surface(xpos,ypos,sprite,screen,&clips[count%3]);
 }
 
 void Zapdos::setClips()
@@ -41,21 +46,6 @@ void Zapdos::setClips()
   clips[2].y = 326;
   clips[2].w = 79;
   clips[2].h = 100;
-
-  clips[3].x = 30;
-  clips[3].y = 326;
-  clips[3].w = 79;
-  clips[3].h = 100;
-
-  clips[4].x = 109;
-  clips[4].y =326;
-  clips[4].w = 79;
-  clips[4].h = 100;
-
-  clips[5].x = 195;
-  clips[5].y = 326;
-  clips[5].w = 79;
-  clips[5].h = 100;
 }
 
 

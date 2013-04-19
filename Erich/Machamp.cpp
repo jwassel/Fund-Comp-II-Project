@@ -15,12 +15,17 @@ void Machamp::move()
 	ypos+=yVel;
 else
 	xpos+=xVel;
+		
+		if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
 
 }
 
 //shows the enemy on the screen
 void Machamp::show(SDL_Surface * screen, int count)
-{
+{	if(!isDead())
 	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
 }
 
