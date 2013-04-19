@@ -13,7 +13,7 @@ void Charmander::move()
 {
  if(ypos+height<GROUND)
 	ypos+=yVel;
-else if (isbouncer){
+else if (isBouncer){
 if(xpos>=DOME_BASE_X_END)
 	xpos+=xVel;
 else 

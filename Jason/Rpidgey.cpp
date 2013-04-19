@@ -20,14 +20,12 @@ else
 
 }
 else
-	xpos+=xVel;
+xpos+=xVel;
 	if(xpos>0 && xpos<SCREEN_WIDTH)
 	{
 		hasEntered = 1;
 	}
 
-
-}
 }
 
 //shows the enemy on the screen

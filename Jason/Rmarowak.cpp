@@ -13,7 +13,7 @@ void Rmarowak::move()
 {
  if(ypos+height<GROUND)
 	ypos+=yVel;
-else if (isbouncer){
+else if (isBouncer){
 if(xpos+width<=DOME_BASE_X_BEG)
 	xpos+=xVel;
 else 

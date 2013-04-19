@@ -11,9 +11,15 @@ Rmarowak::Rmarowak(string filename, int x, int y, int w, int h, int xV, int yV, 
 
 void Rmarowak::move()
 {
- if(ypos<550)
+ if(ypos+height<GROUND)
 	ypos+=yVel;
-else
+else if (isbouncer){
+if(xpos+width<=DOME_BASE_X_BEG)
+	xpos+=xVel;
+else 
+	xpos-=BOUNCE;
+}
+else 
 	xpos+=xVel;
 
 if(xpos>0 && xpos<SCREEN_WIDTH)
