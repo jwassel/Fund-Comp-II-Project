@@ -16,11 +16,17 @@ void Articuno::move()
 else 
 	xpos+=BOUNCE;
 
+if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
+
+
 }
 
 //shows the enemy on the screen
 void Articuno::show(SDL_Surface * screen, int count)
-{
+{if(!isDead())
 	apply_surface(xpos,ypos,sprite,screen,&clips[count%4]);
 }
 

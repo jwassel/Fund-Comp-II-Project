@@ -11,16 +11,24 @@ Charmander::Charmander(string filename, int x, int y, int w, int h, int xV, int 
 
 void Charmander::move()
 {
- if(ypos<550)
+ if(ypos+height<GROUND)
 	ypos+=yVel;
-else
+else if (xpos>=DOME_BASE_X_END)
 	xpos+=xVel;
+else 
+	xpos+=BOUNCE;
+
+
+	if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
 
 }
 
 //shows the enemy on the screen
 void Charmander::show(SDL_Surface * screen, int count)
-{
+{if(!isDead())
 	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
 }
 

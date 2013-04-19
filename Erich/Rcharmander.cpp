@@ -11,16 +11,18 @@ Rcharmander::Rcharmander(string filename, int x, int y, int w, int h, int xV, in
 
 void Rcharmander::move()
 {
- if(ypos<550)
+ if(ypos+height<GROUND)
 	ypos+=yVel;
-else
+else if (xpos+width<DOME_BASE_X_BEG)
 	xpos+=xVel;
+else 
+	xpos+=BOUNCE;
 
 }
 
 //shows the enemy on the screen
 void Rcharmander::show(SDL_Surface * screen, int count)
-{
+{if(!isDead())
 	apply_surface(xpos,ypos,sprite,screen,&clips[count%4]);
 }
 
