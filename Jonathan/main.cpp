@@ -233,7 +233,9 @@ void addpokemon(int key){
 	break;
 	default:
 	break;
+	
 }
+
 }
 
 
@@ -1192,23 +1194,31 @@ for(int i=0;i<currentElectrodeIndex;i++)
 			  SDL_Delay (2000);
 			  SDL_FillRect (screen, &screen->clip_rect,
 			  				SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
-			  Text levelFail ("Game Over", 2 * SCREEN_WIDTH / 5,
+			  Text gameOver ("Game Over", 2 * SCREEN_WIDTH / 5,
 					  2 * SCREEN_HEIGHT / 5, colorWhite,40);
-			  levelFail.show (screen);
+			  gameOver.show (screen);
+		  Text finalLevel ("Final Level = " + boost::lexical_cast<string>(currentLevel), gameOver.getTextXpos(),
+					  gameOver.getTextYpos()+50, colorWhite,40);
+			  Text finalScore("Final Score = " + boost::lexical_cast<string>(score),finalLevel.getTextXpos(),finalLevel.getTextYpos()+50,colorWhite,40);
+			  finalLevel.show(screen);
+			  finalScore.show(screen);
 			  SDL_Flip (screen);
-			  SDL_Delay (2000);
+			  SDL_Delay (5000);
 			  quit = true;
 			  gameIsOver = true;
 			  break;
 		}
 	    }
 	}
-
+	if(gameIsOver==true)
+		break;
 //show the enemies
+     
       for (int j = 0; j < enemies.size (); j++)
 	{
 	  enemies[j]->show (screen, count);
 	}
+	
 
       //While there's events to handle
       while (SDL_PollEvent (&event))
@@ -1317,6 +1327,7 @@ for(int i=0;i<currentElectrodeIndex;i++)
 			
 		  }*/
 	}
+
 
 crosshairs.show(screen);
 
