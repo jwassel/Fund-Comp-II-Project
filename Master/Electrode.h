@@ -16,7 +16,7 @@ class Electrode:public Bomb
 		virtual int getHeight();
 		virtual int getWidth();
 		virtual int isClicked(int,int);
-		virtual int move();
+		virtual void move();
 		int getXpos();
 		int getYpos();
 		virtual void showDuringGamePlay(int, int, SDL_Surface*);

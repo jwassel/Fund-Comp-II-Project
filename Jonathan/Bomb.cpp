@@ -14,11 +14,22 @@ damage = Damage;
 xpos = x;
 ypos = y;
 sprite = load_image(filename.c_str());
+showBomb = false;
 
 }
 void Bomb::setPos(int x, int y){
 xpos=x;
 ypos=y;
+}
+
+bool Bomb::shouldShowBomb()
+{
+	return showBomb;
+}
+
+void Bomb::setShowBomb(bool b)
+{
+	showBomb = b;
 }
 
 void Bomb::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip){ //applies new surface

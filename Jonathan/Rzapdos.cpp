@@ -11,15 +11,20 @@ Rzapdos::Rzapdos(string filename, int x, int y, int w, int h, int xV, int yV, in
 
 void Rzapdos::move()
 {
-  if (xpos+width<=DOME_HEAD_X_BEG)
+if(isBouncer){
+if (xpos+width<=DOME_HEAD_X_BEG)
 	xpos+=xVel;
 else 
 	xpos-=BOUNCE;
-	
+
+}
+else
+	xpos+=xVel;
 	if(xpos>0 && xpos<SCREEN_WIDTH)
 	{
 		hasEntered = 1;
 	}
+
 
 }
 

@@ -101,7 +101,7 @@ const int RELOAD_TIME=25;
 //Bomb info
 const int BOMB_VELOCITY = 7;
 const int ELECTRODE_X = 1000;
-const int ELECTRODE_Y = 190;
+const int ELECTRODE_Y = 300;
 const int VOLTORB_X = 1000;
 const int VOLTORB_Y = 170;
 const int VOLTORB_PRICE = 2;
@@ -166,6 +166,14 @@ const int POLIWHIRL_WIDTH= 100;
 const int POLIWHIRL_POWER= 45;
 const int POLIWHIRL_HEALTH= 125;
 
+const int CURRENT_AMMO_TEXT_HEADER_X = 450;
+const int CURRENT_AMMO_TEXT_HEADER_Y = 250;
+const int CURRENT_AMMO_X = 500 ;
+const int CURRENT_AMMO_Y = 300;
+const int MAX_AMMO_TEXT_HEADER_X = 600;
+const int MAX_AMMO_TEXT_HEADER_Y = 250 ;
+const int MAX_AMMO_X = 650;
+const int MAX_AMMO_Y = 300;
 const int Y_VELOCITY_DESCENT=15;
 
 

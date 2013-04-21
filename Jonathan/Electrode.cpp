@@ -5,18 +5,16 @@
 
 Electrode::Electrode(string filename, int Price, int Damage, int x, int y):Bomb(filename, Price, Damage, x, y){
 mod = 1;
+notExploded = 1;
 //because the first three images are Electrode moving, not exploding. mod will be changed to four when it hits the ground in the move function
 setClips();
 }
 
-int Electrode::move()
+void Electrode::move()
 {
- if(ypos<GROUND-getHeight()){
+ if(ypos<GROUND-getHeight())
 	ypos+=BOMB_VELOCITY;
-	return 0;}
- 	
- 	
- 	return 1;
+
 	
 }
 
@@ -62,12 +60,14 @@ void Electrode::setClips(){
 
 void Electrode::show(SDL_Surface *screen, vector<Enemy*> enemies, int &score, int &money)
 {
+if(showBomb)
+{
 int enemyX = 0;
 int enemyY = 0;
 int enemyWidth = 0;
 int enemyHeight = 0;
 
-
+if (notExploded){
 	 if(ypos>=GROUND-getHeight())
  	mod=4;
  	
@@ -75,6 +75,8 @@ int enemyHeight = 0;
 	apply_surface(xpos,ypos,sprite,screen,&clips[1]);
 	apply_surface(xpos,ypos,sprite,screen,&clips[2]);
 	apply_surface(xpos,ypos,sprite,screen,&clips[3]);
+	notExploded=0;
+	showBomb = false;
 		for(int i=0;i<enemies.size();i++)
 	{
 	enemyX = enemies[i]->getX();
@@ -91,7 +93,8 @@ int enemyHeight = 0;
 	else
 	apply_surface(xpos,ypos,sprite,screen,&clips[0]);
 	mod=1;
-	
+	}
+}
 }
 
 void Electrode::showDuringGamePlay(int x,int y, SDL_Surface * screen){

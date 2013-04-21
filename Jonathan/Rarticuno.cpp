@@ -11,22 +11,28 @@ Rarticuno::Rarticuno(string filename, int x, int y, int w, int h, int xV, int yV
 
 void Rarticuno::move()
 {
- if(ypos<550)
-	ypos+=yVel;
+if(isBouncer){
+if (xpos+width<=DOME_HEAD_X_BEG)
+	xpos+=xVel;
+else 
+	xpos-=BOUNCE;
+
+}
 else
 	xpos+=xVel;
-	
 	if(xpos>0 && xpos<SCREEN_WIDTH)
 	{
 		hasEntered = 1;
 	}
+
+
 
 }
 
 //shows the enemy on the screen
 void Rarticuno::show(SDL_Surface * screen, int count)
 {	if(!isDead())
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
+	apply_surface(xpos,ypos,sprite,screen,&clips[count%3]);
 }
 
 void Rarticuno::setClips()

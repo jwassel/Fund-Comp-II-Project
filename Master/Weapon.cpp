@@ -62,6 +62,11 @@ return maxAmmo;
 
 }
 
+int Weapon::getMaxClipAmmo()
+{
+	return maxClipAmmo;
+}
+
 
 
 

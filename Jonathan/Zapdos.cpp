@@ -11,15 +11,22 @@ Zapdos::Zapdos(string filename, int x, int y, int w, int h, int xV, int yV, int 
 
 void Zapdos::move()
 {
-  if (xpos>=DOME_HEAD_X_END)
+ if(isBouncer){
+if (xpos>=DOME_HEAD_X_END)
 	xpos+=xVel;
 else 
 	xpos+=BOUNCE;
-	
+
+}
+else
+	xpos+=xVel;
 	if(xpos>0 && xpos<SCREEN_WIDTH)
 	{
 		hasEntered = 1;
 	}
+
+
+
 }
 
 //shows the enemy on the screen

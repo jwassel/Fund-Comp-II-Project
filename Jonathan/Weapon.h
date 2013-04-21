@@ -11,7 +11,7 @@
 using namespace std;
 class Weapon:public Item{
 public:
-	Weapon(string,string,int,int,int,int,int,int,int,int,int,int,int); //constructor
+	Weapon(string,string,string,int,int,int,int,int,int,int,int,int,int,int); //constructor
 	virtual void fire()=0; 
 	virtual void setClips()=0; //sets the clip fo the weapon (how it will look on the store screen)
 	virtual void showInStore(SDL_Surface *)=0; //shows the weapon on the screen
@@ -24,11 +24,16 @@ public:
 	int getSize();
 	//int getPrice();
 	int getCurrentClipAmmo();
+	bool addToCurrentAmmo(int);
 	int getCurrentAmmo();
+	int getMaxClipAmmo();
+	string getName();
+	int getMaxAmmo();
 	virtual void showDuringGamePlay(int, int, SDL_Surface*)=0;
 
 protected:
 	
+	string name;
 	SDL_Surface * explosionImage; //the image shown when the fire
 	int clipsize;
 	int ammoPrice; //price to buy ammo

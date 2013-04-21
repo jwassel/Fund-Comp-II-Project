@@ -13,18 +13,16 @@ void Charmander::move()
 {
  if(ypos+height<GROUND)
 	ypos+=yVel;
-else if (xpos>=DOME_BASE_X_END)
+else if (isBouncer){
+if(xpos>=DOME_BASE_X_END)
 	xpos+=xVel;
 else 
 	xpos+=BOUNCE;
-
+}
+else 
+	xpos+=xVel;
 
 	if(xpos>0 && xpos<SCREEN_WIDTH)
-	{
-		hasEntered = 1;
-	}
-
-if(xpos>0 && xpos<SCREEN_WIDTH)
 	{
 		hasEntered = 1;
 	}

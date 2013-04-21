@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "SDL/SDL.h"
 #include <string>
+#include <iostream>
 Rcharmander::Rcharmander(string filename, int x, int y, int w, int h, int xV, int yV, int p, int hea):Enemy(filename,x,y,w,h,xV,yV,p,hea)
 {
 	setClips();
@@ -11,17 +12,29 @@ Rcharmander::Rcharmander(string filename, int x, int y, int w, int h, int xV, in
 
 void Rcharmander::move()
 {
- if(ypos<550)
+ if(ypos+height<GROUND)
 	ypos+=yVel;
-else
+else if (isBouncer){
+if(xpos+width<=DOME_BASE_X_BEG)
 	xpos+=xVel;
+else 
+	xpos-=BOUNCE;
+}
+else 
+	xpos+=xVel;
+
+if(xpos>0 && xpos<SCREEN_WIDTH)
+	{
+		hasEntered = 1;
+	}
 
 }
 
 //shows the enemy on the screen
 void Rcharmander::show(SDL_Surface * screen, int count)
 {
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
+	if(!isDead())
+	apply_surface(xpos,ypos,sprite,screen,&clips[count%4]);
 }
 
 void Rcharmander::setClips()

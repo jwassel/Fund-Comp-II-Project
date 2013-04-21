@@ -26,6 +26,7 @@ public:
 	int getCurrentClipAmmo();
 	bool addToCurrentAmmo(int);
 	int getCurrentAmmo();
+	int getMaxClipAmmo();
 	string getName();
 	int getMaxAmmo();
 	virtual void showDuringGamePlay(int, int, SDL_Surface*)=0;

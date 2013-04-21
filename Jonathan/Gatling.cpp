@@ -2,7 +2,7 @@
 #include <string>
 #include "Gatling.h"
 
-Gatling::Gatling(string filename, string explosionName, int Price, int AmmoPrice, int Damage, int FireRate, int x, int y, int expsize,int max, int current, int maxclip, int currentclip):Weapon(filename,explosionName, Price, AmmoPrice, Damage, FireRate,x,y, expsize,max,current,maxclip, currentclip){
+Gatling::Gatling(string filename, string explosionName, string Name,int Price, int AmmoPrice, int Damage, int FireRate, int x, int y, int expsize,int max, int current, int maxclip, int currentclip):Weapon(filename,explosionName,Name, Price, AmmoPrice, Damage, FireRate,x,y, expsize,max,current,maxclip, currentclip){
 
 setClips();
 }

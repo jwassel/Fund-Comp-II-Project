@@ -1,23 +1,23 @@
 
-#include "Machamp.h"
+#include "Rmachamp.h"
 #include "Sprite.h"
 #include "Enemy.h"
 #include "SDL/SDL.h"
 #include <string>
-Machamp::Machamp(string filename, int x, int y, int w, int h, int xV, int yV, int p,int hea):Enemy(filename,x,y,w,h,xV,yV,p,hea)
+Rmachamp::Rmachamp(string filename, int x, int y, int w, int h, int xV, int yV, int p,int hea):Enemy(filename,x,y,w,h,xV,yV,p,hea)
 {
 	setClips();
 }
 
-void Machamp::move()
+void Rmachamp::move()
 {
  if(ypos+height<GROUND)
 	ypos+=yVel;
 else if (isBouncer){
-if(xpos>=DOME_BASE_X_END)
+if(xpos+width<=DOME_BASE_X_BEG)
 	xpos+=xVel;
 else 
-	xpos+=BOUNCE;
+	xpos-=BOUNCE;
 }
 else 
 	xpos+=xVel;
@@ -26,15 +26,16 @@ if(xpos>0 && xpos<SCREEN_WIDTH)
 	{
 		hasEntered = 1;
 	}
+
 }
 
 //shows the enemy on the screen
-void Machamp::show(SDL_Surface * screen, int count)
+void Rmachamp::show(SDL_Surface * screen, int count)
 {	if(!isDead())
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
+	apply_surface(xpos,ypos,sprite,screen,&clips[count%3]);
 }
 
-void Machamp::setClips()
+void Rmachamp::setClips()
 {
   //Clip range for the Machamp clips
   clips[0].x = 97;
