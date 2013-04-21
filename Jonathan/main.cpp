@@ -77,6 +77,8 @@ Rmachamp *rmachamp;
 Pidgey *pidgey;
 Zapdos *zapdos;
 Rzapdos *rzapdos;
+Voltorb *storeVoltorb;
+Electrode *storeElectrode;
 Voltorb *voltorb;
 Electrode *electrode;
 
@@ -281,11 +283,11 @@ void load_store()
     lmg = new Lmg("weapons.png", "explosionlmg.PNG","LMG",LMG_PRICE,LMG_AMMO_PRICE,LMG_DAMAGE,5,LMG_X,LMG_Y,LMG_EXP_SIZE,LMG_MAX_AMMO,LMG_MAX_AMMO,LMG_MAX_CLIP_AMMO,LMG_MAX_CLIP_AMMO);
     store.push_back(lmg);
 
-    voltorb = new Voltorb ("bombs.png", VOLTORB_PRICE, VOLTORB_DAMAGE, VOLTORB_X, VOLTORB_Y);
-    store.push_back(voltorb);
+    storeVoltorb = new Voltorb ("bombs.png", VOLTORB_PRICE, VOLTORB_DAMAGE, VOLTORB_X, VOLTORB_Y);
+    store.push_back(storeVoltorb);
 
-    electrode = new Electrode("bombs.png",ELECTRODE_PRICE,ELECTRODE_DAMAGE,ELECTRODE_X,ELECTRODE_Y);
-    store.push_back(electrode);
+    storeElectrode = new Electrode("bombs.png",ELECTRODE_PRICE,ELECTRODE_DAMAGE,ELECTRODE_X,ELECTRODE_Y);
+    store.push_back(storeElectrode);
 
     health = new Health ("redCross.png", HEALTH_PRICE, HEALTH_X, HEALTH_Y);
     store.push_back(health);
@@ -373,43 +375,44 @@ void goToInstructions(Text &backButton)
 
 
 //takes user's click when on the store screen and updates their inventory
-bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messageToUser,Text &actualMoneyText, Text &actualDomeHealthText,Background &cover,Text&currentAmmoText,Text&maxAmmoText,Text&currentAmmo,Text&maxAmmo)
+bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messageToUser,Text &actualMoneyText, Text &actualDomeHealthText,Background &cover,Text&currentAmmoText,Text&maxAmmoText,Text&currentAmmo,Text&maxAmmo, Text &currentVoltorbsText,Text&currentVoltorbsNumber,Text &currentElectrodesText,Text&currentElectrodesNumber)
 {
 
-	//erases the unused voltorbs and electrodes from the vector so taht the vector doesn't get huge over the course of game
-	voltorbs.erase(voltorbs.begin(),voltorbs.begin()+currentVoltorbIndex);
-	currentVoltorbIndex = 0;
-	electrodes.erase(electrodes.begin(),electrodes.begin()+currentElectrodeIndex);
-	currentElectrodeIndex = 0;
 
 	cover.show(screen);
 	if(continueToGame.isClicked(x,y)) {
 		return true;
 	}
 	
-	if(voltorb->isClicked(x,y))
+	if(storeVoltorb->isClicked(x,y))
 	{
-		if(money>=voltorb->getPrice())
+		currentVoltorbsText.show(screen);
+		if(money>=storeVoltorb->getPrice())
 		{
-			money-=voltorb->getPrice();
+			money-=storeVoltorb->getPrice();
 			actualMoneyText.setText(boost::lexical_cast<string>(money));
 			messageToUser.setText("Succesfully Added Voltorb");
-			voltorbs.push_back(voltorb);
     			voltorb = new Voltorb ("bombs.png", VOLTORB_PRICE, VOLTORB_DAMAGE, VOLTORB_X, VOLTORB_Y);
+			voltorbs.push_back(voltorb);
+			currentVoltorbsNumber.setText(boost::lexical_cast<string>(voltorbs.size()));
+			currentVoltorbsNumber.show(screen);
 		}
 		else
 			messageToUser.setText("Not enough Money!");
 	}
 	
-	if(electrode->isClicked(x,y))
+	if(storeElectrode->isClicked(x,y))
 	{
-		if(money>=electrode->getPrice())
+		currentElectrodesText.show(screen);
+		if(money>=storeElectrode->getPrice())
 		{
-			money-=electrode->getPrice();
+			money-=storeElectrode->getPrice();
 			actualMoneyText.setText(boost::lexical_cast<string>(money));
 			messageToUser.setText("Succesfully Added Electrode");
-			electrodes.push_back(electrode);
     			electrode = new Electrode("bombs.png",ELECTRODE_PRICE,ELECTRODE_DAMAGE,ELECTRODE_X,ELECTRODE_Y);
+			electrodes.push_back(electrode);
+			currentElectrodesNumber.setText(boost::lexical_cast<string>(electrodes.size()));
+			currentElectrodesNumber.show(screen);
 		}
 		else
 			messageToUser.setText("Not enough Money!");
@@ -671,9 +674,21 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 }
 
 //goes to the store screen and displays it
-int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &ammoHeader,Text &storeHeader, Text &moneyText, Text &actualMoneyText,Text &pistolPriceText,Text &plasmaCannonPriceText,Text &gatlingPriceText,Text &smgPriceText,Text &lmgPriceText, Text &voltorbPriceText, Text &specialsText, Text &healthPriceText, Text &domeText, Text&actualDomeHealthText,Text &pistolAmmoPriceText,Text &plasmaCannonAmmoPriceText,Text &gatlingAmmoPriceText,Text &smgAmmoPriceText,Text &currentWeaponAmmoText, Text &currentWeaponMaxAmmoText,Text &lmgAmmoPriceText,Text &pistolText,Text &plasmaCannonText,Text &gatlingText, Text &smgText,Text &lmgText,Text &currentAmmoText,Text&maxAmmoText)
+int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &ammoHeader,Text &storeHeader, Text &moneyText, Text &actualMoneyText,Text &pistolPriceText,Text &plasmaCannonPriceText,Text &gatlingPriceText,Text &smgPriceText,Text &lmgPriceText, Text &voltorbPriceText, Text &electrodePriceText, Text &specialsText, Text &healthPriceText, Text &domeText, Text&actualDomeHealthText,Text &pistolAmmoPriceText,Text &plasmaCannonAmmoPriceText,Text &gatlingAmmoPriceText,Text &smgAmmoPriceText,Text &currentWeaponAmmoText, Text &currentWeaponMaxAmmoText,Text &lmgAmmoPriceText,Text &pistolText,Text &plasmaCannonText,Text &gatlingText, Text &smgText,Text &lmgText,Text &currentAmmoText,Text&maxAmmoText,
+Text &currentVoltorbsText,Text &currentVoltorbsNumber, Text &currentElectrodesText,Text &currentElectrodesNumber)
 {  
 
+	//erases the unused voltorbs and electrodes from the vector so taht the vector doesn't get huge over the course of game
+	if(voltorbs.size()>0)
+	{
+	voltorbs.erase(voltorbs.begin(),voltorbs.begin()+currentVoltorbIndex);
+	currentVoltorbIndex = 0;
+	}
+	if(electrodes.size()>0)
+	{
+	electrodes.erase(electrodes.begin(),electrodes.begin()+currentElectrodeIndex);
+	currentElectrodeIndex = 0;
+	}
 
 //covers up the ammo if the mouse is not over anything
 Background cover("Coverup.png");
@@ -712,10 +727,12 @@ Background cover("Coverup.png");
 	currentWeaponAmmoText.show(screen);
 	lmgAmmoPriceText.show(screen);
 	voltorbPriceText.show(screen);
+	electrodePriceText.show(screen);
 	specialsText.show(screen);
 	healthPriceText.show(screen);
 	domeText.show(screen);
 	actualDomeHealthText.show(screen);
+
 	//store screen
 
 	for(int j=0;j<store.size();j++)
@@ -750,11 +767,12 @@ Background cover("Coverup.png");
 					{
 						store[j]->showInStore(screen); //x, y, surface
 					}
-				continueButton = purchaseFromStore(x,y,dome,continueToGame,messageToUser,actualMoneyText,actualDomeHealthText,cover,currentAmmoText,maxAmmoText,currentWeaponAmmoText,currentWeaponMaxAmmoText);
+				continueButton = purchaseFromStore(x,y,dome,continueToGame,messageToUser,actualMoneyText,actualDomeHealthText,cover,currentAmmoText,maxAmmoText,currentWeaponAmmoText,currentWeaponMaxAmmoText,
+currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrodesNumber);
 				if(continueButton&&weapons.size()==0)
 				{
 					continueButton = false;
-					messageToUser.setText("You Need at least 1 weapon!");
+					messageToUser.setText("You Need at least 1 gun!");
 				}
 				
 					continueToGame.show(screen);
@@ -783,6 +801,7 @@ Background cover("Coverup.png");
 					currentWeaponAmmoText.show(screen);
 					lmgAmmoPriceText.show(screen);
 					voltorbPriceText.show(screen);
+					electrodePriceText.show(screen);
 					specialsText.show(screen);
 					healthPriceText.show(screen);
 					domeText.show(screen);
@@ -803,6 +822,10 @@ Background cover("Coverup.png");
 					maxAmmoText.setText("Max Ammo");      
 					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(pistol->getMaxAmmo() + pistol->getMaxClipAmmo()));
 					currentWeaponAmmoText.setText(boost::lexical_cast<string>(pistol->getCurrentAmmo() + pistol->getCurrentClipAmmo()));
+					currentAmmoText.show(screen);
+					maxAmmoText.show(screen);
+					currentWeaponMaxAmmoText.show(screen);
+					currentWeaponAmmoText.show(screen);
 				}
 			else if(plasmaCannonAmmo->isClicked(x,y)||plasmaCannon->isClicked(x,y))
 				{
@@ -810,6 +833,10 @@ Background cover("Coverup.png");
 					maxAmmoText.setText("Max Ammo"); 					
 					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(plasmaCannon->getMaxAmmo() + plasmaCannon->getMaxClipAmmo()));
 					currentWeaponAmmoText.setText(boost::lexical_cast<string>(plasmaCannon->getCurrentAmmo()+plasmaCannon->getCurrentClipAmmo()));
+					currentAmmoText.show(screen);
+					maxAmmoText.show(screen);
+					currentWeaponMaxAmmoText.show(screen);
+					currentWeaponAmmoText.show(screen);
 				}
 			else if(gatlingAmmo->isClicked(x,y)||gatling->isClicked(x,y))
 				{
@@ -817,6 +844,10 @@ Background cover("Coverup.png");
 					maxAmmoText.setText("Max Ammo"); 					
 					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(gatling->getMaxAmmo()+gatling->getMaxClipAmmo()));
 					currentWeaponAmmoText.setText(boost::lexical_cast<string>(gatling->getCurrentAmmo()+gatling->getCurrentClipAmmo()));
+					currentAmmoText.show(screen);
+					maxAmmoText.show(screen);
+					currentWeaponMaxAmmoText.show(screen);
+					currentWeaponAmmoText.show(screen);
 				}
 			else if(smgAmmo->isClicked(x,y)||smg->isClicked(x,y))
 					{
@@ -825,6 +856,11 @@ Background cover("Coverup.png");
 					maxAmmoText.setText("Max Ammo"); 
 					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(smg->getMaxAmmo()+smg->getMaxClipAmmo()));
 					currentWeaponAmmoText.setText(boost::lexical_cast<string>(smg->getCurrentAmmo()+smg->getCurrentClipAmmo()));
+					currentAmmoText.show(screen);
+					maxAmmoText.show(screen);
+					currentWeaponMaxAmmoText.show(screen);
+					currentWeaponAmmoText.show(screen);
+
 					}
 			else if(lmgAmmo->isClicked(x,y)||lmg->isClicked(x,y))
 				{
@@ -832,19 +868,38 @@ Background cover("Coverup.png");
 					maxAmmoText.setText("Max Ammo"); 	
 					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(lmg->getMaxAmmo()+lmg->getMaxClipAmmo()));
 					currentWeaponAmmoText.setText(boost::lexical_cast<string>(lmg->getCurrentAmmo()+lmg->getCurrentClipAmmo()));
+					currentAmmoText.show(screen);
+					maxAmmoText.show(screen);
+					currentWeaponMaxAmmoText.show(screen);
+					currentWeaponAmmoText.show(screen);
 					
 				}
+			else if(storeVoltorb->isClicked(x,y))
+			{
+					currentVoltorbsText.setText("Current Voltorbs");
+					currentVoltorbsNumber.setText(boost::lexical_cast<string>(voltorbs.size()));
+					currentVoltorbsText.show(screen);
+					currentVoltorbsNumber.show(screen);
+			}
+			else if(storeElectrode->isClicked(x,y))
+			{
+					currentElectrodesText.setText("Current Electrodes");
+					currentElectrodesNumber.setText(boost::lexical_cast<string>(electrodes.size()));
+					currentElectrodesText.show(screen);
+					currentElectrodesNumber.show(screen);
+			}
 			else {
 					currentWeaponMaxAmmoText.setText(" ");
 					currentWeaponAmmoText.setText(" ");
 					currentAmmoText.setText(" ");
 					maxAmmoText.setText(" ");
+					currentVoltorbsText.setText(" ");
+					currentVoltorbsNumber.setText(" ");
+					currentElectrodesText.setText(" ");
+					currentElectrodesNumber.setText(" ");
 					cover.show(screen);
 				}
-					currentAmmoText.show(screen);
-					maxAmmoText.show(screen);
-					currentWeaponMaxAmmoText.show(screen);
-					currentWeaponAmmoText.show(screen);
+
 		}
 			SDL_Flip(screen);
 
@@ -952,7 +1007,6 @@ Mix_PlayMusic( music, -1 );
 		}
 	
 	}
-
      Dome dome ("dome.png", DOME_BASE_X_BEG, SCREEN_HEIGHT-DOME_HEIGHT, DOME_BASE_W, DOME_HEIGHT, STARTING_HEALTH, STARTING_HEALTH);
   load_store();
   Text continueToGame ("Continue to Game", 2 * SCREEN_WIDTH / 5, 8 * SCREEN_HEIGHT / 9, colorWhite, BIGGER_HEADER_TEXT_SIZE);
@@ -972,7 +1026,8 @@ Text lmgText("LMG",LMG_X,LMG_Y+lmg->getHeight()+5,colorWhite,PRICE_TEXT_SIZE);
 	Text gatlingPriceText(boost::lexical_cast<string>( GATLING_PRICE ),PLASMA_CANNON_X+plasmaCannon->getWidth()+20,GATLING_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text smgPriceText(boost::lexical_cast<string>( SMG_PRICE ),PLASMA_CANNON_X+plasmaCannon->getWidth()+20,SMG_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text lmgPriceText(boost::lexical_cast<string>( LMG_PRICE ),PLASMA_CANNON_X+plasmaCannon->getWidth()+20,LMG_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text voltorbPriceText(boost::lexical_cast<string>(VOLTORB_PRICE),VOLTORB_X+voltorb->getWidth()+20,VOLTORB_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text voltorbPriceText(boost::lexical_cast<string>(VOLTORB_PRICE),VOLTORB_X+storeVoltorb->getWidth()+20,VOLTORB_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text electrodePriceText(boost::lexical_cast<string>(ELECTRODE_PRICE),ELECTRODE_X+storeElectrode->getWidth()+20,ELECTRODE_Y,colorWhite,PRICE_TEXT_SIZE);	
 	Text specialsText("Specials", OTHER_TEXT_X, OTHER_TEXT_Y, colorWhite, HEADER_TEXT_SIZE);
 	Text healthPriceText(boost::lexical_cast<string>(HEALTH_PRICE), HEALTH_X + health->getWidth() + 20, HEALTH_Y, colorWhite, PRICE_TEXT_SIZE);
 	Text moneyText("Money: $ ",MONEY_TEXT_X,MONEY_TEXT_Y,colorWhite,BIGGER_HEADER_TEXT_SIZE);
@@ -992,9 +1047,10 @@ Text pistolAmmoPriceText(boost::lexical_cast<string>( PISTOL_AMMO_PRICE ),PISTOL
 	Text maxAmmoText("Max Ammo",MAX_AMMO_TEXT_HEADER_X,MAX_AMMO_TEXT_HEADER_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text noVols("You are out of Voltorbs",200,300,colorWhite,70);
 	Text noElecs("You are out of Electrodes",200,300,colorWhite,70);
-
-
-
+	Text currentVoltorbsText("Current Voltorbs",CURRENT_VOLTORB_TEXT_X,CURRENT_VOLTORB_TEXT_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text currentVoltorbsNumber("0",CURRENT_VOLTORB_NUMBER_X,CURRENT_VOLTORB_NUMBER_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text currentElectrodesText("Current Electrodes",CURRENT_ELECTRODE_TEXT_X,CURRENT_ELECTRODE_TEXT_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text currentElectrodesNumber("0",CURRENT_ELECTRODE_NUMBER_X,CURRENT_ELECTRODE_NUMBER_Y,colorWhite,PRICE_TEXT_SIZE);
 bool gameIsOver= false;
 
 
@@ -1009,8 +1065,9 @@ while(gameIsOver==false)
 
   /*ITEM SELECTION*/
    int continued = goToStore(dome,continueToGame,gunsMessage,priceHeader,ammoHeader,storeHeader,moneyText,actualMoneyText,pistolPriceText,plasmaCannonPriceText,gatlingPriceText,smgPriceText,
-lmgPriceText,voltorbPriceText, specialsText, healthPriceText,domeText,actualDomeHealthText,pistolAmmoPriceText,plasmaCannonAmmoPriceText,gatlingAmmoPriceText,smgAmmoPriceText,currentWeaponAmmoText, currentWeaponMaxAmmoText,
-lmgAmmoPriceText,pistolText,plasmaCannonText,gatlingText,smgText,lmgText,currentAmmoText,maxAmmoText);
+lmgPriceText,voltorbPriceText, electrodePriceText, specialsText, healthPriceText,domeText,actualDomeHealthText,pistolAmmoPriceText,plasmaCannonAmmoPriceText,gatlingAmmoPriceText,smgAmmoPriceText,currentWeaponAmmoText, currentWeaponMaxAmmoText,
+lmgAmmoPriceText,pistolText,plasmaCannonText,gatlingText,smgText,lmgText,currentAmmoText,maxAmmoText,currentVoltorbsText,currentVoltorbsNumber,
+currentElectrodesText,currentElectrodesNumber);
 	//continue will be 0 if they hit the X on the window while at the store
    if(!continued)
 	{

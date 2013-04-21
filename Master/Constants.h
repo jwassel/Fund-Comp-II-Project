@@ -104,10 +104,10 @@ const int ELECTRODE_X = 1000;
 const int ELECTRODE_Y = 300;
 const int VOLTORB_X = 1000;
 const int VOLTORB_Y = 170;
-const int VOLTORB_PRICE = 2;
+const int VOLTORB_PRICE = 25;
 const int VOLTORB_DAMAGE = 50;
 const int VOLTORB_RANGE = 50;
-const int ELECTRODE_PRICE = 4;
+const int ELECTRODE_PRICE = 50;
 const int ELECTRODE_DAMAGE = 100;
 const int ELECTRODE_RANGE = 100;
 
@@ -174,6 +174,18 @@ const int MAX_AMMO_TEXT_HEADER_X = 600;
 const int MAX_AMMO_TEXT_HEADER_Y = 250 ;
 const int MAX_AMMO_X = 650;
 const int MAX_AMMO_Y = 300;
+
+const int CURRENT_ELECTRODE_TEXT_X = 550 ;
+const int CURRENT_ELECTRODE_NUMBER_X =600;
+const int CURRENT_VOLTORB_TEXT_X = 550;
+const int CURRENT_VOLTORB_NUMBER_X = 600;
+const int CURRENT_ELECTRODE_TEXT_Y = 250;
+const int CURRENT_ELECTRODE_NUMBER_Y = 300;
+const int CURRENT_VOLTORB_TEXT_Y = 250;
+const int CURRENT_VOLTORB_NUMBER_Y = 300; 
+
+
+
 const int Y_VELOCITY_DESCENT=15;
 
 
