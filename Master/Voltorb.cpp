@@ -85,9 +85,12 @@ if (notExploded){
 	enemyHeight = enemies[i]->getHeight();
 	if (abs(xpos - (enemyX+enemyWidth/2)) < VOLTORB_RANGE && abs(ypos - (enemyY+enemyHeight/2)) < ELECTRODE_RANGE)
 	    {
+		if(enemies[i]->isDead()==false)
+		{
 		enemies[i]->getAttacked(damage,score,money);
 	    	score+=HIT_BONUS;
 	    	money+=HIT_BONUS;
+		}
 	    	}
 	}}
 	else if (mod==1)

@@ -112,9 +112,12 @@ if(currentClipAmmo>0 && maxAmmo>0)
 	if ((x > enemyX) && (x < enemyX + enemyWidth) && (y > enemyY)
 	      && (y < enemyY + enemyHeight))
 	    {
+		if(enemies[i]->isDead()==false)
+		{
 		enemies[i]->getAttacked(damage,score,money);
 		score+=HIT_BONUS;
 		money+=HIT_BONUS;
+		}
 	    }
 
 	}
