@@ -310,44 +310,51 @@ void load_store()
 
 }
 
-void goToInstructions(Text &backButton)
+//shows instructions on screen. returns 1 if user has exited out window, 0 otherwise
+int goToInstructions(Text &backButton)
 {
-
+	int spacing = 25;
 	 SDL_FillRect (screen, &screen->clip_rect,
 	SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
 	backButton.show(screen);
-	Text actualInstructions("PokeDome",SCREEN_WIDTH/2-100,0,colorWhite,30);
+	Text actualInstructions("Instructions",SCREEN_WIDTH/2-100,0,colorWhite,30);
 	actualInstructions.show(screen);
 	actualInstructions.setSize(20);
-	actualInstructions.setX(50);
+	actualInstructions.setX(400);
 
 	actualInstructions.setText("Goal: Protect the Golden Dome by shooting the Pokemon");
-	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+20);
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
 	actualInstructions.show(screen);
 	
 	actualInstructions.setText("Before each level, you can go to the store to buy items");
-	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
 	actualInstructions.show(screen);
 
-	actualInstructions.setText("Buy Weapons and Ammo at the store, click to shoot");
-	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.setText("You can buy guns,ammo,health,and bombs at the store");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
 	actualInstructions.show(screen);
 
-	actualInstructions.setText("To switch amongst your weapons, use the arrow keys");
-	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
-	actualInstructions.show(screen);
-
-	actualInstructions.setText("Buy Health for the Dome at the store");
-	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
-	actualInstructions.show(screen);
-
-	actualInstructions.setText("Once the Dome's Health is 0, you lose");
-	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.setText("To switch amongst your guns, use the arrow keys");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
 	actualInstructions.show(screen);
 
 	actualInstructions.setText("To reload when your clip is empty, shake the mouse quickly");
-	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight());
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
 	actualInstructions.show(screen);
+
+	actualInstructions.setText("Once the Dome's Health is 0, you lose");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
+	actualInstructions.show(screen);
+
+
+	actualInstructions.setText("To drop a voltorb, hit the 'v' key");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
+	actualInstructions.show(screen);
+
+	actualInstructions.setText("To drop an electrode, hit the spacebar");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
+	actualInstructions.show(screen);
+
 
 	SDL_Flip(screen);
 	bool goBack = false;
@@ -368,9 +375,15 @@ void goToInstructions(Text &backButton)
 						break;
 					}
 				}
+				
+			}
+			if(event.type==SDL_QUIT)
+			{
+				return 1;
 			}
 		}
 	}
+	return 0;
 }
 
 
@@ -981,17 +994,19 @@ Mix_PlayMusic( music, -1 );
 		  			//Get the mouse offsets
 		  			int x = event.button.x;
 		  			int y = event.button.y;
+					int quit;
 					if(playButton.isClicked(x,y))
 						play = true;
 					if(instructions.isClicked(x,y))
 					{
-						goToInstructions(backButton);
+						quit = goToInstructions(backButton);
 						background.show(screen);
 						pokeDome.show(screen);
 						playButton.show(screen);
 						instructions.show(screen);
 						SDL_Flip(screen);
-						
+						if(quit)
+							return 0;
 					}
 			
 				}
