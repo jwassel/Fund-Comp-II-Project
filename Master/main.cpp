@@ -412,10 +412,10 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
     			voltorb = new Voltorb ("bombs.png", VOLTORB_PRICE, VOLTORB_DAMAGE, VOLTORB_X, VOLTORB_Y);
 			voltorbs.push_back(voltorb);
 			currentVoltorbsNumber.setText(boost::lexical_cast<string>(voltorbs.size()));
-			currentVoltorbsNumber.show(screen);
 		}
 		else
 			messageToUser.setText("Not enough Money!");
+		currentVoltorbsNumber.show(screen);
 	}
 	
 	if(storeElectrode->isClicked(x,y))
@@ -429,10 +429,12 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
     			electrode = new Electrode("bombs.png",ELECTRODE_PRICE,ELECTRODE_DAMAGE,ELECTRODE_X,ELECTRODE_Y);
 			electrodes.push_back(electrode);
 			currentElectrodesNumber.setText(boost::lexical_cast<string>(electrodes.size()));
-			currentElectrodesNumber.show(screen);
+
 		}
 		else
 			messageToUser.setText("Not enough Money!");
+
+			currentElectrodesNumber.show(screen);
 	}
 
 	if(pistol->isClicked(x,y))
