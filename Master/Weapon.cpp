@@ -48,7 +48,7 @@ bool Weapon::addToCurrentAmmo(int m)
 		if(currentClipAmmo+m>=maxClipAmmo)
 		{
 			currentClipAmmo = maxClipAmmo;
-			currentAmmo = currentAmmo + (maxClipAmmo-m);
+			currentAmmo = currentAmmo + (m-maxClipAmmo);
 		}
 		else
 			currentClipAmmo+=m;
@@ -99,7 +99,7 @@ int enemyX = 0;
 int enemyY = 0;
 int enemyWidth = 0;
 int enemyHeight = 0;
-if(currentClipAmmo>0 && maxAmmo>0)
+if(currentClipAmmo>0)
   {
   //If a mouse button was pressed
   if (event.type == SDL_MOUSEBUTTONDOWN)

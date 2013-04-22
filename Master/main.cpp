@@ -674,7 +674,7 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 				bool addedAmmo = plasmaCannon->addToCurrentAmmo(PLASMA_CANNON_AMMO_PER_PURCHASE);
 				if (addedAmmo)
 				{
-					money-=gatlingAmmo->getPrice();
+					money-=plasmaCannon->getPrice();
 					actualMoneyText.setText(boost::lexical_cast<string>(money));
 					messageToUser.setText("Succesfully Added Plasma Cannon Ammo");
 					currentAmmo.setText(boost::lexical_cast<string>(plasmaCannon->getCurrentAmmo()+plasmaCannon->getCurrentClipAmmo()));
