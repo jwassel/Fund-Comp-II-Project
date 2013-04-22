@@ -185,7 +185,7 @@ void addpokemon(int key){
 		enemies.push_back (charmander);
 	break;
 	case 3:
-		rcharmander =new Rcharmander ("Rcharmander.png", -(rand()%1500), 0, CHARMANDER_HEIGHT, CHARMANDER_WIDTH, (rand()%5+3), Y_VELOCITY_DESCENT, CHARMANDER_POWER, CHARMANDER_HEALTH);
+		rcharmander =new Rcharmander ("Rcharmander.png", 300-(rand()%2000), 0, CHARMANDER_HEIGHT, CHARMANDER_WIDTH, (rand()%5+3), Y_VELOCITY_DESCENT, CHARMANDER_POWER, CHARMANDER_HEALTH);
 		enemies.push_back (rcharmander);
 	break;
 	case 4:
@@ -193,7 +193,7 @@ void addpokemon(int key){
 		enemies.push_back (pidgey);
 	break;
 	case 5:
-		rpidgey =new Rpidgey ("Rpidgey.png", -(rand()%1500), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, PIDGEY_HEIGHT, PIDGEY_WIDTH, (rand()%5+3), Y_VELOCITY_DESCENT, PIDGEY_POWER, PIDGEY_HEALTH);
+		rpidgey =new Rpidgey ("Rpidgey.png", 300-(rand()%2000), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, PIDGEY_HEIGHT, PIDGEY_WIDTH, (rand()%5+3), Y_VELOCITY_DESCENT, PIDGEY_POWER, PIDGEY_HEALTH);
 		enemies.push_back (rpidgey);
 	break;
 	case 6:
@@ -205,7 +205,7 @@ void addpokemon(int key){
 		enemies.push_back(machamp);
 	break;
 	case 8:
-	rmachamp =new Rmachamp ("Rmachamp.png", -rand()%2000, 0, MACHAMP_HEIGHT, MACHAMP_WIDTH, (rand()%8+5), Y_VELOCITY_DESCENT,MACHAMP_POWER, MACHAMP_HEALTH);
+	rmachamp =new Rmachamp ("Rmachamp.png", 300-rand()%2400, 0, MACHAMP_HEIGHT, MACHAMP_WIDTH, (rand()%8+5), Y_VELOCITY_DESCENT,MACHAMP_POWER, MACHAMP_HEALTH);
 		enemies.push_back(rmachamp);
 	break;
 	case 9:
@@ -213,11 +213,11 @@ void addpokemon(int key){
 		enemies.push_back(marowak);
 	break;
 	case 10:
-	rmarowak =new Rmarowak ("Rmarowak.png", -(rand()%2000), 0, MAROWAK_HEIGHT, MAROWAK_WIDTH, (rand()%8+5), Y_VELOCITY_DESCENT,MAROWAK_POWER, MAROWAK_HEALTH);
+	rmarowak =new Rmarowak ("Rmarowak.png", 300-(rand()%2400), 0, MAROWAK_HEIGHT, MAROWAK_WIDTH, (rand()%8+5), Y_VELOCITY_DESCENT,MAROWAK_POWER, MAROWAK_HEALTH);
 		enemies.push_back(rmarowak);
 	break;
 	case 11:
-		rzapdos = new Rzapdos ("Rzapdos.png", -(rand()%2000), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ZAPDOS_HEIGHT, ZAPDOS_WIDTH, (rand()%12+5), 0,ZAPDOS_POWER, ZAPDOS_HEALTH);
+		rzapdos = new Rzapdos ("Rzapdos.png", 300-(rand()%2400), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ZAPDOS_HEIGHT, ZAPDOS_WIDTH, (rand()%12+5), 0,ZAPDOS_POWER, ZAPDOS_HEALTH);
 		enemies.push_back (rzapdos);
 	break;
 	case 12:
@@ -225,7 +225,7 @@ void addpokemon(int key){
 		enemies.push_back (zapdos);
 	break;
 	case 13:
-		rarticuno =new Rarticuno ("Rarticuno.png",-(rand()%2000), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH, (rand()%12+5),0, ARTICUNO_POWER, ARTICUNO_HEALTH);
+		rarticuno =new Rarticuno ("Rarticuno.png",300-(rand()%2400), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH, (rand()%12+5),0, ARTICUNO_POWER, ARTICUNO_HEALTH);
 		enemies.push_back (rarticuno);
 	break;
 		case 14:articuno =new Articuno ("articuno.png", rand()%1500+900, rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH,-(rand()%12+5), 0, ARTICUNO_POWER, ARTICUNO_HEALTH);
