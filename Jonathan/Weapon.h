@@ -22,7 +22,6 @@ public:
 	int getXpos();
 	int getYpos();
 	int getSize();
-	//int getPrice();
 	int getCurrentClipAmmo();
 	bool addToCurrentAmmo(int);
 	int getCurrentAmmo();

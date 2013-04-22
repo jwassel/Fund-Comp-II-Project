@@ -55,10 +55,12 @@ using namespace std;
 SDL_Surface *screen = NULL;
 SDL_Surface *cursor=NULL;
 
+//different colors of text in the game
 SDL_Color colorWhite = { 255, 255, 255 };
 SDL_Color colorBlack = {0,0,0};
 SDL_Color colorRed = {220,20,20};
-//The event structure
+
+//The event structure, handles mouse clicks and key presses etc
 SDL_Event event;
 
 //the different enemies the game can have
@@ -83,15 +85,15 @@ Voltorb *voltorb;
 Electrode *electrode;
 
 
-SDL_Surface *message = NULL;
 
 //vector that stores the user's current weapons
 vector < Weapon * >weapons;
+//vector that stores the users voltorbs and electrodes
 vector < Voltorb * > voltorbs;
 vector < Electrode * > electrodes;
 
+//vector that stores everything that can be bought in the store
 vector < Item * >store;
-vector < Bomb * > bombs;
 
 
 
@@ -101,9 +103,7 @@ PlasmaCannon* plasmaCannon;
 Gatling* gatling;
 Smg* smg;
 Lmg* lmg;
-
-int volNum = 0;
-int elecNum = 0;
+//the possible ammos
 Ammo *pistolAmmo;
 Ammo *smgAmmo;
 Ammo *lmgAmmo;
@@ -116,8 +116,9 @@ Health* health;
 //Music
 Mix_Music *music;
 
+//vector of teh differnet names of the backgrounds so that it progresses through day/ngiht over time
 vector<string> backgrounds;
-int currentBackground = 1;
+int currentBackground = 1; //start at 1, not 0 eventhough 0 is first b/c first time switch, first set background to current, then add 1
 
 //will be true when they buy the gun. so that they don't buy multiple
 bool addedPistol=false,addedSmg=false,addedLmg=false,addedGatling=false,addedPlasma=false;
@@ -176,27 +177,27 @@ clean_up ()
   SDL_Quit ();
 }
 
-//Takes in a random number from load enemies, this number will determine which pokemon is spawned
+//Takes in a random number from load enemies, this number will determine which pokemon is spawned. will add that pokemon to enemies vector
 void addpokemon(int key){
 	switch (key){
 	case 1:
-		squirtle =new Squirtle ("squirtlej.png", rand()%1500+900, 0, SQUIRTLE_HEIGHT, SQUIRTLE_WIDTH, -(rand()%5+3),Y_VELOCITY_DESCENT, SQUIRTLE_POWER, SQUIRTLE_HEALTH);
+		squirtle =new Squirtle ("squirtlej.png", rand()%1500+900, 0, SQUIRTLE_HEIGHT, SQUIRTLE_WIDTH, -(rand()%5+5),Y_VELOCITY_DESCENT, SQUIRTLE_POWER, SQUIRTLE_HEALTH);
 		enemies.push_back (squirtle);
 	break;
 	case 2:
-		charmander =new Charmander ("charmander.png", rand()%1500+900, 0, CHARMANDER_HEIGHT,CHARMANDER_WIDTH, -(rand()%5+3), Y_VELOCITY_DESCENT, CHARMANDER_POWER, CHARMANDER_HEALTH);
+		charmander =new Charmander ("charmander.png", rand()%1500+900, 0, CHARMANDER_HEIGHT,CHARMANDER_WIDTH, -(rand()%5+5), Y_VELOCITY_DESCENT, CHARMANDER_POWER, CHARMANDER_HEALTH);
 		enemies.push_back (charmander);
 	break;
 	case 3:
-		rcharmander =new Rcharmander ("Rcharmander.png", 300-(rand()%1800), 0, CHARMANDER_HEIGHT, CHARMANDER_WIDTH, (rand()%5+3), Y_VELOCITY_DESCENT, CHARMANDER_POWER, CHARMANDER_HEALTH);
+		rcharmander =new Rcharmander ("Rcharmander.png", 300-(rand()%1800), 0, CHARMANDER_HEIGHT, CHARMANDER_WIDTH, (rand()%5+5), Y_VELOCITY_DESCENT, CHARMANDER_POWER, CHARMANDER_HEALTH);
 		enemies.push_back (rcharmander);
 	break;
 	case 4:
-		pidgey =new Pidgey ("pidgey.png", rand()%600+900, rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, PIDGEY_HEIGHT, PIDGEY_WIDTH, -(rand()%5+3), 0,PIDGEY_POWER, PIDGEY_HEALTH);
+		pidgey =new Pidgey ("pidgey.png", rand()%600+900, rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, PIDGEY_HEIGHT, PIDGEY_WIDTH, -(rand()%5+5), 0,PIDGEY_POWER, PIDGEY_HEALTH);
 		enemies.push_back (pidgey);
 	break;
 	case 5:
-		rpidgey =new Rpidgey ("Rpidgey.png", 300-(rand()%1800), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, PIDGEY_HEIGHT, PIDGEY_WIDTH, (rand()%5+3), Y_VELOCITY_DESCENT, PIDGEY_POWER, PIDGEY_HEALTH);
+		rpidgey =new Rpidgey ("Rpidgey.png", 300-(rand()%1800), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, PIDGEY_HEIGHT, PIDGEY_WIDTH, (rand()%5+5), 0, PIDGEY_POWER, PIDGEY_HEALTH);
 		enemies.push_back (rpidgey);
 	break;
 	case 6:
@@ -698,12 +699,10 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 	return false;	
 }
 
-//goes to the store screen and displays it
-int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &ammoHeader,Text &storeHeader, Text &moneyText, Text &actualMoneyText,Text &pistolPriceText,Text &plasmaCannonPriceText,Text &gatlingPriceText,Text &smgPriceText,Text &lmgPriceText, Text &voltorbPriceText, Text &electrodePriceText, Text &specialsText, Text &healthPriceText, Text &domeText, Text&actualDomeHealthText,Text &pistolAmmoPriceText,Text &plasmaCannonAmmoPriceText,Text &gatlingAmmoPriceText,Text &smgAmmoPriceText,Text &currentWeaponAmmoText, Text &currentWeaponMaxAmmoText,Text &lmgAmmoPriceText,Text &pistolText,Text &plasmaCannonText,Text &gatlingText, Text &smgText,Text &lmgText,Text &currentAmmoText,Text&maxAmmoText,
-Text &currentVoltorbsText,Text &currentVoltorbsNumber, Text &currentElectrodesText,Text &currentElectrodesNumber)
-{  
+//erases the unused voltorbs and electrodes from the vector so taht the vector doesn't get huge over the course of game
+void clear_unused_bombs()
+{
 
-	//erases the unused voltorbs and electrodes from the vector so taht the vector doesn't get huge over the course of game
 	if(voltorbs.size()>0)
 	{
 	voltorbs.erase(voltorbs.begin(),voltorbs.begin()+currentVoltorbIndex);
@@ -714,6 +713,17 @@ Text &currentVoltorbsText,Text &currentVoltorbsNumber, Text &currentElectrodesTe
 	electrodes.erase(electrodes.begin(),electrodes.begin()+currentElectrodeIndex);
 	currentElectrodeIndex = 0;
 	}
+}
+
+
+
+//goes to the store screen and displays it
+int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &ammoHeader,Text &storeHeader, Text &moneyText, Text &actualMoneyText,Text &pistolPriceText,Text &plasmaCannonPriceText,Text &gatlingPriceText,Text &smgPriceText,Text &lmgPriceText, Text &voltorbPriceText, Text &electrodePriceText, Text &specialsText, Text &healthPriceText, Text &domeText, Text&actualDomeHealthText,Text &pistolAmmoPriceText,Text &plasmaCannonAmmoPriceText,Text &gatlingAmmoPriceText,Text &smgAmmoPriceText,Text &currentWeaponAmmoText, Text &currentWeaponMaxAmmoText,Text &lmgAmmoPriceText,Text &pistolText,Text &plasmaCannonText,Text &gatlingText, Text &smgText,Text &lmgText,Text &currentAmmoText,Text&maxAmmoText,
+Text &currentVoltorbsText,Text &currentVoltorbsNumber, Text &currentElectrodesText,Text &currentElectrodesNumber)
+{  
+	//deletes from the bombs vector so that they don't get huge throughout the game
+	clear_unused_bombs();
+
 
 //covers up the ammo if the mouse is not over anything
 Background cover("Coverup.png");
@@ -725,7 +735,7 @@ Background cover("Coverup.png");
 	SDL_FillRect (screen, &screen->clip_rect,
 			SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
 
-	
+	//show all text and buttons
 	continueToGame.show(screen);
 	gunsMessage.show(screen);
 	priceHeader.show(screen);
@@ -800,7 +810,7 @@ currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrode
 					continueButton = false;
 					messageToUser.setText("You Need at least 1 gun!");
 				}
-				
+					//show them all text and buttons again
 					continueToGame.show(screen);
 					gunsMessage.show(screen);
 					priceHeader.show(screen);
@@ -838,7 +848,7 @@ currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrode
 				
 			}
 		}
-
+		//if they motion over the ammo or bombs, show on the screen how much ammo/bombs they have
 		if(event.type ==SDL_MOUSEMOTION){
 			int x = event.button.x;
 	  		int y = event.button.y;
@@ -943,6 +953,7 @@ currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrode
 }
 
 
+//loads the vector of backgrounds that transition through the time of day
 void load_backgrounds()
 {
 backgrounds.push_back("background.bmp");
@@ -955,13 +966,14 @@ backgrounds.push_back("background5.bmp");
 //the main function
 int main (int argc, char *args[])
 {
-srand(time(NULL));
+srand(time(NULL)); //seeds RNG for random levels
 load_backgrounds();
 //user's score for the game,
 int score=0;
   //Quit flag
   bool quit = false;
 
+//a count through the entire game play loop
   int count = 0;
 
   //The frame rate regulator
@@ -974,6 +986,7 @@ int score=0;
       return 1;
     }
 
+//plays music throughout the game repeating
 music = Mix_LoadMUS( "Pokemon Theme Song Instrumental.wav" );
 if( music == NULL )
     {
@@ -1043,6 +1056,8 @@ Mix_PlayMusic( music, -1 );
 		}
 	
 	}
+
+//Creates teh dome and then all the text and images that will be dispalyed on the store
      Dome dome ("dome.png", DOME_BASE_X_BEG, SCREEN_HEIGHT-DOME_HEIGHT, DOME_BASE_W, DOME_HEIGHT, STARTING_HEALTH, STARTING_HEALTH);
   load_store();
   Text continueToGame ("Continue to Game", 2 * SCREEN_WIDTH / 5, 8 * SCREEN_HEIGHT / 9, colorWhite, BIGGER_HEADER_TEXT_SIZE);
@@ -1090,6 +1105,9 @@ Text pistolAmmoPriceText(boost::lexical_cast<string>( PISTOL_AMMO_PRICE )+ " for
 	Text currentElectrodesText("Current Electrodes",CURRENT_ELECTRODE_TEXT_X,CURRENT_ELECTRODE_TEXT_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text currentElectrodesNumber("0",CURRENT_ELECTRODE_NUMBER_X,CURRENT_ELECTRODE_NUMBER_Y,colorWhite,PRICE_TEXT_SIZE);
 
+
+//will be true once the user has died or has exited the game
+
 bool gameIsOver= false;
 
 
@@ -1126,23 +1144,25 @@ Text domehealth(boost::lexical_cast<string>(dome.getCurrentHealth()),1050,30,col
 Text leveltext("Level: ",20,40,colorWhite,30); 
 Text levelnumber(boost::lexical_cast<string>(currentLevel),110,40,colorWhite,30);
 Text weapontitle(weapons[currentWeaponIndex]->getName(),350,40,colorWhite,30);
+
 /* START GAMEPLAY */
 
   /*LOAD  ENEMIES*/
   load_enemies (); //loads enemies for current level
+
+  //the quit will be true when they ahve completed the level or died
   quit = false;
 
 
 
-  //While the user hasn't quit
+  //While the user hasn't quit or died
   while (quit == false)
     {
 
 
    //Start the frame timer
       fps.start ();
-      //show the background and dome
-	//divide health by 100 so it is easier for the user to read
+      //show the content on the gameplay screen
 	domehealth.setText(boost::lexical_cast<string>(dome.getCurrentHealth()/HEALTH_DIVISION_FACTOR));
 weapontitle.setText(weapons[currentWeaponIndex]->getName());
 cliptotal.setText(boost::lexical_cast<string>( weapons[currentWeaponIndex]->getCurrentClipAmmo()));
@@ -1166,11 +1186,13 @@ total.setText(boost::lexical_cast<string>( weapons[currentWeaponIndex]->getCurre
 	leveltext.show(screen);
 	levelnumber.show(screen);
 	weapontitle.show(screen);
-
 weapons[currentWeaponIndex]->showDuringGamePlay(575,25,screen);
+
+//shows the reload text if they ran out of ammo
 if(weapons[currentWeaponIndex]->getCurrentClipAmmo()==0 && count%6>2) //so that the reload flashes
 reload.show(screen);
 
+//shows any voltorbs if they should be shown (if clikced a v)
 for(int i=0;i<currentVoltorbIndex;i++)
 {
 	if(voltorbs[i]->shouldShowBomb())
@@ -1179,6 +1201,7 @@ for(int i=0;i<currentVoltorbIndex;i++)
 		voltorbs[i]->show(screen,enemies,score,money);
 	}
 }
+//same for electrodes
 for(int i=0;i<currentElectrodeIndex;i++)
 {
 	if(electrodes[i]->shouldShowBomb())
@@ -1187,7 +1210,7 @@ for(int i=0;i<currentElectrodeIndex;i++)
 		electrodes[i]->show(screen,enemies,score,money);
 	}
 }
-//move the enemies
+//move all of the enemies
       for (int i = 0; i < enemies.size (); i++)
 	{
 	  enemies[i]->move ();
@@ -1221,15 +1244,15 @@ for(int i=0;i<currentElectrodeIndex;i++)
 			  SDL_Flip (screen);
 			  SDL_Delay (5000);
 			  quit = true;
-			  gameIsOver = true;
+			  gameIsOver = true; //game ends if the dome dies
 			  break;
 		}
 	    }
 	}
 	if(gameIsOver==true)
 		break;
-//show the enemies
-     
+
+//show the enemies  
       for (int j = 0; j < enemies.size (); j++)
 	{
 	  enemies[j]->show (screen, count);
@@ -1242,6 +1265,7 @@ for(int i=0;i<currentElectrodeIndex;i++)
 		
 	       if(event.type == SDL_KEYDOWN)
 		{
+			//drop a voltorb
 			if(event.key.keysym.sym == SDLK_v){
 				if(currentVoltorbIndex<voltorbs.size())
 				{
@@ -1255,9 +1279,10 @@ for(int i=0;i<currentElectrodeIndex;i++)
 				}
 			
 				else
-				noVols.show(screen);
+				noVols.show(screen); //shows text taht says no more voltorbs
 			}
-
+	
+			//drop an electrode
 			if(event.key.keysym.sym == SDLK_SPACE){
 				if(currentElectrodeIndex<electrodes.size())
 				{
@@ -1271,25 +1296,25 @@ for(int i=0;i<currentElectrodeIndex;i++)
 				}
 			
 				else
-				noElecs.show(screen);
+				noElecs.show(screen); //shows text that says no more electrodes
 			}
 			
 
 			
-
+			//switches to the previous weapon they own
 			if(event.key.keysym.sym == SDLK_LEFT)
 			{
 				if(currentWeaponIndex==0) currentWeaponIndex = weapons.size()-1;
 				else currentWeaponIndex--;
 			}
-			else if( event.key.keysym.sym == SDLK_RIGHT)
+			else if( event.key.keysym.sym == SDLK_RIGHT) //switches to next weapon they own
 			{
 				if(currentWeaponIndex==weapons.size()-1) currentWeaponIndex = 0;
 				else currentWeaponIndex++;
 			}
 		}
 			
-		
+		//checks any mouse clicks and kills enemies and updates scroe and money if is collision
 	      weapons[currentWeaponIndex]->handle_events (event, enemies, screen,score,money);
 	      
 	  //If the user has Xed out the window
@@ -1337,6 +1362,7 @@ for(int i=0;i<currentElectrodeIndex;i++)
 				currentBackground = 0;
 		}
 		//if there are no more levels, show they have beat the game and exit
+		//commented out b/c we're playing with unlimited levels
 		 /*   if(currentLevel>maxLevel)
 		{
 			gameIsOver = true;
@@ -1351,7 +1377,7 @@ for(int i=0;i<currentElectrodeIndex;i++)
 		  }*/
 	}
 
-
+//shows the crosshairs on the screen
 crosshairs.show(screen);
 
 

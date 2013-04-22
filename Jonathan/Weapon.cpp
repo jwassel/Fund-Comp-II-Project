@@ -33,17 +33,45 @@ return name;
 
 bool Weapon::addToCurrentAmmo(int m)
 {
-	if(currentAmmo==maxAmmo)
-	{
+
+	if(currentAmmo+currentClipAmmo==maxAmmo+maxClipAmmo){
 		return false;
 	}
-	if(currentAmmo+m>maxAmmo)
-	{
-		currentAmmo = maxAmmo;
+	if(currentAmmo+currentClipAmmo+m>=maxAmmo+maxClipAmmo) {
+
+		currentAmmo=maxAmmo;
+		currentClipAmmo=maxClipAmmo;
+	
+		return true;
 	}
-	else
-		currentAmmo += m;
+	if(currentAmmo+m<maxAmmo){
+			
+		currentAmmo+=m;
+		return true;	
+	}
+	if(currentAmmo<maxAmmo){
+		
+		currentAmmo=maxAmmo;
+		return true;
+	}
+	if(currentClipAmmo<maxClipAmmo){
+			currentClipAmmo+=m;
+			if(currentClipAmmo>maxClipAmmo){
+				currentClipAmmo=maxClipAmmo;
+					
+			}
 	return true;
+
+	}
+	if(currentClipAmmo<maxClipAmmo){
+		
+		currentClipAmmo+=m;
+		if(currentClipAmmo>maxClipAmmo){
+				currentClipAmmo=maxClipAmmo;
+				return true;
+		}
+	}
+
 }
 int Weapon::getCurrentClipAmmo(){
 return currentClipAmmo;
@@ -88,7 +116,7 @@ int enemyX = 0;
 int enemyY = 0;
 int enemyWidth = 0;
 int enemyHeight = 0;
-if(currentClipAmmo>0 && maxAmmo>0)
+if(currentClipAmmo>0)
   {
   //If a mouse button was pressed
   if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -142,12 +170,8 @@ reloadTime--;
 	}
 }
 }
-/*
-int Weapon::getPrice()
-{
-	return price;
-}
-*/
+
+
 void Weapon::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip){ //applies new surface
     
 
