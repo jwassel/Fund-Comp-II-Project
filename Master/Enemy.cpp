@@ -20,6 +20,7 @@ Enemy::Enemy(string filename, int x,int y, int w, int h, int xv, int yv, int p, 
 	else
 		isBouncer = false;
 
+
 }
 
 int Enemy::getX()

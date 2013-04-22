@@ -32,7 +32,6 @@ protected:
 	int health;
 	int dead;
 	int hasEntered;
-	bool isBouncer;
 	//SDL_Rect *currentClip;
 };
 
