@@ -15,7 +15,7 @@ class Articuno: public Enemy
 
 
 	private:
-		SDL_Rect clips[4]; //the number of clips in the Articuno sprite sheet
+		SDL_Rect clips[7]; //the number of clips in the Articuno sprite sheet
 
 };
 #endif

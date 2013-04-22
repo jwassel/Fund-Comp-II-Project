@@ -38,20 +38,20 @@ void Rmachamp::show(SDL_Surface * screen, int count)
 void Rmachamp::setClips()
 {
   //Clip range for the Machamp clips
-  clips[0].x = 97;
-  clips[0].y = 303;
-  clips[0].w = 67;
+  clips[0].x = 88;
+  clips[0].y = 306;
+  clips[0].w = 76;
   clips[0].h = 100;
 
-  clips[1].x = 169;
-  clips[1].y =303;
-  clips[1].w = 67;
-  clips[1].h = 100;
+  clips[1].x = 168;
+  clips[1].y =298;
+  clips[1].w = 62;
+  clips[1].h = 109;
 
-  clips[2].x = 238;
-  clips[2].y = 303;
-  clips[2].w = 67;
-  clips[2].h = 100;
+  clips[2].x = 231;
+  clips[2].y = 300;
+  clips[2].w = 75;
+  clips[2].h = 106;
 
 }
 

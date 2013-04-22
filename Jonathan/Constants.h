@@ -133,8 +133,8 @@ const int GUNS_TEXT_X = 100;
 const int GUNS_TEXT_Y = 10;
 
 //Enemy stats
-const int ARTICUNO_HEIGHT= 75;
-const int ARTICUNO_WIDTH= 145;
+const int ARTICUNO_HEIGHT= 100;
+const int ARTICUNO_WIDTH= 150;
 const int ARTICUNO_POWER= 50;
 const int ARTICUNO_HEALTH= 200;
 const int CHARMANDER_HEIGHT= 32;
@@ -158,7 +158,7 @@ const int SQUIRTLE_WIDTH= 39;
 const int SQUIRTLE_POWER= 20;
 const int SQUIRTLE_HEALTH=75;
 const int MACHAMP_HEIGHT= 100;
-const int MACHAMP_WIDTH= 67;
+const int MACHAMP_WIDTH= 75;
 const int MACHAMP_POWER= 45;
 const int MACHAMP_HEALTH= 125;
 const int POLIWHIRL_HEIGHT= 80;

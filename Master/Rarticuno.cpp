@@ -32,41 +32,46 @@ else
 //shows the enemy on the screen
 void Rarticuno::show(SDL_Surface * screen, int count)
 {	if(!isDead())
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%3]);
+	apply_surface(xpos,ypos,sprite,screen,&clips[count%7]);
 }
 
 void Rarticuno::setClips()
 {
   //Clip range for the Rarticuno clips
-  clips[0].x = 528;
-  clips[0].y = 38;
-  clips[0].w = 150;
-  clips[0].h = 63;
+  clips[0].x = 45;
+  clips[0].y = 37;
+  clips[0].w = 152;
+  clips[0].h = 59;
 
-  clips[1].x = 691;
-  clips[1].y = 38;
-  clips[1].w = 154;
-  clips[1].h = 63;
+  clips[1].x = 208;
+  clips[1].y = 35;
+  clips[1].w = 151;
+  clips[1].h = 58;
 
-  clips[2].x = 993;
-  clips[2].y = 0;
-  clips[2].w = 128;
-  clips[2].h = 101;
+  clips[2].x = 364;
+  clips[2].y = 39;
+  clips[2].w = 152;
+  clips[2].h = 59;
 
   clips[3].x = 528;
   clips[3].y = 38;
-  clips[3].w = 150;
+  clips[3].w = 154;
   clips[3].h = 63;
 
   clips[4].x = 691;
   clips[4].y = 38;
-  clips[4].w = 154;
-  clips[4].h = 63;
+  clips[4].w = 143;
+  clips[4].h = 66;
 
-  clips[5].x = 993;
-  clips[5].y = 0;
-  clips[5].w = 128;
-  clips[5].h = 101;
+  clips[5].x = 841;
+  clips[5].y = 43;
+  clips[5].w = 145;
+  clips[5].h = 65;
+
+  clips[6].x = 995;
+  clips[6].y = 0;
+  clips[6].w = 133;
+  clips[6].h = 99;
 
 }
 

@@ -32,31 +32,46 @@ else
 void Articuno::show(SDL_Surface * screen, int count)
 
 {	if(!isDead())
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%4]);
+	apply_surface(xpos,ypos,sprite,screen,&clips[count%7]);
 }
 
 void Articuno::setClips()
 {
   //Clip range for the Articuno clips
-  clips[0].x = 58;
-  clips[0].y = 0;
-  clips[0].w = 134;
-  clips[0].h = 105;
+  clips[0].x = 204;
+  clips[0].y =44;
+  clips[0].w = 144;
+  clips[0].h = 64;
 
-  clips[1].x = 202;
-  clips[1].y = 42;
-  clips[1].w = 150;
-  clips[1].h = 70;
+  clips[1].x = 356;
+  clips[1].y = 39;
+  clips[1].w = 141;
+  clips[1].h = 65;
 
-  clips[2].x = 352;
-  clips[2].y = 42;
+  clips[2].x = 508;
+  clips[2].y = 40;
   clips[2].w = 150;
-  clips[2].h = 70;
+  clips[2].h = 59;
 
-  clips[3].x = 507;
-  clips[3].y = 42;
-  clips[3].w = 150;
-  clips[3].h = 70;
+  clips[3].x = 673;
+  clips[3].y = 40;
+  clips[3].w = 152;
+  clips[3].h = 60;
+
+  clips[4].x = 830;
+  clips[4].y = 34;
+  clips[4].w = 150;
+  clips[4].h = 60;
+
+  clips[5].x = 992;
+  clips[5].y = 37;
+  clips[5].w = 152;
+  clips[5].h = 60;
+
+  clips[6].x = 60;
+  clips[6].y = 0;
+  clips[6].w = 136;
+  clips[6].h = 99;
 
 }
 

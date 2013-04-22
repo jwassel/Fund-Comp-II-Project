@@ -232,7 +232,8 @@ void addpokemon(int key){
 		rarticuno =new Rarticuno ("Rarticuno.png",300-(rand()%2400), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH, (rand()%12+5),0, ARTICUNO_POWER, ARTICUNO_HEALTH);
 		enemies.push_back (rarticuno);
 	break;
-		case 14:articuno =new Articuno ("articuno.png", rand()%1500+900, rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH,-(rand()%12+5), 0, ARTICUNO_POWER, ARTICUNO_HEALTH);
+	case 14:
+articuno =new Articuno ("articuno.png", rand()%1500+900, rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH,-(rand()%12+5), 0, ARTICUNO_POWER, ARTICUNO_HEALTH);
 		enemies.push_back (articuno);
 	break;
 	default:
