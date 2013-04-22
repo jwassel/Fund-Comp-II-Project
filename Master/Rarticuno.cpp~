@@ -53,21 +53,6 @@ void Rarticuno::setClips()
   clips[2].w = 128;
   clips[2].h = 101;
 
-  clips[3].x = 528;
-  clips[3].y = 38;
-  clips[3].w = 150;
-  clips[3].h = 63;
-
-  clips[4].x = 691;
-  clips[4].y = 38;
-  clips[4].w = 154;
-  clips[4].h = 63;
-
-  clips[5].x = 993;
-  clips[5].y = 0;
-  clips[5].w = 128;
-  clips[5].h = 101;
-
 }
 
 
