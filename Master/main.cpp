@@ -185,7 +185,7 @@ void addpokemon(int key){
 		enemies.push_back (charmander);
 	break;
 	case 3:
-		rcharmander =new Rcharmander ("Rcharmander.png", 300-(rand()%2000), 0, CHARMANDER_HEIGHT, CHARMANDER_WIDTH, (rand()%5+3), Y_VELOCITY_DESCENT, CHARMANDER_POWER, CHARMANDER_HEALTH);
+		rcharmander =new Rcharmander ("Rcharmander.png", 300-(rand()%1800), 0, CHARMANDER_HEIGHT, CHARMANDER_WIDTH, (rand()%5+3), Y_VELOCITY_DESCENT, CHARMANDER_POWER, CHARMANDER_HEALTH);
 		enemies.push_back (rcharmander);
 	break;
 	case 4:
@@ -193,7 +193,7 @@ void addpokemon(int key){
 		enemies.push_back (pidgey);
 	break;
 	case 5:
-		rpidgey =new Rpidgey ("Rpidgey.png", 300-(rand()%2000), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, PIDGEY_HEIGHT, PIDGEY_WIDTH, (rand()%5+3), Y_VELOCITY_DESCENT, PIDGEY_POWER, PIDGEY_HEALTH);
+		rpidgey =new Rpidgey ("Rpidgey.png", 300-(rand()%1800), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, PIDGEY_HEIGHT, PIDGEY_WIDTH, (rand()%5+3), Y_VELOCITY_DESCENT, PIDGEY_POWER, PIDGEY_HEALTH);
 		enemies.push_back (rpidgey);
 	break;
 	case 6:
@@ -233,7 +233,9 @@ void addpokemon(int key){
 	break;
 	default:
 	break;
+	
 }
+
 }
 
 
@@ -342,11 +344,6 @@ int goToInstructions(Text &backButton)
 	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
 	actualInstructions.show(screen);
 
-	actualInstructions.setText("Once the Dome's Health is 0, you lose");
-	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
-	actualInstructions.show(screen);
-
-
 	actualInstructions.setText("To drop a voltorb, hit the 'v' key");
 	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
 	actualInstructions.show(screen);
@@ -354,6 +351,12 @@ int goToInstructions(Text &backButton)
 	actualInstructions.setText("To drop an electrode, hit the spacebar");
 	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
 	actualInstructions.show(screen);
+
+	actualInstructions.setText("Once the Dome's Health is 0, you lose");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
+	actualInstructions.show(screen);
+
+
 
 
 	SDL_Flip(screen);
@@ -396,6 +399,7 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 	if(continueToGame.isClicked(x,y)) {
 		return true;
 	}
+
 	
 	if(storeVoltorb->isClicked(x,y))
 	{
@@ -780,6 +784,7 @@ Background cover("Coverup.png");
 					{
 						store[j]->showInStore(screen); //x, y, surface
 					}
+				
 				continueButton = purchaseFromStore(x,y,dome,continueToGame,messageToUser,actualMoneyText,actualDomeHealthText,cover,currentAmmoText,maxAmmoText,currentWeaponAmmoText,currentWeaponMaxAmmoText,
 currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrodesNumber);
 				if(continueButton&&weapons.size()==0)
@@ -1041,20 +1046,22 @@ Text lmgText("LMG",LMG_X,LMG_Y+lmg->getHeight()+5,colorWhite,PRICE_TEXT_SIZE);
 	Text gatlingPriceText(boost::lexical_cast<string>( GATLING_PRICE ),PLASMA_CANNON_X+plasmaCannon->getWidth()+20,GATLING_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text smgPriceText(boost::lexical_cast<string>( SMG_PRICE ),PLASMA_CANNON_X+plasmaCannon->getWidth()+20,SMG_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text lmgPriceText(boost::lexical_cast<string>( LMG_PRICE ),PLASMA_CANNON_X+plasmaCannon->getWidth()+20,LMG_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text voltorbPriceText(boost::lexical_cast<string>(VOLTORB_PRICE),VOLTORB_X+storeVoltorb->getWidth()+20,VOLTORB_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text electrodePriceText(boost::lexical_cast<string>(ELECTRODE_PRICE),ELECTRODE_X+storeElectrode->getWidth()+20,ELECTRODE_Y,colorWhite,PRICE_TEXT_SIZE);	
+	Text voltorbPriceText("$"+boost::lexical_cast<string>(VOLTORB_PRICE),VOLTORB_X+storeVoltorb->getWidth()+20,VOLTORB_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text electrodePriceText("$"+boost::lexical_cast<string>(ELECTRODE_PRICE),ELECTRODE_X+storeElectrode->getWidth()+20,ELECTRODE_Y,colorWhite,PRICE_TEXT_SIZE);	
 	Text specialsText("Specials", OTHER_TEXT_X, OTHER_TEXT_Y, colorWhite, HEADER_TEXT_SIZE);
-	Text healthPriceText(boost::lexical_cast<string>(HEALTH_PRICE), HEALTH_X + health->getWidth() + 20, HEALTH_Y, colorWhite, PRICE_TEXT_SIZE);
+	Text healthPriceText("$" +boost::lexical_cast<string>(HEALTH_PRICE) + " for " + boost::lexical_cast<string>(HEALTH_ADDED/HEALTH_DIVISION_FACTOR) + " health", HEALTH_X + health->getWidth() + 5, HEALTH_Y, colorWhite, PRICE_TEXT_SIZE);
 	Text moneyText("Money: $ ",MONEY_TEXT_X,MONEY_TEXT_Y,colorWhite,BIGGER_HEADER_TEXT_SIZE);
 	Text actualMoneyText(boost::lexical_cast<string>(money),moneyText.getTextXpos()+moneyText.getWidth(),MONEY_TEXT_Y,colorWhite,BIGGER_HEADER_TEXT_SIZE);
 	Text domeText("Dome Health:",DOME_HEALTH_TEXT_X,DOME_HEALTH_TEXT_Y,colorWhite,BIGGER_HEADER_TEXT_SIZE);
 	Text actualDomeHealthText(boost::lexical_cast<string>(dome.getCurrentHealth()/HEALTH_DIVISION_FACTOR),domeText.getTextXpos()+domeText.getWidth()+10,DOME_HEALTH_TEXT_Y,colorWhite,BIGGER_HEADER_TEXT_SIZE);
 
-Text pistolAmmoPriceText(boost::lexical_cast<string>( PISTOL_AMMO_PRICE ),PISTOL_AMMO_X+pistolAmmo->getWidth()+20,PISTOL_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text plasmaCannonAmmoPriceText(boost::lexical_cast<string>( PLASMA_CANNON_AMMO_PRICE ),PLASMA_CANNON_AMMO_X+plasmaCannonAmmo->getWidth()+20,PLASMA_CANNON_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text gatlingAmmoPriceText(boost::lexical_cast<string>( GATLING_AMMO_PRICE ),GATLING_AMMO_X+gatlingAmmo->getWidth()+20,GATLING_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text smgAmmoPriceText(boost::lexical_cast<string>( SMG_AMMO_PRICE ),SMG_AMMO_X+smgAmmo->getWidth()+20,SMG_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text lmgAmmoPriceText(boost::lexical_cast<string>( LMG_AMMO_PRICE ),LMG_AMMO_X+lmgAmmo->getWidth()+20,LMG_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
+Text pistolAmmoPriceText(boost::lexical_cast<string>( PISTOL_AMMO_PRICE )+ " for " + boost::lexical_cast<string>(PISTOL_AMMO_PER_PURCHASE) + " rounds",PISTOL_AMMO_X+pistolAmmo->getWidth()+20,PISTOL_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text plasmaCannonAmmoPriceText(boost::lexical_cast<string>( PLASMA_CANNON_AMMO_PRICE )+ " for " + boost::lexical_cast<string>(PLASMA_CANNON_AMMO_PER_PURCHASE) + " rounds",PLASMA_CANNON_AMMO_X+plasmaCannonAmmo->getWidth()+20,PLASMA_CANNON_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text gatlingAmmoPriceText(boost::lexical_cast<string>( GATLING_AMMO_PRICE )+ " for " + boost::lexical_cast<string>(GATLING_AMMO_PER_PURCHASE) + " rounds",GATLING_AMMO_X+gatlingAmmo->getWidth()+20,GATLING_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text smgAmmoPriceText(boost::lexical_cast<string>( SMG_AMMO_PRICE ) + " for " + boost::lexical_cast<string>(SMG_AMMO_PER_PURCHASE) + " rounds",SMG_AMMO_X+smgAmmo->getWidth()+20,SMG_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text lmgAmmoPriceText(boost::lexical_cast<string>( LMG_AMMO_PRICE )+ " for " + boost::lexical_cast<string>(LMG_AMMO_PER_PURCHASE) + " rounds",LMG_AMMO_X+lmgAmmo->getWidth()+20,LMG_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
+	
+
 
 	Text currentWeaponAmmoText("",CURRENT_AMMO_X,CURRENT_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text currentWeaponMaxAmmoText("",MAX_AMMO_X,MAX_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
@@ -1066,6 +1073,7 @@ Text pistolAmmoPriceText(boost::lexical_cast<string>( PISTOL_AMMO_PRICE ),PISTOL
 	Text currentVoltorbsNumber("0",CURRENT_VOLTORB_NUMBER_X,CURRENT_VOLTORB_NUMBER_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text currentElectrodesText("Current Electrodes",CURRENT_ELECTRODE_TEXT_X,CURRENT_ELECTRODE_TEXT_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text currentElectrodesNumber("0",CURRENT_ELECTRODE_NUMBER_X,CURRENT_ELECTRODE_NUMBER_Y,colorWhite,PRICE_TEXT_SIZE);
+
 bool gameIsOver= false;
 
 
@@ -1186,23 +1194,31 @@ for(int i=0;i<currentElectrodeIndex;i++)
 			  SDL_Delay (2000);
 			  SDL_FillRect (screen, &screen->clip_rect,
 			  				SDL_MapRGB (screen->format, 0x00, 0x00, 0x00));
-			  Text levelFail ("Game Over", 2 * SCREEN_WIDTH / 5,
+			  Text gameOver ("Game Over", 2 * SCREEN_WIDTH / 5,
 					  2 * SCREEN_HEIGHT / 5, colorWhite,40);
-			  levelFail.show (screen);
+			  gameOver.show (screen);
+		  Text finalLevel ("Final Level = " + boost::lexical_cast<string>(currentLevel), gameOver.getTextXpos(),
+					  gameOver.getTextYpos()+50, colorWhite,40);
+			  Text finalScore("Final Score = " + boost::lexical_cast<string>(score),finalLevel.getTextXpos(),finalLevel.getTextYpos()+50,colorWhite,40);
+			  finalLevel.show(screen);
+			  finalScore.show(screen);
 			  SDL_Flip (screen);
-			  SDL_Delay (2000);
+			  SDL_Delay (5000);
 			  quit = true;
 			  gameIsOver = true;
 			  break;
 		}
 	    }
 	}
-
+	if(gameIsOver==true)
+		break;
 //show the enemies
+     
       for (int j = 0; j < enemies.size (); j++)
 	{
 	  enemies[j]->show (screen, count);
 	}
+	
 
       //While there's events to handle
       while (SDL_PollEvent (&event))
@@ -1311,6 +1327,7 @@ for(int i=0;i<currentElectrodeIndex;i++)
 			
 		  }*/
 	}
+
 
 crosshairs.show(screen);
 
