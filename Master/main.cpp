@@ -667,19 +667,19 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 	}
 	if(plasmaCannonAmmo->isClicked(x,y))
 	{
-		cout<<"Money before purchase = "<<money<<endl;
+
 		currentAmmoText.show(screen);
 		maxAmmoText.show(screen);
 		if(addedPlasma)
 		{
+			
 			if(money>=plasmaCannonAmmo->getPrice())
 			{
-			
 				bool addedAmmo = plasmaCannon->addToCurrentAmmo(PLASMA_CANNON_AMMO_PER_PURCHASE);
 				if (addedAmmo)
 				{
-					money-=plasmaCannon->getPrice();
-					cout<<"Money after purchase = "<<money<<endl;
+					money-=plasmaCannonAmmo->getPrice();
+
 					actualMoneyText.setText(boost::lexical_cast<string>(money));
 					messageToUser.setText("Succesfully Added Plasma Cannon Ammo");
 					currentAmmo.setText(boost::lexical_cast<string>(plasmaCannon->getCurrentAmmo()+plasmaCannon->getCurrentClipAmmo()));
@@ -693,7 +693,7 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 		}
 		else
 			messageToUser.setText("You don't own a Plasma Cannon!");
-		cout<<"Money at end = "<<money<<endl;
+
 	}
 	return false;	
 }
