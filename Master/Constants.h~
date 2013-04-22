@@ -23,7 +23,7 @@ const int BOUNCE=20;
 
 //what the health will appear as on teh screen
 const int HEALTH_DIVISION_FACTOR = 100;
-const int INITIAL_MONEY = 55;
+const int INITIAL_MONEY = 50;
 
 //Pistol information
 const int PISTOL_PRICE = 5;
