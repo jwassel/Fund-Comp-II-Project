@@ -38,26 +38,49 @@ bool Weapon::addToCurrentAmmo(int m)
 		return false;
 	}
 	if(currentAmmo+currentClipAmmo+m>=maxAmmo+maxClipAmmo) {
+
 		currentAmmo=maxAmmo;
-		cur
-rentClipAmmo=maxClipAmmo;
+		currentClipAmmo=maxClipAmmo;
+		cout<<"1"<<endl;
+		cout<<"maxAmmo= "<<maxAmmo<<endl;
+		cout<<"maxClipAmmo= "<<maxClipAmmo<<endl;
+		cout<<"currentAmmo= "<<currentAmmo<<endl;
+		cout<<"currentClipAmmo= "<<currentClipAmmo<<endl;
 		return true;
 	}
 	if(currentAmmo+m<maxAmmo){
+				cout<<"2"<<endl;
+		cout<<"maxAmmo= "<<maxAmmo<<endl;
+		cout<<"maxClipAmmo= "<<maxClipAmmo<<endl;
+		cout<<"currentAmmo= "<<currentAmmo<<endl;
+		cout<<"currentClipAmmo= "<<currentClipAmmo<<endl;
 		currentAmmo+=m;
 		return true;	
 	}
 	if(currentAmmo<maxAmmo){
+					cout<<"3"<<endl;
+		cout<<"maxAmmo= "<<maxAmmo<<endl;
+		cout<<"maxClipAmmo= "<<maxClipAmmo<<endl;
+		cout<<"currentAmmo= "<<currentAmmo<<endl;
+		cout<<"currentClipAmmo= "<<currentClipAmmo<<endl;
 		currentAmmo=maxAmmo;
-		if(currentClipAmmo<maxClipAmmo){
+		return true;
+	}
+	if(currentClipAmmo<maxClipAmmo){
 			currentClipAmmo+=m;
 			if(currentClipAmmo>maxClipAmmo){
 				currentClipAmmo=maxClipAmmo;
-				return true;	
+					
 			}
-		}
+	return true;
+
 	}
 	if(currentClipAmmo<maxClipAmmo){
+					cout<<"4"<<endl;
+		cout<<"maxAmmo= "<<maxAmmo<<endl;
+		cout<<"maxClipAmmo= "<<maxClipAmmo<<endl;
+		cout<<"currentAmmo= "<<currentAmmo<<endl;
+		cout<<"currentClipAmmo= "<<currentClipAmmo<<endl;
 		currentClipAmmo+=m;
 		if(currentClipAmmo>maxClipAmmo){
 				currentClipAmmo=maxClipAmmo;

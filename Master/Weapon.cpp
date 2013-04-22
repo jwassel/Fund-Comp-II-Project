@@ -38,25 +38,33 @@ bool Weapon::addToCurrentAmmo(int m)
 		return false;
 	}
 	if(currentAmmo+currentClipAmmo+m>=maxAmmo+maxClipAmmo) {
+
 		currentAmmo=maxAmmo;
 		currentClipAmmo=maxClipAmmo;
+	
 		return true;
 	}
 	if(currentAmmo+m<maxAmmo){
+			
 		currentAmmo+=m;
 		return true;	
 	}
 	if(currentAmmo<maxAmmo){
+		
 		currentAmmo=maxAmmo;
-		if(currentClipAmmo<maxClipAmmo){
+		return true;
+	}
+	if(currentClipAmmo<maxClipAmmo){
 			currentClipAmmo+=m;
 			if(currentClipAmmo>maxClipAmmo){
 				currentClipAmmo=maxClipAmmo;
-				return true;	
+					
 			}
-		}
+	return true;
+
 	}
 	if(currentClipAmmo<maxClipAmmo){
+		
 		currentClipAmmo+=m;
 		if(currentClipAmmo>maxClipAmmo){
 				currentClipAmmo=maxClipAmmo;

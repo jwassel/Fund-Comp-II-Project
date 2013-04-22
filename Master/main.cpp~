@@ -1068,11 +1068,11 @@ Text lmgText("LMG",LMG_X,LMG_Y+lmg->getHeight()+5,colorWhite,PRICE_TEXT_SIZE);
 	Text domeText("Dome Health:",DOME_HEALTH_TEXT_X,DOME_HEALTH_TEXT_Y,colorWhite,BIGGER_HEADER_TEXT_SIZE);
 	Text actualDomeHealthText(boost::lexical_cast<string>(dome.getCurrentHealth()/HEALTH_DIVISION_FACTOR),domeText.getTextXpos()+domeText.getWidth()+10,DOME_HEALTH_TEXT_Y,colorWhite,BIGGER_HEADER_TEXT_SIZE);
 
-Text pistolAmmoPriceText(boost::lexical_cast<string>( PISTOL_AMMO_PRICE )+ " for " + boost::lexical_cast<string>(PISTOL_AMMO_PER_PURCHASE) + " rounds",PISTOL_AMMO_X+pistolAmmo->getWidth()+20,PISTOL_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text plasmaCannonAmmoPriceText(boost::lexical_cast<string>( PLASMA_CANNON_AMMO_PRICE )+ " for " + boost::lexical_cast<string>(PLASMA_CANNON_AMMO_PER_PURCHASE) + " rounds",PLASMA_CANNON_AMMO_X+plasmaCannonAmmo->getWidth()+20,PLASMA_CANNON_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text gatlingAmmoPriceText(boost::lexical_cast<string>( GATLING_AMMO_PRICE )+ " for " + boost::lexical_cast<string>(GATLING_AMMO_PER_PURCHASE) + " rounds",GATLING_AMMO_X+gatlingAmmo->getWidth()+20,GATLING_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text smgAmmoPriceText(boost::lexical_cast<string>( SMG_AMMO_PRICE ) + " for " + boost::lexical_cast<string>(SMG_AMMO_PER_PURCHASE) + " rounds",SMG_AMMO_X+smgAmmo->getWidth()+20,SMG_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
-	Text lmgAmmoPriceText(boost::lexical_cast<string>( LMG_AMMO_PRICE )+ " for " + boost::lexical_cast<string>(LMG_AMMO_PER_PURCHASE) + " rounds",LMG_AMMO_X+lmgAmmo->getWidth()+20,LMG_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
+Text pistolAmmoPriceText(boost::lexical_cast<string>( PISTOL_AMMO_PRICE )+ " for " + boost::lexical_cast<string>(PISTOL_AMMO_PER_PURCHASE) + " shots",PISTOL_AMMO_X+pistolAmmo->getWidth()+20,PISTOL_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text plasmaCannonAmmoPriceText(boost::lexical_cast<string>( PLASMA_CANNON_AMMO_PRICE )+ " for " + boost::lexical_cast<string>(PLASMA_CANNON_AMMO_PER_PURCHASE) + " shots",PLASMA_CANNON_AMMO_X+plasmaCannonAmmo->getWidth()+20,PLASMA_CANNON_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text gatlingAmmoPriceText(boost::lexical_cast<string>( GATLING_AMMO_PRICE )+ " for " + boost::lexical_cast<string>(GATLING_AMMO_PER_PURCHASE) + " shots",GATLING_AMMO_X+gatlingAmmo->getWidth()+20,GATLING_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text smgAmmoPriceText(boost::lexical_cast<string>( SMG_AMMO_PRICE ) + " for " + boost::lexical_cast<string>(SMG_AMMO_PER_PURCHASE) + " shots",SMG_AMMO_X+smgAmmo->getWidth()+20,SMG_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
+	Text lmgAmmoPriceText(boost::lexical_cast<string>( LMG_AMMO_PRICE )+ " for " + boost::lexical_cast<string>(LMG_AMMO_PER_PURCHASE) + " shots",LMG_AMMO_X+lmgAmmo->getWidth()+20,LMG_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
 	
 
 
