@@ -33,27 +33,16 @@ return name;
 
 bool Weapon::addToCurrentAmmo(int m)
 {
-	if(currentAmmo+currentClipAmmo==maxAmmo+maxClipAmmo)
+	if(currentAmmo==maxAmmo)
 	{
 		return false;
 	}
-	if(currentAmmo+m+currentClipAmmo>=maxAmmo+maxClipAmmo)
+	if(currentAmmo+m>maxAmmo)
 	{
 		currentAmmo = maxAmmo;
-		currentClipAmmo = maxClipAmmo;
-		
 	}
 	else
-	{
-		if(currentClipAmmo+m>=maxClipAmmo)
-		{
-			currentClipAmmo = maxClipAmmo;
-			currentAmmo = currentAmmo + (maxClipAmmo-m);
-		}
-		else
-			currentClipAmmo+=m;
-	}
-
+		currentAmmo += m;
 	return true;
 }
 int Weapon::getCurrentClipAmmo(){
