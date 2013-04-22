@@ -10,6 +10,7 @@ class Background
 	public:
 		Background(string);
 		void show(SDL_Surface *);
+		void setImage(string);
 	private:	
 		SDL_Surface *image; //the actual image
 		//helper functions

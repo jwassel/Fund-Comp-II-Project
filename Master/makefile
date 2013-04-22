@@ -73,4 +73,4 @@ Rmachamp.o: Rmachamp.cpp Rmachamp.h
 	g++ -c Rmachamp.cpp
 
 clean:
-	rm -rf core* *.o $(PROJ)
+	rm -rf core* *.o $(PROJ) $(OUTPUT) 

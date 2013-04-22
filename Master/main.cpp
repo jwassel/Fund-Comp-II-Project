@@ -116,6 +116,9 @@ Health* health;
 //Music
 Mix_Music *music;
 
+vector<string> backgrounds;
+int currentBackground = 1;
+
 //will be true when they buy the gun. so that they don't buy multiple
 bool addedPistol=false,addedSmg=false,addedLmg=false,addedGatling=false,addedPlasma=false;
 
@@ -937,12 +940,20 @@ currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrode
 }
 
 
-
+void load_backgrounds()
+{
+backgrounds.push_back("background.bmp");
+backgrounds.push_back("background4.bmp");
+backgrounds.push_back("background3.bmp");
+backgrounds.push_back("background2.bmp");
+backgrounds.push_back("background5.bmp");
+}
 
 //the main function
 int main (int argc, char *args[])
 {
 srand(time(NULL));
+load_backgrounds();
 //user's score for the game,
 int score=0;
   //Quit flag
@@ -1315,6 +1326,13 @@ for(int i=0;i<currentElectrodeIndex;i++)
 	  	SDL_EventState(SDL_MOUSEBUTTONDOWN,SDL_ENABLE);
 	  	quit = true;
 	  	currentLevel++;
+		if(currentLevel%2 == 1)
+		{
+			background.setImage(backgrounds[currentBackground]);
+			currentBackground++;
+			if(currentBackground>=5)
+				currentBackground = 0;
+		}
 		//if there are no more levels, show they have beat the game and exit
 		 /*   if(currentLevel>maxLevel)
 		{

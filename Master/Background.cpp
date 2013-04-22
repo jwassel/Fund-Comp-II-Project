@@ -14,6 +14,11 @@ void Background::show(SDL_Surface * screen)
 	apply_surface(image,screen);
 }
 
+void Background::setImage(string filename)
+{
+	image = load_image(filename.c_str());
+}
+
 void Background::apply_surface(SDL_Surface* source, SDL_Surface* destination){ //applies new surface
     //Holds offsets
     SDL_Rect shift;
