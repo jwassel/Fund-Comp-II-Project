@@ -39,7 +39,7 @@ bool Weapon::addToCurrentAmmo(int m)
 	}
 	if(currentAmmo+currentClipAmmo+m>=maxAmmo+maxClipAmmo) {
 		currentAmmo=maxAmmo;
-		currrentClipAmmo=maxClipAmmo;
+		currentClipAmmo=maxClipAmmo;
 		return true;
 	}
 	if(currentAmmo+m<maxAmmo){
