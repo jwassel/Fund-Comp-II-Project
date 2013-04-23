@@ -40,6 +40,8 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Marowak.h"
 #include "Pidgey.h"
 #include "Zapdos.h"
+#include "Moltres.h"
+#include "Rmoltres.h"
 #include "Rzapdos.h"
 #include "Item.h"
 #include "Health.h"
@@ -87,7 +89,8 @@ Voltorb *storeVoltorb;
 Electrode *storeElectrode;
 Voltorb *voltorb;
 Electrode *electrode;
-
+Rmoltres *rmoltres;
+Moltres *moltres;
 
 
 //vector that stores the user's current weapons
@@ -244,11 +247,8 @@ articuno =new Articuno ("articuno.png", rand()%1500+900, rand()%(MIDDLE_DOME-DOM
 	break;
 	
 }
-rsquirtle=new Rsquirtle("Rsquirtle.png", -rand()%1500+300, 0, SQUIRTLE_HEIGHT, SQUIRTLE_WIDTH, (rand()%5+5),Y_VELOCITY_DESCENT, SQUIRTLE_POWER, SQUIRTLE_HEALTH);
-enemies.push_back(rsquirtle);
-
-		rpoliwhirl =new Rpoliwhirl ("Rpoliwhirl.png", -rand()%1500, 0, POLIWHIRL_HEIGHT, POLIWHIRL_WIDTH,(rand()%8+5), Y_VELOCITY_DESCENT, POLIWHIRL_POWER, POLIWHIRL_HEALTH);
-		enemies.push_back (rpoliwhirl);
+	rmoltres =new Rmoltres ("Rmoltres.png",300-(rand()%2400), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH, (rand()%12+5),0, ARTICUNO_POWER, ARTICUNO_HEALTH);
+		enemies.push_back (rmoltres);
 }
 
 
