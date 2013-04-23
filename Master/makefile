@@ -1,9 +1,9 @@
-OBJECTS = main.o Timer.o Enemy.o Squirtle.o Sprite.o Background.o Poliwhirl.o Rpidgey.o Dome.o Item.o Health.o Weapon.o Pistol.o Gatling.o Lmg.o Smg.o PlasmaCannon.o Text.o Crosshairs.o Bomb.o Voltorb.o Electrode.o Articuno.o Rarticuno.o Charmander.o Rcharmander.o Machamp.o Rmarowak.o Marowak.o Pidgey.o Zapdos.o Rzapdos.o Ammo.o Rmachamp.o
+OBJECTS = main.o Timer.o Enemy.o Squirtle.o Sprite.o Background.o Poliwhirl.o Rpidgey.o Dome.o Item.o Health.o Weapon.o Pistol.o Gatling.o Lmg.o Smg.o PlasmaCannon.o Text.o Crosshairs.o Bomb.o Voltorb.o Electrode.o Articuno.o Rarticuno.o Charmander.o Rcharmander.o Machamp.o Rmarowak.o Marowak.o Pidgey.o Zapdos.o Rzapdos.o Ammo.o Rmachamp.o Rsquirtle.o Rpoliwhirl.o
 OUTPUT = main
 SDLLINKS = -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
 ($OUTPUT): $(OBJECTS)
 	g++ $(OBJECTS) -o $(OUTPUT) $(SDLLINKS)
-main.o: main.cpp Enemy.h Squirtle.h Timer.h Background.h Poliwhirl.h Rpidgey.h Weapon.h Pistol.h Gatling.h Lmg.h Smg.h PlasmaCannon.h Text.h Crosshairs.h Voltorb.h Bomb.h Electrode.h Item.h Health.h Articuno.h Rarticuno.h Charmander.h Rcharmander.h Machamp.h Rmarowak.h Marowak.h Pidgey.h Zapdos.h Rzapdos.h Ammo.h Constants.h Rmachamp.h
+main.o: main.cpp Enemy.h Squirtle.h Timer.h Background.h Poliwhirl.h Rpidgey.h Weapon.h Pistol.h Gatling.h Lmg.h Smg.h PlasmaCannon.h Text.h Crosshairs.h Voltorb.h Bomb.h Electrode.h Item.h Health.h Articuno.h Rarticuno.h Charmander.h Rcharmander.h Machamp.h Rmarowak.h Marowak.h Pidgey.h Zapdos.h Rzapdos.h Ammo.h Constants.h Rmachamp.h Rsquirtle.h Rpoliwhirl.h
 	g++ -c main.cpp
 Enemy.o: Enemy.cpp Enemy.h
 	g++ -c Enemy.cpp
@@ -69,8 +69,9 @@ Rmarowak.o: Rmarowak.cpp Rmarowak.h
 	g++ -c Rmarowak.cpp
 Machamp.o: Machamp.cpp Machamp.h
 	g++ -c Machamp.cpp
-Rmachamp.o: Rmachamp.cpp Rmachamp.h
-	g++ -c Rmachamp.cpp
-
+Rsquirtle.o: Rsquirtle.cpp Rsquirtle.h
+	g++ -c Rsquirtle.cpp
+Rpoliwhirl.o: Rpoliwhirl.cpp Rpoliwhirl.h
+	g++ -c Rpoliwhirl.cpp
 clean:
 	rm -rf core* *.o $(PROJ) $(OUTPUT) 

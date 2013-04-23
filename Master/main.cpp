@@ -13,7 +13,9 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Sprite.h"
 #include "Background.h"
 #include "Squirtle.h"
+#include "Rsquirtle.h"
 #include "Poliwhirl.h"
+#include "Rpoliwhirl.h"
 #include "Rpidgey.h"
 #include "Dome.h"
 #include "Weapon.h"
@@ -66,6 +68,8 @@ SDL_Event event;
 //the different enemies the game can have
 vector < Enemy * >enemies; //vector to store the enemies in a given level
 Squirtle *squirtle;
+Rsquirtle *rsquirtle;
+Rpoliwhirl *rpoliwhirl;
 Poliwhirl *poliwhirl;
 Rpidgey *rpidgey;
 Articuno *articuno;
@@ -240,7 +244,11 @@ articuno =new Articuno ("articuno.png", rand()%1500+900, rand()%(MIDDLE_DOME-DOM
 	break;
 	
 }
+rsquirtle=new Rsquirtle("Rsquirtle.png", -rand()%1500+300, 0, SQUIRTLE_HEIGHT, SQUIRTLE_WIDTH, (rand()%5+5),Y_VELOCITY_DESCENT, SQUIRTLE_POWER, SQUIRTLE_HEALTH);
+enemies.push_back(rsquirtle);
 
+		rpoliwhirl =new Rpoliwhirl ("Rpoliwhirl.png", -rand()%1500, 0, POLIWHIRL_HEIGHT, POLIWHIRL_WIDTH,(rand()%8+5), Y_VELOCITY_DESCENT, POLIWHIRL_POWER, POLIWHIRL_HEALTH);
+		enemies.push_back (rpoliwhirl);
 }
 
 
