@@ -5,6 +5,7 @@
 #include "SDL/SDL_image.h"
 #include "Constants.h"
 #include "Item.h"
+#include "Crosshairs.h"
 #include <iostream>
 #include <string>
 #include "Enemy.h"
@@ -17,7 +18,7 @@ public:
 	virtual void showInStore(SDL_Surface *)=0; //shows the weapon on the screen
 	virtual void apply_surface(int, int, SDL_Surface *,SDL_Surface *,SDL_Rect * = NULL); //applies new surface
 	virtual SDL_Surface * load_image(string); //takes in image of sprite
-	void handle_events(SDL_Event ,vector<Enemy*>,SDL_Surface*, int &, int&); //handles when the user clicks since this means they're firing a weapon
+	void handle_events(SDL_Event ,vector<Enemy*>,SDL_Surface*, int &, int&, Crosshairs &); //handles when the user clicks since this means they're firing a weapon
 	void showExplosion(int,int,SDL_Surface *); //shows the explosion for the particular weapon
 	int getXpos();
 	int getYpos();
@@ -44,6 +45,7 @@ protected:
 	int currentAmmo;
 	int currentClipAmmo;
 	int maxClipAmmo;
+	int crosshairsReloadTime;
 };
 
 #endif

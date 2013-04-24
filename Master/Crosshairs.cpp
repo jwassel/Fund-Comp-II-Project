@@ -5,11 +5,27 @@
 #include <string>
 Crosshairs::Crosshairs()
 {
-image=load_image("crosshairs.png");
+image=load_image("greenCrosshairs.png");
 
   SDL_ShowCursor(0);
 xposition=0;
 yposition=0;
+isCrosshairsGreen = true;
+}
+
+void Crosshairs::setCrosshairsGreen(bool b)
+{
+	isCrosshairsGreen = b;
+}
+
+bool Crosshairs::isTheCrosshairsGreen()
+{
+	return isCrosshairsGreen;
+}
+
+void Crosshairs::setImage(string newFile)
+{
+	image = load_image(newFile);
 }
 
 SDL_Surface * Crosshairs::load_image(std::string filename)

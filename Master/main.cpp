@@ -44,6 +44,7 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Rmoltres.h"
 #include "Rzapdos.h"
 #include "Pikachu.h"
+#include "Rpikachu.h"
 #include "Item.h"
 #include "Health.h"
 #include "Ammo.h"
@@ -53,6 +54,7 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include <iostream>
 #include <time.h>
 #include <cstdlib>
+#include <fstream>
 
 using namespace std;
 
@@ -93,6 +95,7 @@ Electrode *electrode;
 Rmoltres *rmoltres;
 Moltres *moltres;
 Pikachu *pikachu;
+Rpikachu *rpikachu;
 
 //vector that stores the user's current weapons
 vector < Weapon * >weapons;
@@ -138,6 +141,7 @@ int currentVoltorbIndex = 0;
 int currentElectrodeIndex = 0;
 //the current level and the maximum # of levels programmed by us
 int currentLevel = 1;
+int score=0;
 //int maxLevel = 10;
 int money = INITIAL_MONEY;
 
@@ -200,58 +204,64 @@ void addpokemon(int key){
 	case 3:
 		rcharmander =new Rcharmander ("Rcharmander.png", 300-(rand()%1800), 0, CHARMANDER_HEIGHT, CHARMANDER_WIDTH, (rand()%5+5), Y_VELOCITY_DESCENT, CHARMANDER_POWER, CHARMANDER_HEALTH);
 		enemies.push_back (rcharmander);
-		pikachu = new Pikachu("pikachu.png",rand()%1500+9000, CHARMANDER_HEIGHT, CHARMANDER_WIDTH, -(rand()%5+5), Y_VELOCITY_DESCENT, CHARMANDER_POWER, CHARMANDER_HEALTH);
+	break;
+	
+
+	case 4: rpikachu = new Rpikachu("Rpikachu.png",300-(rand()%1800),0, PIKACHU_HEIGHT, PIKACHU_WIDTH, (rand()%5+5), Y_VELOCITY_DESCENT, PIKACHU_POWER, PIKACHU_HEALTH);
+		enemies.push_back (rpikachu);
+		break;
+	case 5:	pikachu = new Pikachu("pikachu.png",rand()%1500+900,0, PIKACHU_HEIGHT, PIKACHU_WIDTH, -(rand()%5+5), Y_VELOCITY_DESCENT, PIKACHU_POWER, PIKACHU_HEALTH);
 		enemies.push_back (pikachu);
 	break;
-	case 4:
+	case 6:
 		pidgey =new Pidgey ("pidgey.png", rand()%600+900, rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, PIDGEY_HEIGHT, PIDGEY_WIDTH, -(rand()%5+5), 0,PIDGEY_POWER, PIDGEY_HEALTH);
 		enemies.push_back (pidgey);
 	break;
-	case 5:
+	case 7:
 		rpidgey =new Rpidgey ("Rpidgey.png", 300-(rand()%1800), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, PIDGEY_HEIGHT, PIDGEY_WIDTH, (rand()%5+5), 0, PIDGEY_POWER, PIDGEY_HEALTH);
 		enemies.push_back (rpidgey);
 	break;
-	case 6:
+	case 8:
 		poliwhirl =new Poliwhirl ("poliwhirl.png", rand()%1500+900, 0, POLIWHIRL_HEIGHT, POLIWHIRL_WIDTH,-(rand()%8+5), Y_VELOCITY_DESCENT, POLIWHIRL_POWER, POLIWHIRL_HEALTH);
 		enemies.push_back (poliwhirl);
 	break;
-	case 7:
+	case 9:
 		machamp =new Machamp ("machamp.png", rand()%1500+900, 0, MACHAMP_HEIGHT, MACHAMP_WIDTH, -(rand()%8+5), Y_VELOCITY_DESCENT,MACHAMP_POWER, MACHAMP_HEALTH);
 		enemies.push_back(machamp);
 	break;
-	case 8:
+	case 10:
 	rmachamp =new Rmachamp ("Rmachamp.png", 300-rand()%2400, 0, MACHAMP_HEIGHT, MACHAMP_WIDTH, (rand()%8+5), Y_VELOCITY_DESCENT,MACHAMP_POWER, MACHAMP_HEALTH);
 		enemies.push_back(rmachamp);
 	break;
-	case 9:
+	case 11:
 		marowak =new Marowak ("marowak.png", rand()%1500+900, 0, MAROWAK_HEIGHT, MAROWAK_WIDTH, -(rand()%8+5), Y_VELOCITY_DESCENT,MAROWAK_POWER, MAROWAK_HEALTH);
 		enemies.push_back(marowak);
 	break;
-	case 10:
+	case 12:
 	rmarowak =new Rmarowak ("Rmarowak.png", 300-(rand()%2400), 0, MAROWAK_HEIGHT, MAROWAK_WIDTH, (rand()%8+5), Y_VELOCITY_DESCENT,MAROWAK_POWER, MAROWAK_HEALTH);
 		enemies.push_back(rmarowak);
 	break;
-	case 11:
+	case 13:
 		rzapdos = new Rzapdos ("Rzapdos.png", 300-(rand()%2400), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ZAPDOS_HEIGHT, ZAPDOS_WIDTH, (rand()%12+5), 0,ZAPDOS_POWER, ZAPDOS_HEALTH);
 		enemies.push_back (rzapdos);
 	break;
-	case 12:
+	case 14:
 		zapdos =new Zapdos ("zapdos.png", rand()%1500+900, rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ZAPDOS_HEIGHT, ZAPDOS_WIDTH, -(rand()%12+5), 0,ZAPDOS_POWER, ZAPDOS_HEALTH);
 		enemies.push_back (zapdos);
 	break;
-	case 13:
+	case 15:
 		rarticuno =new Rarticuno ("Rarticuno.png",300-(rand()%2400), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH, (rand()%12+5),0, ARTICUNO_POWER, ARTICUNO_HEALTH);
 		enemies.push_back (rarticuno);
 	break;
-	case 14:
+	case 16:
 articuno =new Articuno ("articuno.png", rand()%1500+900, rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH,-(rand()%12+5), 0, ARTICUNO_POWER, ARTICUNO_HEALTH);
 		enemies.push_back (articuno);
 	break;
-	case 15:
+	case 17:
 	rmoltres =new Rmoltres ("Rmoltres.png",300-(rand()%2400), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH, (rand()%12+5),0, ARTICUNO_POWER, ARTICUNO_HEALTH);
 		enemies.push_back (rmoltres);
 	break;
-	case 16: moltres =new Moltres ("moltres.png",rand()%1500+900, rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH, -(rand()%12+5),0, ARTICUNO_POWER, ARTICUNO_HEALTH);
+	case 18: moltres =new Moltres ("moltres.png",rand()%1500+900, rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH, -(rand()%12+5),0, ARTICUNO_POWER, ARTICUNO_HEALTH);
 		enemies.push_back (moltres);
 
 	break;
@@ -278,7 +288,8 @@ for(int i=0; i<numberOfEnemies;i++)
 
 //pokemon key determines what species of pokemon will be created. each time through the for loop, a different one is made. the while loop ensures that a key that we have is to be used
 pokemonkey=rand()%(3+currentLevel)+1;
-while(pokemonkey>16){
+
+while(pokemonkey>18){
 pokemonkey=rand()%(3+currentLevel)+1;
 }
 
@@ -419,7 +430,7 @@ int goToInstructions(Text &backButton)
 
 
 //takes user's click when on the store screen and updates their inventory
-bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messageToUser,Text &actualMoneyText, Text &actualDomeHealthText,Background &cover,Text&currentAmmoText,Text&maxAmmoText,Text&currentAmmo,Text&maxAmmo, Text &currentVoltorbsText,Text&currentVoltorbsNumber,Text &currentElectrodesText,Text&currentElectrodesNumber)
+bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messageToUser,Text &actualMoneyText, Text &actualDomeHealthText,Background &cover,Text&currentAmmoText,Text&maxAmmoText,Text&currentAmmo,Text&maxAmmo, Text &currentVoltorbsText,Text&currentVoltorbsNumber,Text &currentElectrodesText,Text&currentElectrodesNumber, Text&saveText)
 {
 
 
@@ -427,6 +438,55 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 	if(continueToGame.isClicked(x,y)) {
 		return true;
 	}
+	
+	if(saveText.isClicked(x,y)){
+		string	name;	
+		cout<<"Enter Name of Savefile"<<endl;	
+		cin>>name;
+		ofstream myfile;
+		myfile.open("gamedata.txt",ios::app);
+		myfile << "Name:"<<name<<endl;
+		myfile<<"Score:"<<score<<endl;
+		myfile<<"CurrentLevel:"<<currentLevel<<endl;
+		myfile<<"Money:"<<money<<endl;
+		if(addedPistol)
+		myfile<<"Pistol:1"<<endl;
+		else
+		myfile<<"Pistol:0"<<endl;
+		myfile<<"PistolAmmo:"<<weapons[0]->getCurrentAmmo()<<endl;
+		myfile<<"PistolClipAmmo:"<<weapons[0]->getCurrentClipAmmo()<<endl;
+		if(addedSmg)
+		myfile<<"Smg:1"<<endl;
+		else
+		myfile<<"Smg:0"<<endl;
+		myfile<<"SmgAmmo:"<<weapons[1]->getCurrentAmmo()<<endl;
+		myfile<<"SmgClipAmmo:"<<weapons[1]->getCurrentClipAmmo()<<endl;
+		if(addedLmg)
+		myfile<<"Lmg:1"<<endl;
+		else
+		myfile<<"Lmg:0"<<endl;
+		myfile<<"LmgAmmo:"<<weapons[2]->getCurrentAmmo()<<endl;
+		myfile<<"LmgClipAmmo:"<<weapons[2]->getCurrentClipAmmo()<<endl;
+		if(addedGatling)
+		myfile<<"Gatling:1"<<endl;
+		else
+		myfile<<"Gatling:0"<<endl;
+		myfile<<"GatlingAmmo:"<<weapons[3]->getCurrentAmmo()<<endl;
+		myfile<<"GatlingClipAmmo:"<<weapons[3]->getCurrentClipAmmo()<<endl;
+		if(addedPlasma)
+		myfile<<"PlasmaCannon:1"<<endl;
+		else
+		myfile<<"PlasmaCannon:0"<<endl;
+		myfile<<"PlasmaCannonAmmo:"<<weapons[4]->getCurrentAmmo()<<endl;
+		myfile<<"PlasmaCannonClipAmmo:"<<weapons[4]->getCurrentClipAmmo()<<endl;
+
+
+		myfile<<"Electrodes:"<<electrodes.size()<<endl;
+		myfile<<"Voltorbs:"<<voltorbs.size()<<endl;
+
+		myfile<<"Health:"<<dome.getCurrentHealth()<<endl<<endl;
+	}
+
 
 	
 	if(storeVoltorb->isClicked(x,y))
@@ -730,6 +790,7 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 			messageToUser.setText("You don't own a Plasma Cannon!");
 
 	}
+
 	return false;	
 }
 
@@ -753,7 +814,7 @@ void clear_unused_bombs()
 
 //goes to the store screen and displays it
 int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &ammoHeader,Text &storeHeader, Text &moneyText, Text &actualMoneyText,Text &pistolPriceText,Text &plasmaCannonPriceText,Text &gatlingPriceText,Text &smgPriceText,Text &lmgPriceText, Text &voltorbPriceText, Text &electrodePriceText, Text &specialsText, Text &healthPriceText, Text &domeText, Text&actualDomeHealthText,Text &pistolAmmoPriceText,Text &plasmaCannonAmmoPriceText,Text &gatlingAmmoPriceText,Text &smgAmmoPriceText,Text &currentWeaponAmmoText, Text &currentWeaponMaxAmmoText,Text &lmgAmmoPriceText,Text &pistolText,Text &plasmaCannonText,Text &gatlingText, Text &smgText,Text &lmgText,Text &currentAmmoText,Text&maxAmmoText,
-Text &currentVoltorbsText,Text &currentVoltorbsNumber, Text &currentElectrodesText,Text &currentElectrodesNumber)
+Text &currentVoltorbsText,Text &currentVoltorbsNumber, Text &currentElectrodesText,Text &currentElectrodesNumber, Text &saveText)
 {  
 	//deletes from the bombs vector so that they don't get huge throughout the game
 	clear_unused_bombs();
@@ -781,6 +842,8 @@ Background cover("Coverup.png");
 	gatlingText.show(screen);
 	smgText.show(screen);
 	lmgText.show(screen);
+
+	saveText.show(screen);
 	
 	actualMoneyText.show(screen);
 	pistolPriceText.show(screen);
@@ -838,7 +901,7 @@ Background cover("Coverup.png");
 					}
 				
 				continueButton = purchaseFromStore(x,y,dome,continueToGame,messageToUser,actualMoneyText,actualDomeHealthText,cover,currentAmmoText,maxAmmoText,currentWeaponAmmoText,currentWeaponMaxAmmoText,
-currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrodesNumber);
+currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrodesNumber,saveText);
 				if(continueButton&&weapons.size()==0)
 				{
 					continueButton = false;
@@ -857,6 +920,7 @@ currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrode
 					gatlingText.show(screen);
 					smgText.show(screen);
 					lmgText.show(screen);
+					saveText.show(screen);
 					actualMoneyText.show(screen);
 					pistolPriceText.show(screen);
 					plasmaCannonPriceText.show(screen);
@@ -1003,7 +1067,7 @@ int main (int argc, char *args[])
 srand(time(NULL)); //seeds RNG for random levels
 load_backgrounds();
 //user's score for the game,
-int score=0;
+score=0;
   //Quit flag
   bool quit = false;
 
@@ -1038,11 +1102,16 @@ Mix_PlayMusic( music, -1 );
   background.show(screen);
   Text pokeDome("POKEDOME",2*SCREEN_WIDTH/5, SCREEN_HEIGHT/5,colorBlack,50);
   pokeDome.show(screen);
+	
   Text playButton("Play",SCREEN_WIDTH/2,3*SCREEN_HEIGHT/5,colorBlack,30);
   playButton.show(screen);
 	Text instructions("Instructions",playButton.getTextXpos()-50,playButton.getTextYpos()+50,colorBlack,30);
 	instructions.show(screen);
 	Text backButton("Back",SCREEN_WIDTH/2,SCREEN_HEIGHT-50,colorWhite,30);
+
+	Text loadButton("Load Previous Game",50,0,colorWhite,40);
+loadButton.show(screen);
+
   SDL_Flip(screen);
   bool play = false;
   bool goBack = false;
@@ -1072,9 +1141,13 @@ Mix_PlayMusic( music, -1 );
 						pokeDome.show(screen);
 						playButton.show(screen);
 						instructions.show(screen);
+					
 						SDL_Flip(screen);
 						if(quit)
 							return 0;
+					}
+					if(loadButton.isClicked(x,y)){
+
 					}
 			
 				}
@@ -1126,6 +1199,8 @@ Text pistolAmmoPriceText(boost::lexical_cast<string>( PISTOL_AMMO_PRICE )+ " for
 	Text smgAmmoPriceText(boost::lexical_cast<string>( SMG_AMMO_PRICE ) + " for " + boost::lexical_cast<string>(SMG_AMMO_PER_PURCHASE) + " shots",SMG_AMMO_X+smgAmmo->getWidth()+20,SMG_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text lmgAmmoPriceText(boost::lexical_cast<string>( LMG_AMMO_PRICE )+ " for " + boost::lexical_cast<string>(LMG_AMMO_PER_PURCHASE) + " shots",LMG_AMMO_X+lmgAmmo->getWidth()+20,LMG_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
 	
+	Text saveText("Save Game",550,85,colorWhite,40);
+	
 
 
 	Text currentWeaponAmmoText("",CURRENT_AMMO_X,CURRENT_AMMO_Y,colorWhite,PRICE_TEXT_SIZE);
@@ -1138,6 +1213,7 @@ Text pistolAmmoPriceText(boost::lexical_cast<string>( PISTOL_AMMO_PRICE )+ " for
 	Text currentVoltorbsNumber("0",CURRENT_VOLTORB_NUMBER_X,CURRENT_VOLTORB_NUMBER_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text currentElectrodesText("Current Electrodes",CURRENT_ELECTRODE_TEXT_X,CURRENT_ELECTRODE_TEXT_Y,colorWhite,PRICE_TEXT_SIZE);
 	Text currentElectrodesNumber("0",CURRENT_ELECTRODE_NUMBER_X,CURRENT_ELECTRODE_NUMBER_Y,colorWhite,PRICE_TEXT_SIZE);
+
 
 
 //will be true once the user has died or has exited the game
@@ -1158,7 +1234,7 @@ while(gameIsOver==false)
    int continued = goToStore(dome,continueToGame,gunsMessage,priceHeader,ammoHeader,storeHeader,moneyText,actualMoneyText,pistolPriceText,plasmaCannonPriceText,gatlingPriceText,smgPriceText,
 lmgPriceText,voltorbPriceText, electrodePriceText, specialsText, healthPriceText,domeText,actualDomeHealthText,pistolAmmoPriceText,plasmaCannonAmmoPriceText,gatlingAmmoPriceText,smgAmmoPriceText,currentWeaponAmmoText, currentWeaponMaxAmmoText,
 lmgAmmoPriceText,pistolText,plasmaCannonText,gatlingText,smgText,lmgText,currentAmmoText,maxAmmoText,currentVoltorbsText,currentVoltorbsNumber,
-currentElectrodesText,currentElectrodesNumber);
+currentElectrodesText,currentElectrodesNumber,saveText);
 	//continue will be 0 if they hit the X on the window while at the store
    if(!continued)
 	{
@@ -1220,6 +1296,7 @@ total.setText(boost::lexical_cast<string>( weapons[currentWeaponIndex]->getCurre
 	leveltext.show(screen);
 	levelnumber.show(screen);
 	weapontitle.show(screen);
+	
 weapons[currentWeaponIndex]->showDuringGamePlay(575,25,screen);
 
 //shows the reload text if they ran out of ammo
@@ -1370,7 +1447,7 @@ for(int i=0;i<currentElectrodeIndex;i++)
 		}
 			
 		//checks any mouse clicks and kills enemies and updates scroe and money if is collision
-	      weapons[currentWeaponIndex]->handle_events (event, enemies, screen,score,money);
+	      weapons[currentWeaponIndex]->handle_events (event, enemies, screen,score,money,crosshairs);
 	      
 	  //If the user has Xed out the window
 	  if (event.type == SDL_QUIT)

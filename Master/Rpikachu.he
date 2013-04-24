@@ -9,13 +9,13 @@ class Pikachu: public Enemy
 {
 	public:
 		Pikachu(string,int, int, int, int , int, int ,int, int); //constructor
-		virtual void move(); //move function
+		 virtual void move(); //move function
 		virtual void show(SDL_Surface*,int);
 		virtual void setClips();
 
 
 	private:
-		SDL_Rect clips[4]; //the number of clips in the Pikachu sprite sheet
+		SDL_Rect clips[5]; //the number of clips in the Pikachu sprite sheet
 
 };
 #endif

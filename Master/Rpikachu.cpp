@@ -1,23 +1,23 @@
 
-#include "Pikachu.h"
+#include "Rpikachu.h"
 #include "Sprite.h"
 #include "Enemy.h"
 #include "SDL/SDL.h"
 #include <string>
-Pikachu::Pikachu(string filename, int x, int y, int w, int h, int xV, int yV, int p, int hea):Enemy(filename,x,y,w,h,xV,yV,p,hea)
+Rpikachu::Rpikachu(string filename, int x, int y, int w, int h, int xV, int yV, int p, int hea):Enemy(filename,x,y,w,h,xV,yV,p,hea)
 {
 	setClips();
 }
 
-void Pikachu::move()
+void Rpikachu::move()
 {
-    if (ypos + height < GROUND)
+ if (ypos + height < GROUND)
 	ypos += yVel;
     else if (isBouncer) {
-	if (xpos >= DOME_BASE_X_END)
+	if (xpos+width <= DOME_BASE_X_BEG)
 	    xpos += xVel;
 	else
-	    xpos += BOUNCE;
+	    xpos -= BOUNCE;
     } 
     else
 	xpos += xVel;
@@ -25,39 +25,40 @@ void Pikachu::move()
     if (xpos > 0 && xpos < SCREEN_WIDTH) {
 	hasEntered = 1;
     }
+
 }
 
 //shows the enemy on the screen
-void Pikachu::show(SDL_Surface * screen, int count)
+void Rpikachu::show(SDL_Surface * screen, int count)
 {
 	  if (!isDead())
 	apply_surface(xpos,ypos,sprite,screen,&clips[count%4]);
 }
 
-void Pikachu::setClips()
+void Rpikachu::setClips()
 {
-  //Clip range for the Pikachu clips
-  clips[0].x = 629-53-5;
+  //Clip range for the Rpikachu clips
+  clips[0].x = 5;
   clips[0].y = 162;
   clips[0].w = 53;
   clips[0].h = 32;
 
-  clips[1].x = 629-60-54;
+  clips[1].x = 60;
   clips[1].y = 162;
   clips[1].w = 54;
   clips[1].h = 32;
 
-  clips[2].x = 629-117-54;
+  clips[2].x = 117;
   clips[2].y = 162;
   clips[2].w = 54;
   clips[2].h = 32;
 
-  clips[3].x = 629-175-54;
+  clips[3].x = 175;
   clips[3].y = 162;
   clips[3].w = 54;
   clips[3].h = 32;
   /*
-  clips[4].x = 629-17-43;
+  clips[4].x = 17;
   clips[4].y = 285;
   clips[4].w = 43;
   clips[4].h = 40;

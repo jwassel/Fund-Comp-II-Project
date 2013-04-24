@@ -20,6 +20,7 @@ currentAmmo=current;
 maxClipAmmo=maxclip;
 currentClipAmmo=currentclip;
 reloadTime=RELOAD_TIME;
+crosshairsReloadTime=30;
 
 
 sprite = load_image(filename.c_str());
@@ -107,9 +108,8 @@ int Weapon::getSize(){
 return explosionSize;
 }
 
-void Weapon::handle_events(SDL_Event event,vector<Enemy*> enemies, SDL_Surface * screen, int &score, int &money)
+void Weapon::handle_events(SDL_Event event,vector<Enemy*> enemies, SDL_Surface * screen, int &score, int &money, Crosshairs &crosshairs)
 {
-
 //The mouse offsets
   int x = 0, y = 0;
 int enemyX = 0;
@@ -142,6 +142,8 @@ if(currentClipAmmo>0)
 	    {
 		if(enemies[i]->isDead()==false)
 		{
+		crosshairs.setImage("crosshairs.png");
+		crosshairs.setCrosshairsGreen(false);
 		enemies[i]->getAttacked(damage,score,money);
 		score+=HIT_BONUS;
 		money+=HIT_BONUS;
@@ -167,6 +169,20 @@ reloadTime--;
 			currentAmmo = 0;
 		}
 		reloadTime=RELOAD_TIME;
+	}
+}
+
+if(crosshairs.isTheCrosshairsGreen()==false)
+{
+
+	crosshairsReloadTime--;
+
+	if(crosshairsReloadTime<=0)
+	{
+
+		crosshairs.setImage("greenCrosshairs.png");
+		crosshairs.setCrosshairsGreen(true);
+		crosshairsReloadTime = 30;
 	}
 }
 }
