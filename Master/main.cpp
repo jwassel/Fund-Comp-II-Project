@@ -129,7 +129,8 @@ int currentBackground = 1; //start at 1, not 0 eventhough 0 is first b/c first t
 
 //will be true when they buy the gun. so that they don't buy multiple
 bool addedPistol=false,addedSmg=false,addedLmg=false,addedGatling=false,addedPlasma=false;
-
+int pistolIndex=1,smgIndex,lmgIndex,gatlingIndex,plasmaIndex; //variables of what index in weapons vector that gun is for the user.
+int weaponsBought = 0;
 //user can only use one weapon at a time
 int currentWeaponIndex = 0;
 int currentVoltorbIndex = 0;
@@ -356,7 +357,11 @@ int goToInstructions(Text &backButton)
 	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
 	actualInstructions.show(screen);
 
-	actualInstructions.setText("To switch amongst your guns, use the arrow keys");
+	actualInstructions.setText("To switch amongst your guns, either use the arrow keys or press 1-5");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
+	actualInstructions.show(screen);
+
+	actualInstructions.setText("1 = Pistol, 2 = SMG, 3 = LMG, 4 = Gatling, 5 = Plasma Cannon");
 	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
 	actualInstructions.show(screen);
 
@@ -468,6 +473,8 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 				messageToUser.setText("Succesfully Added Pistol");
 				weapons.push_back (pistol);
 				addedPistol=true;
+				pistolIndex = weaponsBought;
+				weaponsBought++;
 			}
 			else
 				messageToUser.setText("Not enough Money!");
@@ -489,6 +496,8 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 				messageToUser.setText("Succesfully Added Gatling");
 				weapons.push_back (gatling);
 				addedGatling=true;
+				gatlingIndex = weaponsBought;
+				weaponsBought++;
 			}
 			else
 				messageToUser.setText("Not enough Money!");
@@ -509,6 +518,8 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 				messageToUser.setText("Succesfully Added LMG");
 				weapons.push_back (lmg);
 				addedLmg=true;
+				lmgIndex = weaponsBought;
+				weaponsBought++;
 			}
 			else
 				messageToUser.setText("Not enough Money!");
@@ -529,6 +540,8 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 				messageToUser.setText("Succesfully Added SMG");
 				weapons.push_back (smg);
 				addedSmg=true;
+				smgIndex = weaponsBought;
+				weaponsBought++;
 			}
 			else
 				messageToUser.setText("Not enough Money!");
@@ -549,6 +562,8 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 				messageToUser.setText("Succesfully Added Plasma Cannon");
 				weapons.push_back (plasmaCannon);
 				addedPlasma = true;
+				plasmaIndex = weaponsBought;
+				weaponsBought++;
 			}
 			else
 				messageToUser.setText("Not enough Money!");
@@ -1328,6 +1343,27 @@ for(int i=0;i<currentElectrodeIndex;i++)
 				if(currentWeaponIndex==weapons.size()-1) currentWeaponIndex = 0;
 				else currentWeaponIndex++;
 			}
+			else if( event.key.keysym.sym == SDLK_1) //switches to next weapon they own
+			{
+				if(addedPistol) currentWeaponIndex = pistolIndex;
+			}
+			else if( event.key.keysym.sym == SDLK_2) //switches to next weapon they own
+			{
+				if(addedSmg) currentWeaponIndex = smgIndex;
+			}
+			else if( event.key.keysym.sym == SDLK_3) //switches to next weapon they own
+			{
+				if(addedLmg) currentWeaponIndex = lmgIndex;
+			}
+			else if( event.key.keysym.sym == SDLK_4) //switches to next weapon they own
+			{
+				if(addedGatling) currentWeaponIndex = gatlingIndex;
+			}
+			else if( event.key.keysym.sym == SDLK_5) //switches to next weapon they own
+			{
+				if(addedPlasma) currentWeaponIndex = plasmaIndex;
+			}
+			
 		}
 			
 		//checks any mouse clicks and kills enemies and updates scroe and money if is collision
