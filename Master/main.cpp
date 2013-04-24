@@ -1304,7 +1304,7 @@ for(int i=0;i<currentElectrodeIndex;i++)
 					voltorbs[currentVoltorbIndex]->setShowBomb(true);
 					int xmouse, ymouse;
 					SDL_GetMouseState(&xmouse, &ymouse);
-					voltorbs[currentVoltorbIndex]->setPos(xmouse, ymouse);
+					voltorbs[currentVoltorbIndex]->setPos(xmouse, BOMB_STARTING_POINT);
 					currentVoltorbIndex++;
 					SDL_EventState(SDL_KEYDOWN,SDL_ENABLE);
 				}
@@ -1321,7 +1321,7 @@ for(int i=0;i<currentElectrodeIndex;i++)
 					electrodes[currentElectrodeIndex]->setShowBomb(true);
 					int xmouse, ymouse;
 					SDL_GetMouseState(&xmouse, &ymouse);
-					electrodes[currentElectrodeIndex]->setPos(xmouse, ymouse);
+					electrodes[currentElectrodeIndex]->setPos(xmouse,  BOMB_STARTING_POINT);
 					currentElectrodeIndex++;
 					SDL_EventState(SDL_KEYDOWN,SDL_ENABLE);
 				}

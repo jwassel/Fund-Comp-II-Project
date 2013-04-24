@@ -20,7 +20,7 @@ const int DOME_HEIGHT=455;
 const int DOME_TOP=SCREEN_HEIGHT - DOME_HEIGHT;
 //how far back the enemies will bounce if they hit the dome
 const int BOUNCE=20;
-
+const int BOMB_STARTING_POINT = SCREEN_HEIGHT/2;
 //what the health will appear as on teh screen
 const int HEALTH_DIVISION_FACTOR = 100;
 const int INITIAL_MONEY = 55;
