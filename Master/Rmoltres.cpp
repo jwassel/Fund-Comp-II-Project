@@ -12,7 +12,7 @@ Rmoltres::Rmoltres(string filename, int x, int y, int w, int h, int xV, int yV, 
 void Rmoltres::move()
 {
 if(isBouncer){
-if (xpos>=DOME_HEAD_X_END)
+if (xpos+width<=DOME_HEAD_X_BEG)
 	xpos+=xVel;
 else 
 	xpos+=BOUNCE;

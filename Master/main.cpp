@@ -243,12 +243,19 @@ void addpokemon(int key){
 articuno =new Articuno ("articuno.png", rand()%1500+900, rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH,-(rand()%12+5), 0, ARTICUNO_POWER, ARTICUNO_HEALTH);
 		enemies.push_back (articuno);
 	break;
+	case 15:
+	rmoltres =new Rmoltres ("Rmoltres.png",300-(rand()%2400), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH, (rand()%12+5),0, ARTICUNO_POWER, ARTICUNO_HEALTH);
+		enemies.push_back (rmoltres);
+	break;
+	case 16: moltres =new Moltres ("moltres.png",rand()%1500+900, rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH, -(rand()%12+5),0, ARTICUNO_POWER, ARTICUNO_HEALTH);
+		enemies.push_back (moltres);
+
+	break;
 	default:
 	break;
 	
 }
-	rmoltres =new Rmoltres ("Rmoltres.png",300-(rand()%2400), rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, ARTICUNO_HEIGHT, ARTICUNO_WIDTH, (rand()%12+5),0, ARTICUNO_POWER, ARTICUNO_HEALTH);
-		enemies.push_back (rmoltres);
+
 }
 
 
@@ -260,14 +267,14 @@ void load_enemies ()
 
 int pokemonkey;
 //numberOfEnemies Randomly determines how many enemies will spawn each round. goes up as levels go up
-int numberOfEnemies=rand()%4+2*currentLevel;
+int numberOfEnemies=rand()%4+1.5*currentLevel;
 //adds correct number of enemies
 for(int i=0; i<numberOfEnemies;i++)
 {
 
 //pokemon key determines what species of pokemon will be created. each time through the for loop, a different one is made. the while loop ensures that a key that we have is to be used
 pokemonkey=rand()%(3+currentLevel)+1;
-while(pokemonkey>14){
+while(pokemonkey>16){
 pokemonkey=rand()%(3+currentLevel)+1;
 }
 
