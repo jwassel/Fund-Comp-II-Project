@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include <string>
 
+
 class Pikachu: public Enemy
 {
 	public:
@@ -14,7 +15,7 @@ class Pikachu: public Enemy
 
 
 	private:
-		SDL_Rect clips[11]; //the number of clips in the Pikachu sprite sheet
+		SDL_Rect clips[6]; //the number of clips in the Pikachu sprite sheet
 
 };
 #endif
