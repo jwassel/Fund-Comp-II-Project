@@ -43,6 +43,7 @@ Group Members: Jonathan Cobian, Erich Kerekes, Oliver Lamb, Jason Wassel
 #include "Moltres.h"
 #include "Rmoltres.h"
 #include "Rzapdos.h"
+#include "Pikachu.h"
 #include "Item.h"
 #include "Health.h"
 #include "Ammo.h"
@@ -91,7 +92,7 @@ Voltorb *voltorb;
 Electrode *electrode;
 Rmoltres *rmoltres;
 Moltres *moltres;
-
+Pikachu *pikachu;
 
 //vector that stores the user's current weapons
 vector < Weapon * >weapons;
@@ -199,6 +200,8 @@ void addpokemon(int key){
 	case 3:
 		rcharmander =new Rcharmander ("Rcharmander.png", 300-(rand()%1800), 0, CHARMANDER_HEIGHT, CHARMANDER_WIDTH, (rand()%5+5), Y_VELOCITY_DESCENT, CHARMANDER_POWER, CHARMANDER_HEALTH);
 		enemies.push_back (rcharmander);
+		pikachu = new Pikachu("pikachu.png",rand()%1500+9000, CHARMANDER_HEIGHT, CHARMANDER_WIDTH, -(rand()%5+5), Y_VELOCITY_DESCENT, CHARMANDER_POWER, CHARMANDER_HEALTH);
+		enemies.push_back (pikachu);
 	break;
 	case 4:
 		pidgey =new Pidgey ("pidgey.png", rand()%600+900, rand()%(MIDDLE_DOME-DOME_TOP)+DOME_TOP, PIDGEY_HEIGHT, PIDGEY_WIDTH, -(rand()%5+5), 0,PIDGEY_POWER, PIDGEY_HEALTH);
