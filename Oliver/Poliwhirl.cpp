@@ -33,12 +33,12 @@ void Poliwhirl::setClips()
   //Clip range for the squirtle clips
   clips[0].x = 0;
   clips[0].y = 169;
-  clips[0].w = 69;
+  clips[0].w = 73;
   clips[0].h = 82;
 
   clips[1].x = 75;
   clips[1].y = 166;
-  clips[1].w = 87;
+  clips[1].w = 88;
   clips[1].h = 77;
 
   clips[2].x = 163;

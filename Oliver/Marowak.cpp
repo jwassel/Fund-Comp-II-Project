@@ -32,7 +32,7 @@ if(xpos>0 && xpos<SCREEN_WIDTH)
 //shows the enemy on the screen
 void Marowak::show(SDL_Surface * screen, int count)
 {	if(!isDead())
-	apply_surface(xpos,ypos,sprite,screen,&clips[count%6]);
+	apply_surface(xpos,ypos,sprite,screen,&clips[count%3]);
 }
 
 void Marowak::setClips()

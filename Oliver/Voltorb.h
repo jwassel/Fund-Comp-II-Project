@@ -14,12 +14,13 @@ class Voltorb:public Bomb
 		virtual void showInStore(SDL_Surface*);
 		virtual int getHeight();
 		virtual int getWidth();
-		virtual int move();
+		virtual void move();
 		virtual int isClicked(int,int);
 		int getXpos();
 		int getYpos();
 		virtual void showDuringGamePlay(int, int, SDL_Surface*);
 	private:
 		SDL_Rect clips[4];
+		
 };
 #endif
