@@ -85,6 +85,16 @@ return currentAmmo;
 
 }
 
+void Weapon::setCurrentClipAmmo(int ammo){
+currentClipAmmo=ammo;
+
+}
+
+
+void Weapon::setCurrentAmmo(int ammo){
+currentAmmo=ammo;
+
+}
 
 int Weapon::getMaxAmmo(){
 return maxAmmo;

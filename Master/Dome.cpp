@@ -20,6 +20,10 @@ Dome::Dome(string filename,int x, int y, int w, int h, int max, int curr)
 	maxHealth = max;
 	currentHealth = curr;
 }
+
+void Dome::setHealth(int health){
+currentHealth=health;
+}
 //returns true if the health was added, false otherwise  
 bool Dome::addToCurrentHealth(int health)
 {

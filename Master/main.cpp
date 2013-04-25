@@ -133,7 +133,7 @@ int currentBackground = 1; //start at 1, not 0 eventhough 0 is first b/c first t
 
 //will be true when they buy the gun. so that they don't buy multiple
 bool addedPistol=false,addedSmg=false,addedLmg=false,addedGatling=false,addedPlasma=false;
-int pistolIndex=1,smgIndex,lmgIndex,gatlingIndex,plasmaIndex; //variables of what index in weapons vector that gun is for the user.
+int pistolIndex,smgIndex,lmgIndex,gatlingIndex,plasmaIndex; //variables of what index in weapons vector that gun is for the user.
 int weaponsBought = 0;
 //user can only use one weapon at a time
 int currentWeaponIndex = 0;
@@ -357,7 +357,7 @@ int goToInstructions(Text &backButton)
 	Text actualInstructions("Instructions",SCREEN_WIDTH/2-100,0,colorWhite,30);
 	actualInstructions.show(screen);
 	actualInstructions.setSize(20);
-	actualInstructions.setX(400);
+	actualInstructions.setX(350);
 
 	actualInstructions.setText("Goal: Protect the Golden Dome by shooting the Pokemon");
 	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
@@ -392,6 +392,11 @@ int goToInstructions(Text &backButton)
 	actualInstructions.show(screen);
 
 	actualInstructions.setText("Once the Dome's Health is 0, you lose");
+	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
+	actualInstructions.show(screen);
+
+	
+	actualInstructions.setText("Use the terminal to load or save a level after clicking load or save in game");
 	actualInstructions.setY(actualInstructions.getTextYpos()+actualInstructions.getHeight()+spacing);
 	actualInstructions.show(screen);
 
@@ -430,7 +435,7 @@ int goToInstructions(Text &backButton)
 
 
 //takes user's click when on the store screen and updates their inventory
-bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messageToUser,Text &actualMoneyText, Text &actualDomeHealthText,Background &cover,Text&currentAmmoText,Text&maxAmmoText,Text&currentAmmo,Text&maxAmmo, Text &currentVoltorbsText,Text&currentVoltorbsNumber,Text &currentElectrodesText,Text&currentElectrodesNumber, Text&saveText)
+bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messageToUser,Text &actualMoneyText, Text &actualDomeHealthText,Background &cover,Text&currentAmmoText,Text&maxAmmoText,Text&currentAmmo,Text&maxAmmo, Text &currentVoltorbsText,Text&currentVoltorbsNumber,Text &currentElectrodesText,Text&currentElectrodesNumber, Text&saveText, bool &quit, bool &gameIsOver)
 {
 
 
@@ -440,51 +445,86 @@ bool purchaseFromStore(int x, int y, Dome &dome,Text &continueToGame, Text&messa
 	}
 	
 	if(saveText.isClicked(x,y)){
+		quit=true;
+		gameIsOver=true;
+
 		string	name;	
 		cout<<"Enter Name of Savefile"<<endl;	
 		cin>>name;
 		ofstream myfile;
-		myfile.open("gamedata.txt",ios::app);
-		myfile << "Name:"<<name<<endl;
-		myfile<<"Score:"<<score<<endl;
-		myfile<<"CurrentLevel:"<<currentLevel<<endl;
-		myfile<<"Money:"<<money<<endl;
+
+		myfile.open(name.c_str());
+
+		myfile<</*"Score:"<<*/score<<endl;
+		myfile<</*"CurrentLevel:"<<*/currentLevel<<endl;
+		myfile<</*"Money:"<<*/money<<endl;
+
+
 		if(addedPistol)
-		myfile<<"Pistol:1"<<endl;
-		else
-		myfile<<"Pistol:0"<<endl;
-		myfile<<"PistolAmmo:"<<weapons[0]->getCurrentAmmo()<<endl;
-		myfile<<"PistolClipAmmo:"<<weapons[0]->getCurrentClipAmmo()<<endl;
-		if(addedSmg)
-		myfile<<"Smg:1"<<endl;
-		else
-		myfile<<"Smg:0"<<endl;
-		myfile<<"SmgAmmo:"<<weapons[1]->getCurrentAmmo()<<endl;
-		myfile<<"SmgClipAmmo:"<<weapons[1]->getCurrentClipAmmo()<<endl;
-		if(addedLmg)
-		myfile<<"Lmg:1"<<endl;
-		else
-		myfile<<"Lmg:0"<<endl;
-		myfile<<"LmgAmmo:"<<weapons[2]->getCurrentAmmo()<<endl;
-		myfile<<"LmgClipAmmo:"<<weapons[2]->getCurrentClipAmmo()<<endl;
-		if(addedGatling)
-		myfile<<"Gatling:1"<<endl;
-		else
-		myfile<<"Gatling:0"<<endl;
-		myfile<<"GatlingAmmo:"<<weapons[3]->getCurrentAmmo()<<endl;
-		myfile<<"GatlingClipAmmo:"<<weapons[3]->getCurrentClipAmmo()<<endl;
-		if(addedPlasma)
-		myfile<<"PlasmaCannon:1"<<endl;
-		else
-		myfile<<"PlasmaCannon:0"<<endl;
-		myfile<<"PlasmaCannonAmmo:"<<weapons[4]->getCurrentAmmo()<<endl;
-		myfile<<"PlasmaCannonClipAmmo:"<<weapons[4]->getCurrentClipAmmo()<<endl;
+		{
+		myfile<<"1"<<endl;
+		myfile<</*"PistolAmmo:"<<*/weapons[pistolIndex]->getCurrentAmmo()<<endl;
+		myfile<</*"PistolClipAmmo:"<<*/weapons[pistolIndex]->getCurrentClipAmmo()<<endl;
+		}		
+
+		else{
+		myfile<<"0"<<endl;
+		myfile<<"0"<<endl;
+		myfile<<"0"<<endl;
+		}
+		
+
+		if(addedSmg){
+		myfile<<"1"<<endl;
+			myfile<</*"SmgAmmo:"<<*/weapons[smgIndex]->getCurrentAmmo()<<endl;
+		myfile<</*"SmgClipAmmo:"<<*/weapons[smgIndex]->getCurrentClipAmmo()<<endl;
+		}		
+		else{
+		myfile<<"0"<<endl;
+		myfile<<"0"<<endl;
+		myfile<<"0"<<endl;
+		}
+	
+		if(addedLmg){
+		myfile<<"1"<<endl;
+		myfile<</*"LmgAmmo:"<<*/weapons[lmgIndex]->getCurrentAmmo()<<endl;
+		myfile<</*"LmgClipAmmo:"<<*/weapons[lmgIndex]->getCurrentClipAmmo()<<endl;
+		}
+		else{
+		myfile<<"0"<<endl;
+		myfile<<"0"<<endl;
+		myfile<<"0"<<endl;
+		}
+		if(addedGatling){
+		myfile<<"1"<<endl;
+			myfile<</*"GatlingAmmo:"<<*/weapons[gatlingIndex]->getCurrentAmmo()<<endl;
+		myfile<</*"GatlingClipAmmo:"<<*/weapons[gatlingIndex]->getCurrentClipAmmo()<<endl;
+		}
+		else{
+		myfile<<"0"<<endl;
+		myfile<<"0"<<endl;
+		myfile<<"0"<<endl;
+		}
+		if(addedPlasma){
+		myfile<<"1"<<endl;
+		myfile<</*"PlasmaCannonAmmo:"<<*/weapons[plasmaIndex]->getCurrentAmmo()<<endl;
+		myfile<</*"PlasmaCannonClipAmmo:"<<*/weapons[plasmaIndex]->getCurrentClipAmmo()<<endl;		
+		}
+		else{
+		myfile<<"0"<<endl;
+		myfile<<"0"<<endl;
+		myfile<<"0"<<endl;
+		}
+
+		myfile<</*"Voltorbs:"<<*/voltorbs.size()<<endl;
+		myfile<</*"Electrodes:"<<*/electrodes.size()<<endl;
 
 
-		myfile<<"Electrodes:"<<electrodes.size()<<endl;
-		myfile<<"Voltorbs:"<<voltorbs.size()<<endl;
-
-		myfile<<"Health:"<<dome.getCurrentHealth()<<endl<<endl;
+		myfile<</*"Health:"<<*/dome.getCurrentHealth()<<endl<<endl;
+		
+		myfile.close();
+		cout<<"Succesfully saved to " << name<<endl;
+		return false;
 	}
 
 
@@ -814,7 +854,7 @@ void clear_unused_bombs()
 
 //goes to the store screen and displays it
 int goToStore(Dome &dome,Text &continueToGame, Text &gunsMessage, Text &priceHeader, Text &ammoHeader,Text &storeHeader, Text &moneyText, Text &actualMoneyText,Text &pistolPriceText,Text &plasmaCannonPriceText,Text &gatlingPriceText,Text &smgPriceText,Text &lmgPriceText, Text &voltorbPriceText, Text &electrodePriceText, Text &specialsText, Text &healthPriceText, Text &domeText, Text&actualDomeHealthText,Text &pistolAmmoPriceText,Text &plasmaCannonAmmoPriceText,Text &gatlingAmmoPriceText,Text &smgAmmoPriceText,Text &currentWeaponAmmoText, Text &currentWeaponMaxAmmoText,Text &lmgAmmoPriceText,Text &pistolText,Text &plasmaCannonText,Text &gatlingText, Text &smgText,Text &lmgText,Text &currentAmmoText,Text&maxAmmoText,
-Text &currentVoltorbsText,Text &currentVoltorbsNumber, Text &currentElectrodesText,Text &currentElectrodesNumber, Text &saveText)
+Text &currentVoltorbsText,Text &currentVoltorbsNumber, Text &currentElectrodesText,Text &currentElectrodesNumber, Text &saveText,bool &quit, bool &gameIsOver)
 {  
 	//deletes from the bombs vector so that they don't get huge throughout the game
 	clear_unused_bombs();
@@ -901,7 +941,8 @@ Background cover("Coverup.png");
 					}
 				
 				continueButton = purchaseFromStore(x,y,dome,continueToGame,messageToUser,actualMoneyText,actualDomeHealthText,cover,currentAmmoText,maxAmmoText,currentWeaponAmmoText,currentWeaponMaxAmmoText,
-currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrodesNumber,saveText);
+currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrodesNumber,saveText, quit, gameIsOver);
+				if(gameIsOver==true) return 1;
 				if(continueButton&&weapons.size()==0)
 				{
 					continueButton = false;
@@ -953,9 +994,17 @@ currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrode
 			if(pistolAmmo->isClicked(x,y)||pistol->isClicked(x,y))
 				{
 					currentAmmoText.setText("Current Ammo");
-					maxAmmoText.setText("Max Ammo");      
+					maxAmmoText.setText("Max Ammo");
+					if(addedPistol)
+					{      
+					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(weapons[pistolIndex]->getMaxAmmo() + weapons[pistolIndex]->getMaxClipAmmo()));
+					currentWeaponAmmoText.setText(boost::lexical_cast<string>(weapons[pistolIndex]->getCurrentAmmo() + weapons[pistolIndex]->getCurrentClipAmmo()));					
+					}
+					else
+					{
 					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(pistol->getMaxAmmo() + pistol->getMaxClipAmmo()));
 					currentWeaponAmmoText.setText(boost::lexical_cast<string>(pistol->getCurrentAmmo() + pistol->getCurrentClipAmmo()));
+					}
 					currentAmmoText.show(screen);
 					maxAmmoText.show(screen);
 					currentWeaponMaxAmmoText.show(screen);
@@ -965,8 +1014,16 @@ currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrode
 				{
 					currentAmmoText.setText("Current Ammo");
 					maxAmmoText.setText("Max Ammo"); 					
+					if(addedPlasma)
+					{      
+					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(weapons[plasmaIndex]->getMaxAmmo() + weapons[plasmaIndex]->getMaxClipAmmo()));
+					currentWeaponAmmoText.setText(boost::lexical_cast<string>(weapons[plasmaIndex]->getCurrentAmmo() + weapons[plasmaIndex]->getCurrentClipAmmo()));					
+					}
+					else
+					{
 					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(plasmaCannon->getMaxAmmo() + plasmaCannon->getMaxClipAmmo()));
-					currentWeaponAmmoText.setText(boost::lexical_cast<string>(plasmaCannon->getCurrentAmmo()+plasmaCannon->getCurrentClipAmmo()));
+					currentWeaponAmmoText.setText(boost::lexical_cast<string>(plasmaCannon->getCurrentAmmo() + plasmaCannon->getCurrentClipAmmo()));
+					}
 					currentAmmoText.show(screen);
 					maxAmmoText.show(screen);
 					currentWeaponMaxAmmoText.show(screen);
@@ -976,8 +1033,16 @@ currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrode
 				{
 					currentAmmoText.setText("Current Ammo");
 					maxAmmoText.setText("Max Ammo"); 					
-					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(gatling->getMaxAmmo()+gatling->getMaxClipAmmo()));
-					currentWeaponAmmoText.setText(boost::lexical_cast<string>(gatling->getCurrentAmmo()+gatling->getCurrentClipAmmo()));
+					if(addedGatling)
+					{      
+					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(weapons[gatlingIndex]->getMaxAmmo() + weapons[gatlingIndex]->getMaxClipAmmo()));
+					currentWeaponAmmoText.setText(boost::lexical_cast<string>(weapons[gatlingIndex]->getCurrentAmmo() + weapons[gatlingIndex]->getCurrentClipAmmo()));					
+					}
+					else
+					{
+					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(gatling->getMaxAmmo() + gatling->getMaxClipAmmo()));
+					currentWeaponAmmoText.setText(boost::lexical_cast<string>(gatling->getCurrentAmmo() + gatling->getCurrentClipAmmo()));
+					}
 					currentAmmoText.show(screen);
 					maxAmmoText.show(screen);
 					currentWeaponMaxAmmoText.show(screen);
@@ -988,8 +1053,16 @@ currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrode
 					
 					currentAmmoText.setText("Current Ammo");
 					maxAmmoText.setText("Max Ammo"); 
-					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(smg->getMaxAmmo()+smg->getMaxClipAmmo()));
-					currentWeaponAmmoText.setText(boost::lexical_cast<string>(smg->getCurrentAmmo()+smg->getCurrentClipAmmo()));
+					if(addedSmg)
+					{      
+					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(weapons[smgIndex]->getMaxAmmo() + weapons[smgIndex]->getMaxClipAmmo()));
+					currentWeaponAmmoText.setText(boost::lexical_cast<string>(weapons[smgIndex]->getCurrentAmmo() + weapons[smgIndex]->getCurrentClipAmmo()));					
+					}
+					else
+					{
+					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(smg->getMaxAmmo() + smg->getMaxClipAmmo()));
+					currentWeaponAmmoText.setText(boost::lexical_cast<string>(smg->getCurrentAmmo() + smg->getCurrentClipAmmo()));
+					}
 					currentAmmoText.show(screen);
 					maxAmmoText.show(screen);
 					currentWeaponMaxAmmoText.show(screen);
@@ -1000,8 +1073,16 @@ currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrode
 				{
 					currentAmmoText.setText("Current Ammo");
 					maxAmmoText.setText("Max Ammo"); 	
-					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(lmg->getMaxAmmo()+lmg->getMaxClipAmmo()));
-					currentWeaponAmmoText.setText(boost::lexical_cast<string>(lmg->getCurrentAmmo()+lmg->getCurrentClipAmmo()));
+					if(addedLmg)
+					{      
+					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(weapons[lmgIndex]->getMaxAmmo() + weapons[lmgIndex]->getMaxClipAmmo()));
+					currentWeaponAmmoText.setText(boost::lexical_cast<string>(weapons[lmgIndex]->getCurrentAmmo() + weapons[lmgIndex]->getCurrentClipAmmo()));					
+					}
+					else
+					{
+					currentWeaponMaxAmmoText.setText(boost::lexical_cast<string>(lmg->getMaxAmmo() + lmg->getMaxClipAmmo()));
+					currentWeaponAmmoText.setText(boost::lexical_cast<string>(lmg->getCurrentAmmo() + lmg->getCurrentClipAmmo()));
+					}
 					currentAmmoText.show(screen);
 					maxAmmoText.show(screen);
 					currentWeaponMaxAmmoText.show(screen);
@@ -1049,6 +1130,161 @@ currentVoltorbsText,currentVoltorbsNumber,currentElectrodesText,currentElectrode
  SDL_ShowCursor(0);
 	return 1;
 }
+
+
+void load_previous_game(Dome &dome){
+cout<<"Enter the name of the saved data file:\n";
+string input;	
+cin>>input;
+ifstream infile;
+infile.open(input.c_str());
+while(!infile.good()){
+cout<<"Not a valid game file, try again!"<<endl;
+cin>>input;
+infile.close();
+infile.open(input.c_str());
+}
+
+cout<<"File load success. Go back to the game!"<<endl;
+
+
+
+
+int pistoll;
+int smgg;
+int lmgg;
+int gatlingg;
+int plasmaa;
+int pistolAmmo;
+int pistolClipAmmo;
+int smgAmmo;
+int smgClipAmmo;
+int lmgAmmo;
+int lmgClipAmmo;
+int gatlingAmmo;
+int gatlingClipAmmo;
+int plasmaCannonAmmo;
+int plasmaCannonClipAmmo;
+int numVoltorbs;
+int numElectrodes;
+int domeHealth;
+
+
+
+
+infile>>score;
+infile>>currentLevel;
+infile>>money;
+
+
+
+
+   
+
+
+infile>>pistoll;
+infile>>pistolAmmo; //
+infile>>pistolClipAmmo; //
+if(pistoll==1){
+addedPistol=true;
+pistol = new Pistol("weapons.png", "explosionpistol.png","Pistol", PISTOL_PRICE,PISTOL_AMMO_PRICE,PISTOL_DAMAGE,5,PISTOL_X,PISTOL_Y,PISTOL_EXP_SIZE,PISTOL_MAX_AMMO,PISTOL_MAX_AMMO,PISTOL_MAX_CLIP_AMMO,PISTOL_MAX_CLIP_AMMO);
+weapons.push_back(pistol);
+pistolIndex=weaponsBought;
+weapons[weaponsBought]->setCurrentAmmo(pistolAmmo);
+weapons[weaponsBought]->setCurrentClipAmmo(pistolClipAmmo);
+weaponsBought++;
+}
+
+infile>>smgg;
+infile>>smgAmmo;
+infile>>smgClipAmmo;//
+if(smgg==1){
+addedSmg=true;
+
+    smg = new Smg("weapons.png", "explosionsmg.PNG","SMG",SMG_PRICE,SMG_AMMO_PRICE,SMG_DAMAGE,5,SMG_X,SMG_Y,SMG_EXP_SIZE,SMG_MAX_AMMO,SMG_MAX_AMMO,SMG_MAX_CLIP_AMMO,SMG_MAX_CLIP_AMMO);
+
+weapons.push_back(smg);
+smgIndex=weaponsBought;
+weapons[weaponsBought]->setCurrentAmmo(smgAmmo);
+weapons[weaponsBought]->setCurrentClipAmmo(smgClipAmmo);
+weaponsBought++;
+}
+
+
+infile>>lmgg;
+infile>>lmgAmmo;
+infile>>lmgClipAmmo;
+if(lmgg==1){
+addedLmg=true;
+ lmg = new Lmg("weapons.png", "explosionlmg.PNG","LMG",LMG_PRICE,LMG_AMMO_PRICE,LMG_DAMAGE,5,LMG_X,LMG_Y,LMG_EXP_SIZE,LMG_MAX_AMMO,LMG_MAX_AMMO,LMG_MAX_CLIP_AMMO,LMG_MAX_CLIP_AMMO);
+
+
+weapons.push_back(lmg);
+lmgIndex=weaponsBought;
+weapons[weaponsBought]->setCurrentAmmo(lmgAmmo);
+weapons[weaponsBought]->setCurrentClipAmmo(lmgClipAmmo);
+weaponsBought++;
+}
+
+
+
+infile>>gatlingg;
+infile>>gatlingAmmo;
+infile>>gatlingClipAmmo;//
+if(gatlingg==1){
+addedGatling=true;
+ gatling = new Gatling("weapons.png", "explosiongatling.png", "Gatling", GATLING_PRICE,GATLING_AMMO_PRICE,GATLING_DAMAGE,5,GATLING_X,GATLING_Y,GATLING_EXP_SIZE,GATLING_MAX_AMMO,GATLING_MAX_AMMO,GATLING_MAX_CLIP_AMMO,GATLING_MAX_CLIP_AMMO);
+weapons.push_back(gatling);
+gatlingIndex=weaponsBought;
+weapons[weaponsBought]->setCurrentAmmo(gatlingAmmo);
+weapons[weaponsBought]->setCurrentClipAmmo(gatlingClipAmmo);
+weaponsBought++;
+}
+
+infile>>plasmaa;
+infile>>plasmaCannonAmmo;
+infile>>plasmaCannonClipAmmo;//
+if(plasmaa==1){
+addedPlasma=true;
+
+    plasmaCannon = new PlasmaCannon("weapons.png", "explosionplasma.PNG","Plasma Cannon",PLASMA_CANNON_PRICE,PLASMA_CANNON_AMMO_PRICE,PLASMA_CANNON_DAMAGE,5,PLASMA_CANNON_X,PLASMA_CANNON_Y,PLASMA_CANNON_EXP_SIZE,PLASMA_CANNON_MAX_AMMO,PLASMA_CANNON_MAX_AMMO,PLASMA_CANNON_MAX_CLIP_AMMO,PLASMA_CANNON_MAX_CLIP_AMMO);
+
+    
+weapons.push_back(plasmaCannon);
+plasmaIndex=weaponsBought;
+weapons[weaponsBought]->setCurrentAmmo(plasmaCannonAmmo);
+weapons[weaponsBought]->setCurrentClipAmmo(plasmaCannonClipAmmo);
+weaponsBought++;
+}
+
+
+
+infile>>numVoltorbs;
+for(int k=0;k<numVoltorbs;k++){
+
+voltorb = new Voltorb ("bombs.png", VOLTORB_PRICE, VOLTORB_DAMAGE, VOLTORB_X, VOLTORB_Y);
+    voltorbs.push_back(voltorb);
+
+}
+infile>>numElectrodes;
+for(int i=0; i<numElectrodes;i++){
+ electrode = new Electrode("bombs.png",ELECTRODE_PRICE,ELECTRODE_DAMAGE,ELECTRODE_X,ELECTRODE_Y);
+ electrodes.push_back(electrode);
+
+}
+
+
+infile>>domeHealth;
+dome.setHealth(domeHealth);
+
+infile.close();
+//removes the file they used to load the game so that they can't reload it later
+remove(input.c_str());
+}
+
+
+
+
 
 
 //loads the vector of backgrounds that transition through the time of day
@@ -1112,6 +1348,8 @@ Mix_PlayMusic( music, -1 );
 	Text loadButton("Load Previous Game",50,0,colorWhite,40);
 loadButton.show(screen);
 
+ Dome dome ("dome.png", DOME_BASE_X_BEG, SCREEN_HEIGHT-DOME_HEIGHT, DOME_BASE_W, DOME_HEIGHT, STARTING_HEALTH, STARTING_HEALTH);
+
   SDL_Flip(screen);
   bool play = false;
   bool goBack = false;
@@ -1147,7 +1385,10 @@ loadButton.show(screen);
 							return 0;
 					}
 					if(loadButton.isClicked(x,y)){
-
+						SDL_EventState(SDL_MOUSEBUTTONDOWN,SDL_IGNORE);
+						load_previous_game(dome);
+						play=true;
+						SDL_EventState(SDL_MOUSEBUTTONDOWN,SDL_ENABLE);
 					}
 			
 				}
@@ -1164,8 +1405,8 @@ loadButton.show(screen);
 	
 	}
 
-//Creates teh dome and then all the text and images that will be dispalyed on the store
-     Dome dome ("dome.png", DOME_BASE_X_BEG, SCREEN_HEIGHT-DOME_HEIGHT, DOME_BASE_W, DOME_HEIGHT, STARTING_HEALTH, STARTING_HEALTH);
+//Creates the dome and then all the text and images that will be dispalyed on the store
+    
   load_store();
   Text continueToGame ("Continue to Game", 2 * SCREEN_WIDTH / 5, 8 * SCREEN_HEIGHT / 9, colorWhite, BIGGER_HEADER_TEXT_SIZE);
    Text gunsMessage("Guns",GUNS_TEXT_X,GUNS_TEXT_Y,colorWhite,HEADER_TEXT_SIZE);
@@ -1234,7 +1475,9 @@ while(gameIsOver==false)
    int continued = goToStore(dome,continueToGame,gunsMessage,priceHeader,ammoHeader,storeHeader,moneyText,actualMoneyText,pistolPriceText,plasmaCannonPriceText,gatlingPriceText,smgPriceText,
 lmgPriceText,voltorbPriceText, electrodePriceText, specialsText, healthPriceText,domeText,actualDomeHealthText,pistolAmmoPriceText,plasmaCannonAmmoPriceText,gatlingAmmoPriceText,smgAmmoPriceText,currentWeaponAmmoText, currentWeaponMaxAmmoText,
 lmgAmmoPriceText,pistolText,plasmaCannonText,gatlingText,smgText,lmgText,currentAmmoText,maxAmmoText,currentVoltorbsText,currentVoltorbsNumber,
-currentElectrodesText,currentElectrodesNumber,saveText);
+currentElectrodesText,currentElectrodesNumber,saveText, quit, gameIsOver);
+	if(gameIsOver)
+		break;
 	//continue will be 0 if they hit the X on the window while at the store
    if(!continued)
 	{

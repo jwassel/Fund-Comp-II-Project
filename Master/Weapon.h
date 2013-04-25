@@ -30,6 +30,8 @@ public:
 	string getName();
 	int getMaxAmmo();
 	virtual void showDuringGamePlay(int, int, SDL_Surface*)=0;
+	void setCurrentClipAmmo(int);
+	virtual void setCurrentAmmo(int);
 
 protected:
 	
