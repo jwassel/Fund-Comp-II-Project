@@ -18,7 +18,7 @@ To drop an electrode bomb, hit the spacebar
 To drop a voltorb bomb, hit the v key.
 To save a game file, click save game from the store, and then type the name of the file you want to save it as.
 To load a game file, click load saved game from the home menu, then type name of file you want to load.
-
+To change weapons, either use the left and right arrow keys to cycle through, or use the 1-5 keys to select a weapon (1=Pistol, 2=SMG, 3=LMG, 4=Gatling, 5=Plasma Cannon)
 
 Known bugs: user can upload any exisiting file into the game, not just ones that the game created
 
