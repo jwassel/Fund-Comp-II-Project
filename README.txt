@@ -11,7 +11,7 @@ To run this program, you must have g++ and SDL installed, as well as the followi
 
 When all files and extensions are on your machine correctly, open a terminal window and type "make" to compile the program and "pokedome" to run it. 
 
-Controls: 
+Controls:  
 To buy a weapon or special item, simply click on it in the store screen. 
 To shoot an enemy, click on it during gameplay. Red crosshairs indicates you have hit the enemy. The enemies disappear if you have killed them
 To drop an electrode bomb, hit the spacebar
