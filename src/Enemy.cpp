@@ -5,6 +5,7 @@
 #include "SDL/SDL_image.h"
 #include "Enemy.h"
 #include "Sprite.h"
+
 //constructor
 Enemy::Enemy(string filename, int x,int y, int w, int h, int xv, int yv, int p, int hea):Sprite(filename,x,y,w,h)
 {
@@ -14,7 +15,7 @@ Enemy::Enemy(string filename, int x,int y, int w, int h, int xv, int yv, int p, 
 	health = hea;
 	dead = 0;
 	hasEntered=0;
-	int i= rand()%2;
+	int i= rand()%2; // random whether the enemy bounces off the dome and continues to attack it or just goes right through it
 	if(i)
 		isBouncer = true;
 	else
@@ -59,7 +60,7 @@ int Enemy::isDead()
 		return 1;
 	if((xpos<0 || xpos >SCREEN_WIDTH) && hasEntered)
 	{
-
+		// pokemon is considered dead if it ran through the dome and out the other side even if the user never shot it
 		return 1;
 	}
 
@@ -68,12 +69,12 @@ int Enemy::isDead()
 //reduces the enemy's health by damage
 void Enemy::getAttacked(int damage, int &score, int&money)
 {
-	health-=damage;
+	health-=damage; // take away health from the enemy equal to the amount of damage of the weapon or bomb that attacks it
 	if(isDead())
 	{
 		dead = 1;
-		score+=KILL_BONUS;
-		money+=KILL_BONUS;
+		score+=KILL_BONUS; // give user a score bonus for killing pokemon
+		money+=KILL_BONUS; // give user more money for killing pokemon
 	}
 }
 

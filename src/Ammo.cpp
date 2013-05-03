@@ -6,13 +6,13 @@
 using namespace std;
 Ammo::Ammo(string filename, int Price, int x, int y, int n):Item(x,y,Price,filename){
 sprite = load_image(filename.c_str());
-setClips();
+setClips(); // set the clips of the ammo using the sprite sheet
 numberOnSheet = n;
 }
 
 int Ammo::isClicked(int x, int y)
 {
-	if(x>=xInStore && x<=xInStore+getWidth() && y>=yInStore && y<=yInStore+getHeight())
+	if(x>=xInStore && x<=xInStore+getWidth() && y>=yInStore && y<=yInStore+getHeight()) // if the image is clicked in the store return 1 otherwise return 0
 		return 1;
 	return 0;
 }
@@ -20,7 +20,7 @@ int Ammo::isClicked(int x, int y)
 
 void Ammo::showInStore(SDL_Surface*screen)
 {
-	apply_surface(xInStore,yInStore,sprite,screen,&clips[numberOnSheet]);
+	apply_surface(xInStore,yInStore,sprite,screen,&clips[numberOnSheet]); // apply the image of the ammo to the screen
 }
 	
 void Ammo::setClips(){

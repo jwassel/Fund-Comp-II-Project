@@ -3,6 +3,8 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include <string>
+
+// constructor
 Crosshairs::Crosshairs()
 {
 image=load_image("greenCrosshairs.png");

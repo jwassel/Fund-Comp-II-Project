@@ -28,39 +28,39 @@ currentHealth=health;
 bool Dome::addToCurrentHealth(int health)
 {
 	if(currentHealth==maxHealth)
-	{
+	{ // don't add more health if current health is already maxed out
 		return false;
 	}
 	if(currentHealth+health>maxHealth)
-	{
+	{ // if adding health would put you over the max, set health = max
 		currentHealth = maxHealth;
 	}
-	else
+	else // if health is well below max, just add the 25 points the user bought
 		currentHealth += health;
 	return true;
 	
 }
 
 void Dome::getAttacked(int power)
-{
+{ // take away from dome's health when a pokemon attacks it
 	currentHealth-=power;
 }
 
 void Dome::show(SDL_Surface * screen)
-{
-	int imageNum=0;
+{ 
+	int imageNum=0;// show image of uninjured dome if less than 1/3 of its max health is taken away
 
 	if(currentHealth>maxHealth/3&& currentHealth<2*maxHealth/3)
-		imageNum=1;
+		imageNum=1; // show partially destroyed dome if more than 1/3 and less than 2/3 of max health is taken away
 	else if(currentHealth<maxHealth/3)
-		imageNum=2;
+		imageNum=2; // show totally destroyed dome if less than 1/3 of max health remains
 
 	apply_surface(sprite,screen,&clips[imageNum]);
 }
 
 int Dome::isDead()
 {
-	if(currentHealth<=0)
+	if(currentHealth<=0) // dead if dome has less than 0 health
 		return 1;
 	return 0;
 }
@@ -88,17 +88,20 @@ int Dome::getHeight()
 void Dome::setClips()
 {
   //Clip range for the Dome clips
+  // uninjured dome
   clips[0].x = 300;
   clips[0].y = 55;
   clips[0].w = 230;
   clips[0].h = 465;
-
-clips[1].x = 595;
+  
+  // partially destroyed dome
+  clips[1].x = 595;
   clips[1].y = 55;
   clips[1].w = 230;
   clips[1].h = 465;
 
-clips[2].x = 890;
+  // totally destroyed dome
+  clips[2].x = 890;
   clips[2].y = 22;
   clips[2].w = 260;
   clips[2].h = 500;
@@ -127,7 +130,7 @@ else
 if(enemyY>=MIDDLE_DOME && enemyY<=SCREEN_HEIGHT)
 	{
 		if(enemyX>xpos && enemyX<xpos+width)
-		{
+		{ // if enemy's position plus its width is hitting the dome then it should attack the dome
 			return 1;
 		}
 	}

@@ -16,9 +16,9 @@ public:
   	virtual void show(SDL_Surface *, int) = 0; //shows the enemy on the screen
 	int getX();
 	
-	int attack(); //returns the attack variable
-	int getY();
-	int getWidth();
+	int attack(); // returns the power of the pokemon
+	int getY(); // returns y coordinate 
+	int getWidth(); 
 	int getHeight();
 	int getXVel();
 	void getAttacked(int, int&,int&); //removes from it's health
@@ -26,13 +26,13 @@ public:
 
 protected:
 
-	int xVel;
-	int yVel;
-	int power;
-	int health;
-	int dead;
-	int hasEntered;
-	bool isBouncer;
+	int xVel; // how fast pokemon travels in x direction, negative or positive is determined by what side of the screen they enter from
+	int yVel; // how quickly pokemon falls from above before it starts moving toward dome
+	int power;// how much damgae the pokemon does to the dome
+	int health; // how much health the pokemon has before it gets killed
+	int dead; // 1 if its dead, 0 otherwise
+	int hasEntered; // needed to make sure a level doesn't end before every pokemon has entered the screen
+	bool isBouncer; // determines if pokemon continually attacks dome or just runs through it once
 	//SDL_Rect *currentClip;
 };
 
