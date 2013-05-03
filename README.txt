@@ -24,4 +24,6 @@ To change weapons, either use the left and right arrow keys to cycle through, or
 The link to our git repository is https://github.com/jwassel/Fund-Comp-II-Project.git
 Our time log/meeting summaries are located at https://docs.google.com/spreadsheet/ccc?key=0An3s0ma23XvldHVNbnFPcFR5RDE4UEU3c2FOY1hnQkE&usp=sharing
 
+
+KNOWN BUG: When you load in a game, you cannot buy any ammo for guns you had previously bought, the game says you have full ammo when you actually don't. 
 Enjoy!
